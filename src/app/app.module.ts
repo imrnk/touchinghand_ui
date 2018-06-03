@@ -21,7 +21,10 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { AppRoutingModule } from './app-routing.module';
+import { ClientService } from './client/client.service';
 import { DropdownDirective } from './directive/dropdown.directive';
+import { FuppercasePipe } from './pipes/fuppercase.pipe';
+
 
 @NgModule({
   declarations: [
@@ -42,7 +45,8 @@ import { DropdownDirective } from './directive/dropdown.directive';
     PageNotFoundComponent,
     ErrorPageComponent,
     SidebarComponent,
-    DropdownDirective
+    DropdownDirective,
+    FuppercasePipe
   ],
   imports: [
     BrowserModule,    
@@ -50,7 +54,7 @@ import { DropdownDirective } from './directive/dropdown.directive';
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [ClientService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,5 @@
 {
-  "name": "my-first-app",
+  "name": "touchinghands",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -13,10 +13,22 @@
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^1.0.0-beta.4",
     "bootstrap": "^4.1.0",
+    "bootstrap-colorpicker": "^2.5.1",
+    "bootstrap-datepicker": "^1.7.0",
+    "bootstrap-daterangepicker": "^2.1.25",
+    "bootstrap-slider": "^9.8.0",
+    "bootstrap-timepicker": "^0.5.2",
     "chart.js": "^2.7.2",
-    "font-awesome": "^4.7.0",
+    "fastclick": "^1.0.6",
+    "font-awesome": "^4.7.0",    
     "jquery": "^3.3.1",
     "jquery-ui": "^1.12.1",
+    "fullcalendar": "^3.4.0",
+    "inputmask": "^3.3.7",
+    "ion-rangeslider": "^2.2.0",
+    "ionicons": "^3.0.0",
+    "jquery-knob": "^1.2.11",        
+    "jvectormap": "^1.2.2",
     "popper.js": "^1.14.3",
     "@angular/animations": "^6.0.0",
     "@angular/common": "^6.0.0",
@@ -30,6 +42,7 @@
     "core-js": "^2.5.4",
     "rxjs": "^6.0.0",
     "rxjs-compat": "^6.1.0",
+    "slimscroll": "^0.9.1",
     "zone.js": "^0.8.26"
   },
   "peerDependencies": {

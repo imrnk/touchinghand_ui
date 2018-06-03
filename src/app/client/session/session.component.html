@@ -1,3 +1,103 @@
-<p>
-  session works!
-</p>
+<form [formGroup]="sessionForm" (ngSubmit)="onSubmit()">
+<div class="content-header">
+  <h3>{{updateMode ? 'Update' : 'Create' }} Session for {{clientName}}</h3>
+</div>
+<section class="content">
+  <div class="container-fluid">
+    
+    <div class="card">
+        <div class="card-body">
+            <div class="row">              
+                <div class="col-md-4">
+
+                    <div class="form-group">
+                        <label for="sessionDate">Session Date</label>
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                              </div>
+                              <input type="text" class="form-control"                              
+                              formControlName="sessionDate"
+                              placeholder="dd/mm/yyyy">                             
+                            </div>
+                            <span 
+                                *ngIf="!sessionForm.get('sessionDate').valid && 
+                                sessionForm.get('sessionDate').touched"
+                                class="help-block">
+                                <span class="help-block text-danger"
+                                    *ngIf="sessionForm.get('sessionDate').errors['required']">
+                                  Session date is required!
+                                </span>
+                                <span class="help-block text-danger"
+                                    *ngIf="sessionForm.get('sessionDate').errors['incorrectDate']">
+                                  Invalid date!
+                                </span>
+                              </span>
+                      </div>
+
+                      <div class="form-group">
+                          <label for="impression">Impression</label>
+                          <textarea id="impression" 
+                          formControlName="impression" class="form-control" rows="12">
+                          </textarea>                          
+                        </div>
+
+                        <div class="form-group">
+                            <label for="feedback">Feedback</label>
+                            <textarea id="feedback" 
+                              formControlName="feedback" 
+                              class="form-control" rows="12">
+                            </textarea>
+                          </div>
+
+                      <div class="form-group">
+                          <label for="followupDate">Follow Up Date</label>
+                              <div class="input-group">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                </div>
+                                <input type="text" id = "datemask" class="form-control" 
+                                formControlName="followupDate"                            
+                                placeholder="dd/mm/yyyy">
+                                <span 
+                                *ngIf="!sessionForm.get('followupDate').valid && 
+                                sessionForm.get('followupDate').touched"
+                                class="help-block">
+                                <span class="help-block text-danger"
+                                    *ngIf="sessionForm.get('followupDate').errors['incorrectDate']">
+                                  Invalid date!
+                                </span>
+                              </span>
+                              </div>
+                        </div>
+
+                 </div>
+            </div> 
+             <!-- row -->
+          <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                    <button class="btn btn-block btn-primary" 
+                     type="submit" [disabled]="!sessionForm.valid">Submit</button>
+                </div>
+              </div>
+              <div class="col-md-2">
+                  <div class="form-group">
+                      <button class="btn btn-block btn-warning" 
+                      (click)="onResetCreateSessionForm()">Clear</button>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <a routerLink = "/dashboard" class="btn btn-block btn-danger">Cancel</a>
+                    </div>
+                    <!-- //TODO This should go back to client/:id -->
+                  </div>
+          </div>     
+        </div>
+    </div>
+  </div>
+</section>
+</form>   
+
+ 

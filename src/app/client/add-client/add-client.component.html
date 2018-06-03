@@ -1,3 +1,303 @@
-<p>
-  add-client works!
-</p>
+<div class="content-header">
+  <h3>Add Client</h3>
+</div>
+<section class="content">
+  <div class="container-fluid">
+    <form [formGroup]="addClientForm" (ngSubmit)="onSubmit()">
+
+    <div class="card">
+        <div class="card-body">
+          <div class="row">              
+            <div class="col-md-4">
+      
+                <div class="form-group">
+                  <label for="firstName">First Name</label>
+                  <input type="text" id="firstName" formControlName="firstName" class="form-control">
+
+                  <span *ngIf="addClientForm.get('firstName').touched && 
+                                        !addClientForm.get('firstName').valid" class="help-block">
+                    <span *ngIf="addClientForm.get('firstName').errors['pattern']">
+                      Not a valid name.
+                    </span>
+                    <span *ngIf="addClientForm.get('firstName').errors['required']">
+                      First name is required!
+                    </span>
+                  </span>
+                </div>
+
+                <div class="form-group">
+                  <label for="gender">Gender</label>
+                  <select class="form-control medium-select">
+                    <option [value]="gender" *ngFor="let gender of genders">{{ gender | fuppercase:1 }}</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="maritalstatus">Marital Status</label>
+                  <select class="form-control medium-select">
+                    <option [value]="maritalstatus" 
+                    *ngFor="let maritalstatus of maritalstatuses">{{ maritalstatus | fuppercase:1 }}</option>
+                  </select>
+                </div>
+
+            </div> <!-- 1st column -->
+
+            <div class="col-md-4">
+
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" formControlName="lastName" class="form-control">
+  
+                    <span *ngIf="addClientForm.get('lastName').touched && 
+                                            !addClientForm.get('lastName').valid" class="help-block">
+                      <span *ngIf="addClientForm.get('lastName').errors['pattern']">
+                        Not a valid name.
+                      </span>
+                      <span *ngIf="addClientForm.get('lastName').errors['required']">
+                        Last name is required!
+                      </span>
+                    </span>
+                  </div>
+
+                  <div class="form-group">
+                      <label for="age">Age</label>
+                      <input type="text" id="age" formControlName="age" class="form-control">
+    
+                      <span *ngIf="addClientForm.get('age').touched && 
+                                        !addClientForm.get('age').valid" class="help-block">
+                        <span *ngIf="addClientForm.get('age').errors['pattern']">
+                          Not a valid age.
+                        </span>
+                        <span *ngIf="addClientForm.get('age').errors['required']">
+                          Age is required!
+                        </span>
+                      </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mobile">Mobile Number</label>
+                        <input type="text" id="mobile" formControlName="mobile" class="form-control">
+      
+                        <span *ngIf="addClientForm.get('mobile').touched && 
+                                          !addClientForm.get('mobile').valid" class="help-block">
+                          <span *ngIf="addClientForm.get('mobile').errors['pattern']">
+                            Not a valid mobile number.
+                          </span>
+                          <span *ngIf="addClientForm.get('mobile').errors['required']">
+                            Mobile number is required!
+                          </span>
+                        </span>
+                      </div>
+            </div> <!-- second column -->
+          </div>  <!-- row -->
+        </div> <!-- card body -->
+        </div>  <!-- card -->
+        
+        <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-4">
+                  
+                    <div class="form-group">
+                        <label for="reference">Reference</label>
+                        <input type="text" id="reference" formControlName="reference" class="form-control">
+      
+                        <span *ngIf="addClientForm.get('reference').touched && 
+                                                !addClientForm.get('reference').valid" class="help-block">
+                            Please add the name who referred here
+                        </span>
+                      </div>
+    
+                </div> <!-- 1st column -->
+                <div class="col-md-2">
+                  
+                    <div class="form-group">
+                      <label for="status">Session Status</label>
+                      <select class="form-control medium-select">
+                          <option [value]="status" 
+                          *ngFor="let status of sessionstatuses">{{ status | fuppercase:1 }}</option>
+                        </select>
+                    </div>
+    
+                </div> <!-- 2nd column -->
+                <div class="col-md-3">
+                  
+                    <div class="form-group">
+                      <label for="followupDate">Follow Up Date</label>
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                            </div>
+                            <input type="text" id = "datemask" class="form-control" 
+                            formControlName="followupDate"                            
+                            placeholder="dd/mm/yyyy">
+                            <span 
+                            *ngIf="!addClientForm.get('followupDate').valid && 
+                            addClientForm.get('followupDate').touched"
+                            class="help-block">
+                            <span class="help-block text-danger"
+                            *ngIf="addClientForm.get('followupDate').errors['incorrectDate']">
+                              Invalid date!
+                            </span>
+                          </span>
+                          </div>
+                    </div>
+    
+                </div> <!-- 2nd column -->
+              </div> <!-- row -->
+            </div> <!--card body -->
+          </div> <!-- card -->
+
+        <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-4">
+              
+                <div class="form-group">
+                    <label for="profession">Profession</label>
+                    <input type="text" id="profession" formControlName="profession" class="form-control">
+  
+                    <span *ngIf="addClientForm.get('profession').touched && 
+                                            !addClientForm.get('profession').valid" class="help-block">
+                        Not a valid profession!
+                    </span>
+                  </div>
+
+            </div> <!-- 1st column -->
+            <div class="col-md-4">
+              
+                <div class="form-group">
+                    <label for="education">Education</label>
+                    <input type="text" id="education" formControlName="education" class="form-control">
+  
+                    <span *ngIf="addClientForm.get('education').touched && 
+                                            !addClientForm.get('education').valid" class="help-block">
+                        Not a valid education!
+                    </span>
+                  </div>
+
+            </div> <!-- 2nd column -->
+          </div> <!-- row -->
+        </div> <!--card body -->
+      </div> <!-- card -->
+
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-4">
+      
+              <div class="form-group">
+                <label for="address">Address - First Line</label>
+                <textarea type="text" id="address" formControlName="address" class="form-control">
+                            </textarea>
+                <span *ngIf="addClientForm.get('address').touched && 
+                             !addClientForm.get('address').valid" class="help-block">
+                  Not a valid address!
+                </span>
+              </div>      
+            </div>
+            <!-- 1st column -->
+            <div class="col-md-4">
+      
+              <div class="form-group">
+                <label for="pin">PIN Code</label>
+                <input type="text" id="pin" formControlName="pin" class="form-control">
+      
+                <span *ngIf="addClientForm.get('pin').touched && 
+                             !addClientForm.get('pin').valid" class="help-block">
+                  Not a valid pincode!
+                </span>
+              </div>
+            </div>
+            <!-- 2nd column -->
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" id="city" formControlName="city" class="form-control">
+          
+                    <span *ngIf="addClientForm.get('city').touched && 
+                                 !addClientForm.get('city').valid" class="help-block">
+                      <span *ngIf="addClientForm.get('city').errors['pattern']">
+                        Not a valid city!
+                      </span>
+                      <span *ngIf="addClientForm.get('city').errors['required']">
+                        City is required!
+                      </span>
+                    </span>
+                  </div>
+          
+                  <div class="form-group">
+                    <label for="state">State</label>
+                    <input type="text" id="state" formControlName="state" class="form-control">
+          
+                    <span *ngIf="addClientForm.get('state').touched && 
+                                 !addClientForm.get('state').valid" class="help-block">
+                      <span *ngIf="addClientForm.get('state').errors['pattern']">
+                        Not a valid state!
+                      </span>
+                      <span *ngIf="addClientForm.get('state').errors['required']">
+                        State is required!
+                      </span>
+                    </span>
+                  </div> 
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="country">Country</label>
+                    <input type="text" id="country" formControlName="country" class="form-control">
+          
+                    <span *ngIf="addClientForm.get('country').touched && 
+                                 !addClientForm.get('country').valid" class="help-block">
+                      <span *ngIf="addClientForm.get('country').errors['pattern']">
+                        Not a valid Country!
+                      </span>
+                      <span *ngIf="addClientForm.get('country').errors['required']">
+                        Country is required!
+                      </span>
+                    </span>
+                  </div>
+          
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text" id="email" formControlName="email" class="form-control">
+          
+                    <span *ngIf="addClientForm.get('email').touched && 
+                                 !addClientForm.get('email').valid" class="help-block">
+                      Not a valid email!
+                    </span>
+                  </div> 
+            </div>
+          </div>
+          
+          <!-- row -->
+          <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                    <button class="btn btn-block btn-primary" 
+                     type="submit" [disabled]="!addClientForm.valid">Submit</button>
+                </div>
+              </div>
+              <div class="col-md-2">
+                  <div class="form-group">
+                      <button class="btn btn-block btn-warning" 
+                      (click)="onResetAddClientForm()">Clear</button>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <a routerLink = "/dashboard" class="btn btn-block btn-danger">Cancel</a>
+                    </div>
+                  </div>
+          </div>
+        </div>
+        <!--card body -->
+      </div>
+      <!-- card -->
+      
+      </form>
+    </div>
+  
+</section>

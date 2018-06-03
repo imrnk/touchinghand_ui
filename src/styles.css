@@ -1,0 +1,72 @@
+input.ng-invalid.ng-touched, select.ng-invalid.ng-touched {
+    border: 1px solid red;
+  }
+
+select.form-control:not([size]):not([multiple]) {
+    height: calc(3.25rem + 2px);
+}
+
+select.form-control.medium-select {
+    height: calc(3.25rem + 2px);
+}
+
+.error {
+    color: #a94442;
+} 
+
+input.ng-invalid.ng-touched, select.ng-invalid.ng-touched {
+    border: 1px solid #a94442;
+} 
+
+.form-control {
+  width: 90%;
+  height: 30px;
+}
+
+.fa-asterisk {
+  color: red;
+  font-size: 10px;
+} 
+
+.nav>li>a {
+  padding: 5px 10px;
+}
+
+.table-bordered>thead>tr>th,
+
+.table-bordered>tbody>tr>th
+
+.table-bordered>thead>tr>td,
+
+.table-bordered>tbody>tr>td {
+  border: 1px solid #beccd0;
+  white-space: nowrap;
+} 
+
+.table>tbody>tr>td,
+
+.table>tbody>tr>th,
+
+.table>thead>tr>td,
+
+.table>thead>tr>th {
+
+  padding: 4px;
+
+} 
+
+.table>caption+thead>tr:first-child>td,
+
+.table>caption+thead>tr:first-child>th,
+
+.table>colgroup+thead>tr:first-child>td,
+
+.table>colgroup+thead>tr:first-child>th,
+
+.table>thead:first-child>tr:first-child>td,
+
+.table>thead:first-child>tr:first-child>th {
+
+  border-top: 1px solid #beccd0;
+
+}

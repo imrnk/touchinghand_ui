@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-search-client',
@@ -7,9 +8,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchClientComponent implements OnInit {
 
+  searchClientForm : FormGroup;
+
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit() : void {
+    this.createSearchForm();
+  }
+
+  createSearchForm () {
+    this.searchClientForm = new FormGroup({ 
+      'firstName' : new FormControl(null, [Validators.required, Validators.pattern("[a-zA-Z ]+")]),
+      'lastName' : new FormControl(null, [Validators.required, Validators.pattern("[a-zA-Z ]+")])
+      });  
+  }
+
+  onSubmit() {
+    console.log(this.searchClientForm.value);
+    
+  }
+
+  onUpcomingSessions(){
+    
+  }
+
+  onResetSearchForm() {
+    this.createSearchForm();
   }
 
 }

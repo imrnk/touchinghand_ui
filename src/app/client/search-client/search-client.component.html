@@ -1,3 +1,101 @@
-<p>
-  search-client works!
-</p>
+<div class="content-header">
+    <h3>Search Client</h3>
+</div>
+<section class="content">
+    <div class="container-fluid">
+    <form [formGroup]="searchClientForm" (ngSubmit)="onSubmit()">
+        <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" 
+                                        id="firstName" 
+                                        formControlName="firstName" 
+                                        class="form-control">
+
+                                <span *ngIf="searchClientForm.get('firstName').touched && 
+                                        !searchClientForm.get('firstName').valid" class="help-block">
+                                    <span *ngIf="searchClientForm.get('firstName').errors['required']">
+                                        First name is required in search!
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" 
+                                        id="lastName" 
+                                        formControlName="lastName" 
+                                        class="form-control">
+
+                                <span *ngIf="searchClientForm.get('lastName').touched &&
+                                        !searchClientForm.get('lastName').valid" class="help-block">
+                                    <span *ngIf="searchClientForm.get('lastName').errors['required']">
+                                        Last name is required in search!
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                        <!-- <div class="row"> -->
+                            <!-- <div class="col-md-4">
+                                <div class="row"></div>
+                                 <div style="padding-top: 32px;"></div> 
+                                <div class="form-group">
+                                    <button class="btn btn-block btn-primary" 
+                                    type="submit" [disabled]="!searchClientForm.valid">Search</button>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="row"></div>
+                                 <div style="padding-top: 32px;"></div> 
+                                <div class="form-group">
+                                    <button class="btn btn-block btn-secondary" 
+                                    (click)="onResetSearchForm()">Clear</button>
+                                </div>
+                            </div> -->
+                        <!-- </div> -->
+                    </div>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="row"></div>
+                            <!-- <div style="padding-top: 32px;"></div> -->
+                            <div class="form-group">
+                                <button class="btn btn-block btn-primary" 
+                                type="submit" 
+                                [disabled]="!searchClientForm.valid">Search</button>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="row"></div>
+                            <!-- <div style="padding-top: 32px;"></div> -->
+                            <div class="form-group">
+                                <button 
+                                class="btn btn-block btn-secondary" 
+                                (click)="onResetSearchForm()">Clear</button>
+                            </div>
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <button 
+                                class="btn btn-block btn-danger float-right" 
+                                (click)="onUpcomingSessions()">Upcoming Sessions</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </form>
+    <!-- Search Result below -->
+    <div class="card">
+        <div class="card-body">
+            Search result here
+        </div>
+    </div>
+
+    </div>
+</section>

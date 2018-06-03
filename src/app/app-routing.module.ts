@@ -17,7 +17,8 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 const appRoutes : Routes = [
     {path : '', redirectTo : '/dashboard', pathMatch: 'full' },
     {path : 'dashboard', component : DashboardComponent },
-    {path : 'client', component : ClientComponent, children : [
+    {path : 'client',  component : ClientComponent, children : [
+        {path : '', redirectTo : 'search', pathMatch: 'full'},
         {path : 'add', component :  AddClientComponent},
         {path : 'search', component :  SearchClientComponent},
         {path : ':id', component : ClientDetailComponent},        

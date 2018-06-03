@@ -23,11 +23,16 @@
               "src/assets"
             ],
             "styles": [
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/styles.css",
-              "src/adminlte.min.css"
+              "src/assets/bower_components/bootstrap/dist/css/bootstrap.min.css",
+              "src/assets/bower_components/font-awesome/css/font-awesome.min.css",
+              "src/assets/bower_components/Ionicons/css/ionicons.min.css",
+              "src/assets/bower_components/jvectormap/jquery-jvectormap.css",              
+              "src/assets/css/adminlte.min.css",
+              "src/assets/css/skin-blue.min.css",
+              "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [              
+            ]
           },
           "configurations": {
             "production": {
@@ -120,5 +125,5 @@
       }
     }
   },
-  "defaultProject": "my-first-app"
+  "defaultProject": "touchinghand-ui"
 }
