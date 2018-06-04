@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { ClientComponent } from './client/client.component';
@@ -22,9 +23,11 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ClientService } from './client/client.service';
+import { ClientsService } from './clients.service';
 import { DropdownDirective } from './directive/dropdown.directive';
 import { FuppercasePipe } from './pipes/fuppercase.pipe';
-
+import { environment } from '../environments/environment';
+import { ErrorInterceptorProvider } from './utility/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -46,15 +49,16 @@ import { FuppercasePipe } from './pipes/fuppercase.pipe';
     ErrorPageComponent,
     SidebarComponent,
     DropdownDirective,
-    FuppercasePipe
+    FuppercasePipe    
   ],
   imports: [
     BrowserModule,    
+    HttpClientModule,
     HttpModule,
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [ClientService],
+  providers: [ClientService, ClientsService, ErrorInterceptorProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

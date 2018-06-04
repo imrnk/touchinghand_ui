@@ -73,12 +73,12 @@
                             <div class="row"></div>
                             <!-- <div style="padding-top: 32px;"></div> -->
                             <div class="form-group">
-                                <button 
+                                <button type= "button"
                                 class="btn btn-block btn-secondary" 
                                 (click)="onResetSearchForm()">Clear</button>
                             </div>
                         </div>
-                        <div class="col-md-2"></div>
+                        <div class="col-md-1"></div>
                         <div class="col-md-2">
                             <div class="form-group">
                                 <button 
@@ -91,11 +91,39 @@
         </div>
     </form>
     <!-- Search Result below -->
-    <div class="card">
-        <div class="card-body">
-            Search result here
+    <!-- <div class="col-xs-12"> -->
+    <div class="box">
+        <div class="box-header">
+            Search Result
+        </div>
+        <div class="box-body table-responsive no-padding" *ngIf = "searchedClient">
+                <table class="table table-hover">
+                        <tr>
+                          <th>Name</th>                          
+                          <th>Follow Up Date</th>                          
+                          <th>Status</th>
+                        </tr>
+                        <tr>
+                          <td><a [routerLink] = "['../', searchedClient.clientId]">{{ searchedClient.clientName }}</a></td>                          
+                          <td>{{ searchedClient.followupdate }}</td>
+                          <td>
+                            <span 
+                            [ngClass]="searchedClient.status === 'Y' ? 'label label-success' : 
+                                            (searchedClient.status === 'C' ? 'label label-primary' : 'label label-warning' )">
+                            {{ searchedClient.status }}
+                            </span></td>
+                        </tr>                        
+                      </table>
+            
+        </div>
+        <div class="box-body table-responsive" *ngIf = "errorMessage">
+          <div class="row">
+              <div class="col-md-12">
+                <p class="text-red">{{errorMessage}}</p>
+              </div>
+          </div>
         </div>
     </div>
-
+    <!-- </div> -->
     </div>
 </section>

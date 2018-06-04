@@ -24,7 +24,7 @@ const appRoutes : Routes = [
         {path : ':id', component : ClientDetailComponent},        
         {path : ':id/mse', component : MseComponent},
         {path : ':id/sessions', component : SessionsComponent},
-        {path : ':id/session', component : SessionComponent},
+        {path : ':id/session/:sid', component : SessionComponent},
         {path : ':id/treatment-data', component : TreatmentDataComponent},
         {path : 'sessions', component :  SessionsComponent}
     ]},
