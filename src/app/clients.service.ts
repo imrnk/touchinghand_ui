@@ -1,3 +1,4 @@
+import { PsySession } from './model/psy-session';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpParams } from '@angular/common/http';
@@ -14,13 +15,15 @@ export class ClientsService {
 
     searchClient(f : string, l : string) {
         let params = new HttpParams().set('fname', f).set('lname', l).set('search-by', 'name');
-        
         return this.httpClient.get<Client>(`${environment.apiUrl}${'/clients/search/'}`, {params})
-        // .catch((error : HttpErrorResponse) => {
-        //     return error;
-        // });
-        // .map((response : Response) => {
-        //     response.json();
-        // });
+    }
+
+    findUpcomingSessions() {
+        return this.httpClient.get<PsySession[]>(`${environment.apiUrl}${'/psy-session/upcoming/'}`);
+    }
+
+    findClientById(clientId : string) {
+        let params = new HttpParams().set('id', clientId).set('search-by', 'id');
+        return this.httpClient.get<Client>(`${environment.apiUrl}${'/clients/search/'}`, {params})
     }
 }

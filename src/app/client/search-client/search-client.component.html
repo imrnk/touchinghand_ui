@@ -3,9 +3,11 @@
 </div>
 <section class="content">
     <div class="container-fluid">
-    <form [formGroup]="searchClientForm" (ngSubmit)="onSubmit()">
-        <div class="card">
+    
+        <div class="card"> 
                 <div class="card-body">
+                <form [formGroup]="searchClientForm" (ngSubmit)="onSubmit()">
+                 <div class="col-xs-12">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
@@ -78,18 +80,30 @@
                                 (click)="onResetSearchForm()">Clear</button>
                             </div>
                         </div>
-                        <div class="col-md-1"></div>
+                        <!-- <div class="col-md-1"></div>
                         <div class="col-md-2">
                             <div class="form-group">
                                 <button 
                                 class="btn btn-block btn-danger float-right" 
                                 (click)="onUpcomingSessions()">Upcoming Sessions</button>
                             </div>
+                        </div> -->
+                    </div>
+                </div>
+                </form>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <button 
+                            type="button"
+                            class="btn btn-block btn-danger float-right" 
+                            (click)="onUpcomingSessions()">Upcoming Sessions</button>
                         </div>
                     </div>
                 </div>
-        </div>
-    </form>
+                </div> <!-- card body -->
+        </div> <!-- card --> 
+    
     <!-- Search Result below -->
     <!-- <div class="col-xs-12"> -->
     <div class="box">
@@ -104,18 +118,46 @@
                           <th>Status</th>
                         </tr>
                         <tr>
-                          <td><a [routerLink] = "['../', searchedClient.clientId]">{{ searchedClient.clientName }}</a></td>                          
-                          <td>{{ searchedClient.followupdate }}</td>
+                          <td>
+                            <a [routerLink] = "['../', searchedClient.clientId]">{{ searchedClient.clientName }}</a>
+                          </td>                          
+                          <td>{{ searchedClient.followupDate }}</td>
                           <td>
                             <span 
                             [ngClass]="searchedClient.status === 'Y' ? 'label label-success' : 
-                                            (searchedClient.status === 'C' ? 'label label-primary' : 'label label-warning' )">
+                                            (searchedClient.status === 'C' ? 'label label-primary' : 
+                                            'label label-warning' )">
                             {{ searchedClient.status }}
                             </span></td>
                         </tr>                        
                       </table>
             
         </div>
+        <!-- Upcoming Sessions -->
+        <div class="box-body table-responsive no-padding" *ngIf = "searchedUpcomingSessions">
+            <table class="table table-hover">
+                <tr>
+                    <th>Name</th>                          
+                    <th>Follow Up Date</th>                          
+                    <th>Status</th>
+                </tr>
+                <tr *ngFor='let psySession of searchedUpcomingSessions'>
+                    <td>
+                        <a [routerLink] = "['../', psySession.client.clientId]">{{ psySession.client.clientName }}</a>
+                    </td>                          
+                    <td>{{  psySession.followupDate }}</td>
+                    <td>
+                    <span 
+                    [ngClass]="psySession.client.status === 'Y' ? 'label label-success' : 
+                                (psySession.client.status === 'C' ? 'label label-primary' : 
+                                'label label-warning' )">
+                    {{ psySession.client.status }}
+                    </span></td>
+                </tr>                        
+            </table>
+        
+        </div>
+
         <div class="box-body table-responsive" *ngIf = "errorMessage">
           <div class="row">
               <div class="col-md-12">

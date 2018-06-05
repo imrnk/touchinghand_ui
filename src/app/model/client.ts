@@ -20,7 +20,7 @@ export class Client {
     private _email: string;
     private _reference: string;
     private _status: string;
-    private _followupdate: string;
+    private _followupDate: string;
     private _clientMse : ClientMse;
 
     constructor (
@@ -43,7 +43,7 @@ export class Client {
     email: string,
     reference: string,
     status: string,
-    followupdate: string,
+    followupDate: string,
     clientMse : ClientMse
     ) {
         this._clientId = clientId;	
@@ -65,7 +65,7 @@ export class Client {
         this._email = email;
         this._reference = reference;
         this._status = status;
-        this._followupdate = followupdate;
+        this._followupDate = followupDate;
         this._clientMse = clientMse ; 
     }
 
@@ -88,7 +88,7 @@ export class Client {
     get email () { return this._email;}
     get reference () { return this._reference;}
     get status () { return this._status;}
-    get followupdate () { return this._followupdate;}
+    get followupDate () { return this._followupDate;}
     get clientMse () { return this._clientMse;}
     
 }

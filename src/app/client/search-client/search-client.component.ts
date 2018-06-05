@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 
 import { ClientsService } from './../../clients.service';
 import { Client } from './../../model/client';
+import { PsySession } from '../../model/psy-session';
 
 
 @Component({
@@ -16,7 +17,11 @@ export class SearchClientComponent implements OnInit, OnDestroy{
   searchClientForm : FormGroup;
   searchSubscription : Subscription;
   searchedClient : Client;
+  searchedUpcomingSessions : PsySession[];
+  sessionDataPopulated = false;
+  sessionServiceSubscription : Subscription;
   errorMessage : string;
+  
   constructor(private clientsService : ClientsService) { }
 
   ngOnInit() : void {
@@ -41,12 +46,40 @@ export class SearchClientComponent implements OnInit, OnDestroy{
         (client) => this.searchedClient = client,
         (error) => this.errorMessage = error
       );
-
-      
   }
 
   onUpcomingSessions(){
+    console.log('onUpcomingSessions called');
+    this.sessionServiceSubscription = this.clientsService.findUpcomingSessions().subscribe(
+      (psySessions: PsySession[]) => this.searchedUpcomingSessions = psySessions,
+      (error) => this.errorMessage = error,
+      () => {
+        if(this.searchedUpcomingSessions) {
+          this.searchedUpcomingSessions.forEach(
+            (sess : PsySession) => this.clientsService.findClientById(sess.clientId).subscribe(
+              (client) => sess.client = client,
+              (error) => this.errorMessage = error
+            )
+          );
+          this.sessionDataPopulated = true;
+          console.log('sessionDataPopulated ', this.sessionDataPopulated);
+        } 
+      }
+    );
     
+    // if(this.searchedUpcomingSessions) {
+    //   this.searchedUpcomingSessions.forEach(
+        
+    //     (sess : PsySession) => this.clientsService.findClientById(sess.clientId).subscribe(
+    //       (client) => {this.searchedClient = client; sess.client = this.searchedClient},
+    //       (error) => this.errorMessage = error
+    //     )
+    //   );
+    //   this.sessionDataPopulated = true;
+    //   console.log('sessionDataPopulated ', this.sessionDataPopulated);
+    // } else {
+    //   console.log('searchedUpcomingSessions ', this.searchedUpcomingSessions);
+    // }
   }
 
   onResetSearchForm() {

@@ -22,7 +22,6 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ClientService } from './client/client.service';
 import { ClientsService } from './clients.service';
 import { DropdownDirective } from './directive/dropdown.directive';
 import { FuppercasePipe } from './pipes/fuppercase.pipe';
@@ -58,7 +57,7 @@ import { ErrorInterceptorProvider } from './utility/error.interceptor';
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [ClientService, ClientsService, ErrorInterceptorProvider],
+  providers: [ClientsService, ErrorInterceptorProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
