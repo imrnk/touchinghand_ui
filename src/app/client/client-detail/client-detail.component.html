@@ -1,10 +1,10 @@
 <div class="content-header">
-  <h3 class="left-half" *ngIf="!searchedClient">Client Detail</h3>
+  <h3 class="left-half" *ngIf="!sessionSearchComplete">Client Detail</h3>
   <!-- <h5 class="left-half" *ngIf="searchedClient">{{ searchedClient.clientName }}</h5> -->
 </div>
 <section class="content">
   <div class="container-fluid">
-    <div class="col-md-6" *ngIf = "searchedClient">
+    <div class="col-md-6" *ngIf = "sessionSearchComplete">
       <div class="box box-default">
         <div class="box-header with-border">
           <h3 class="box-title">{{ searchedClient.clientName }}</h3>
@@ -33,29 +33,10 @@
             </tbody>
           </table>
           <hr>
+          <!-- See modal below -->
           <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#clientDetailModal">
             Tell Me More
           </button>
-        </div>
-      </div>
-    </div>
-    <!-- Modal -->
-    <div class="modal fade" id="clientDetailModal" tabindex="-1" role="dialog" 
-    aria-labelledby="clientDetailModalLabel">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-            <h4 class="modal-title" id="clientDetailModalLabel">Client Name</h4>
-          </div>
-          <div class="modal-body">
-            ...
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </div>
         </div>
       </div>
     </div>
@@ -74,5 +55,59 @@
       <!-- </div>
       </div> -->
     </div>
+    <div class="col-md-8">
+        <div class="box box-default">
+            <div class="box-header with-border">
+              <h3 class="box-title">Sessions of {{ searchedClient.clientName }}</h3>
+            </div>
+            <div class="box-body table-responsive no-padding" *ngIf = "sessionSearchComplete">
+                <table class="table table-hover">
+                    <tr>                       
+                        <th>Session Date</th>                          
+                        <th>Follow Up Date</th>
+                        <th>Impression</th>
+                        <th>Feedback</th>
+                    </tr>
+                    <tr *ngFor='let psySession of sessionsOfClient'>
+                        <td>
+                          <a [routerLink] = "['session/', psySession.sessionId]">
+                            {{  psySession.sessionDate }}
+                          </a>
+                        </td>
+                        <td>{{  psySession.followupDate }}</td>
+                        <td>{{  psySession.impression }}</td>
+                        <td>{{  psySession.feedback }}</td>
+                    </tr>                        
+                </table>
+            </div>
+            <div class="box-body table-responsive" *ngIf = "errorMessage">
+                <div class="row">
+                    <div class="col-md-12">
+                      <p class="text-red">{{errorMessage}}</p>
+                    </div>
+                </div>
+              </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="clientDetailModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Default Modal</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+              <p>One fine body&hellip;</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
   </div>
 </section>

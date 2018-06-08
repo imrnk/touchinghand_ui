@@ -69,7 +69,6 @@ export class SearchClientComponent implements OnInit, OnDestroy{
     this.onresetSearch();
     this.searchedUpcomingSessions.splice(0,this.searchedUpcomingSessions.length);
     this.sessionSubscription = this.clientsService.findUpcomingSessions()
-    .flatMap( psyArr => psyArr)
     .flatMap(session => {
       this.searchedUpcomingSessions.push(session);
       return this.clientsService.findClientById(session.clientId);
