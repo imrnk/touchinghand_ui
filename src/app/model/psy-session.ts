@@ -2,7 +2,7 @@ import { Client } from './client';
 export class PsySession {
 
     private _sessionId: string;	
-    private _clientId: string;	 
+    private _clientId: number;	 
     private _client : Client;
     private _sessionDate: string;
     private _followupDate: string;	
@@ -11,7 +11,7 @@ export class PsySession {
 
     constructor(
      sessionId: string,	
-     clientId: string,	 
+     clientId: number,	 
      client : Client,
      sessionDate: string,	
      followupDate: string,	
@@ -22,7 +22,7 @@ export class PsySession {
     get sessionId () { return this._sessionId;}	
     get clientId () { return this._clientId;}	 
     get client () { return this._client;}
-    set client (_c : Client) { this.client = _c;}
+    set client (_c : Client) { console.log('setting client: ', _c);this.client = _c;}
     get sessionDate () { return this._sessionDate;}	
     get followupDate () { return this._followupDate;}	
     get impression () { return this._impression;}	

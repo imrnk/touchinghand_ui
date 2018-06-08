@@ -22,8 +22,8 @@ export class ClientsService {
         return this.httpClient.get<PsySession[]>(`${environment.apiUrl}${'/psy-session/upcoming/'}`);
     }
 
-    findClientById(clientId : string) {
-        let params = new HttpParams().set('id', clientId).set('search-by', 'id');
+    findClientById(clientId : number) {
+        let params = new HttpParams().set('id', ''+clientId).set('search-by', 'id');
         return this.httpClient.get<Client>(`${environment.apiUrl}${'/clients/search/'}`, {params})
     }
 }

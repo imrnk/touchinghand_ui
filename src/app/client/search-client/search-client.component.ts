@@ -16,9 +16,11 @@ export class SearchClientComponent implements OnInit, OnDestroy{
 
   searchClientForm : FormGroup;
   searchSubscription : Subscription;
+  sessionSubscription : Subscription;
   searchedClient : Client;
-  searchedUpcomingSessions : PsySession[];
-  sessionDataPopulated = false;
+  searchedUpcomingSessions = new Array<PsySession>();
+  clientSearchComplete = false;
+  sessionSearchComplete = false;
   sessionServiceSubscription : Subscription;
   errorMessage : string;
   
@@ -29,7 +31,20 @@ export class SearchClientComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy() {
-    this.searchSubscription.unsubscribe();
+    this.unsubscribe();
+  }
+
+  unsubscribe() {
+    if(this.searchSubscription)
+      this.searchSubscription.unsubscribe();
+    if(this.sessionSubscription)  
+      this.sessionSubscription.unsubscribe();
+  }
+
+  onresetSearch () {
+    this.unsubscribe();
+    this.clientSearchComplete = false;
+    this.sessionSearchComplete = false;
   }
 
   createSearchForm () {
@@ -40,49 +55,37 @@ export class SearchClientComponent implements OnInit, OnDestroy{
   }
 
   onSubmit() {
+    this.onresetSearch();
     this.searchSubscription = this.clientsService.searchClient(
       this.searchClientForm.value['firstName'],
       this.searchClientForm.value['lastName']).subscribe(
-        (client) => this.searchedClient = client,
+        (client) => {this.searchedClient = client; this.clientSearchComplete = true;},
         (error) => this.errorMessage = error
+        
       );
   }
 
   onUpcomingSessions(){
-    console.log('onUpcomingSessions called');
-    this.sessionServiceSubscription = this.clientsService.findUpcomingSessions().subscribe(
-      (psySessions: PsySession[]) => this.searchedUpcomingSessions = psySessions,
-      (error) => this.errorMessage = error,
-      () => {
-        if(this.searchedUpcomingSessions) {
-          this.searchedUpcomingSessions.forEach(
-            (sess : PsySession) => this.clientsService.findClientById(sess.clientId).subscribe(
-              (client) => sess.client = client,
-              (error) => this.errorMessage = error
-            )
-          );
-          this.sessionDataPopulated = true;
-          console.log('sessionDataPopulated ', this.sessionDataPopulated);
-        } 
-      }
+    this.onresetSearch();
+    this.searchedUpcomingSessions.splice(0,this.searchedUpcomingSessions.length);
+    this.sessionSubscription = this.clientsService.findUpcomingSessions()
+    .flatMap( psyArr => psyArr)
+    .flatMap(session => {
+      this.searchedUpcomingSessions.push(session);
+      return this.clientsService.findClientById(session.clientId);
+    }).subscribe(
+      client => {
+        this.searchedUpcomingSessions
+          .filter(s => s.clientId === client.clientId)
+          .map( s => s.client = client);
+          this.sessionSearchComplete = true;
+      },
+      (error) => this.errorMessage = error
     );
-    
-    // if(this.searchedUpcomingSessions) {
-    //   this.searchedUpcomingSessions.forEach(
-        
-    //     (sess : PsySession) => this.clientsService.findClientById(sess.clientId).subscribe(
-    //       (client) => {this.searchedClient = client; sess.client = this.searchedClient},
-    //       (error) => this.errorMessage = error
-    //     )
-    //   );
-    //   this.sessionDataPopulated = true;
-    //   console.log('sessionDataPopulated ', this.sessionDataPopulated);
-    // } else {
-    //   console.log('searchedUpcomingSessions ', this.searchedUpcomingSessions);
-    // }
   }
 
   onResetSearchForm() {
+    this.unsubscribe();
     this.createSearchForm();
   }
 

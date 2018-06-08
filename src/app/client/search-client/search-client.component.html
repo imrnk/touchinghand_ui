@@ -1,5 +1,5 @@
 <div class="content-header">
-    <h3>Search Client</h3>
+    <h5 class="left-half">Search Client</h5>
 </div>
 <section class="content">
     <div class="container-fluid">
@@ -7,7 +7,7 @@
         <div class="card"> 
                 <div class="card-body">
                 <form [formGroup]="searchClientForm" (ngSubmit)="onSubmit()">
-                 <div class="col-xs-12">
+                 <div class="col-md-8">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
@@ -25,6 +25,7 @@
                                 </span>
                             </div>
                         </div>
+                        <span class="left-onehalf"></span>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="lastName">Last Name</label>
@@ -41,58 +42,32 @@
                                 </span>
                             </div>
                         </div>
-                        <!-- <div class="row"> -->
-                            <!-- <div class="col-md-4">
-                                <div class="row"></div>
-                                 <div style="padding-top: 32px;"></div> 
-                                <div class="form-group">
-                                    <button class="btn btn-block btn-primary" 
-                                    type="submit" [disabled]="!searchClientForm.valid">Search</button>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="row"></div>
-                                 <div style="padding-top: 32px;"></div> 
-                                <div class="form-group">
-                                    <button class="btn btn-block btn-secondary" 
-                                    (click)="onResetSearchForm()">Clear</button>
-                                </div>
-                            </div> -->
-                        <!-- </div> -->
                     </div>
                     <br><br>
                     <div class="row">
-                        <div class="col-md-2">
+                        <div class="col-md-4">
                             <div class="row"></div>
-                            <!-- <div style="padding-top: 32px;"></div> -->
                             <div class="form-group">
                                 <button class="btn btn-block btn-primary" 
                                 type="submit" 
                                 [disabled]="!searchClientForm.valid">Search</button>
                             </div>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-4">
                             <div class="row"></div>
-                            <!-- <div style="padding-top: 32px;"></div> -->
                             <div class="form-group">
                                 <button type= "button"
                                 class="btn btn-block btn-secondary" 
                                 (click)="onResetSearchForm()">Clear</button>
                             </div>
                         </div>
-                        <!-- <div class="col-md-1"></div>
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <button 
-                                class="btn btn-block btn-danger float-right" 
-                                (click)="onUpcomingSessions()">Upcoming Sessions</button>
-                            </div>
-                        </div> -->
                     </div>
                 </div>
                 </form>
-                <div class="row">
-                    <div class="col-md-4">
+                <!-- <div class="row"> -->
+                    <div class="col-md-4 top10">
+                        <div class="row"></div>
+                        <div class="row"></div>
                         <div class="form-group">
                             <button 
                             type="button"
@@ -100,7 +75,7 @@
                             (click)="onUpcomingSessions()">Upcoming Sessions</button>
                         </div>
                     </div>
-                </div>
+                <!-- </div> -->
                 </div> <!-- card body -->
         </div> <!-- card --> 
     
@@ -110,7 +85,7 @@
         <div class="box-header">
             Search Result
         </div>
-        <div class="box-body table-responsive no-padding" *ngIf = "searchedClient">
+        <div class="box-body table-responsive no-padding" *ngIf = "clientSearchComplete">
                 <table class="table table-hover">
                         <tr>
                           <th>Name</th>                          
@@ -121,7 +96,7 @@
                           <td>
                             <a [routerLink] = "['../', searchedClient.clientId]">{{ searchedClient.clientName }}</a>
                           </td>                          
-                          <td>{{ searchedClient.followupDate }}</td>
+                          <td>{{ searchedClient.followupdate }}</td>
                           <td>
                             <span 
                             [ngClass]="searchedClient.status === 'Y' ? 'label label-success' : 
@@ -134,7 +109,7 @@
             
         </div>
         <!-- Upcoming Sessions -->
-        <div class="box-body table-responsive no-padding" *ngIf = "searchedUpcomingSessions">
+        <div class="box-body table-responsive no-padding" *ngIf = "sessionSearchComplete">
             <table class="table table-hover">
                 <tr>
                     <th>Name</th>                          
@@ -155,7 +130,6 @@
                     </span></td>
                 </tr>                        
             </table>
-        
         </div>
 
         <div class="box-body table-responsive" *ngIf = "errorMessage">

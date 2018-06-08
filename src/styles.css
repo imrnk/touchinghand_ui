@@ -52,6 +52,7 @@ input.ng-invalid.ng-touched, select.ng-invalid.ng-touched {
 .table>thead>tr>th {
 
   padding: 4px;
+  font-size: 1.2rem;
 
 } 
 
@@ -69,4 +70,62 @@ input.ng-invalid.ng-touched, select.ng-invalid.ng-touched {
 
   border-top: 1px solid #beccd0;
 
+}
+
+.top9 {padding-top: 9rem;}
+.top10 {padding-top: 10rem;}
+.top12 {padding-top: 12rem;}
+.left-half {padding-left: 0.5em;}
+.left-onehalf {padding-left: 1.5em;}
+.left5 {padding-left: 5em;}
+
+body {
+  font-size: 1.2rem;
+}
+
+.text-red {
+  font-size: 2.0rem;
+}
+
+h5 {
+  font-size: 3.25rem;
+}
+
+.card-title {
+  font-size: 1.95rem;
+}
+.card-header {
+  font-size: 2.25rem;
+}
+
+.box-header {
+  font-size: 2.25rem;
+}
+.btn {
+  font-size: 1.2rem;
+}
+
+.brand-link {
+  font-size: 2.25rem;
+}
+
+.nav {
+  font-size: 1.5rem;
+}
+
+.form-control {
+  font-size: 1.5rem;
+}
+
+.help-block {
+  color: #930d0d;
+}
+
+.nav-item:hover > .nav-link {
+  color: #fff;
+  background-color: rgba(127, 201, 221, 0.1);
+}
+
+.btn-group-vertical > button{
+  margin-bottom:10px;
 }

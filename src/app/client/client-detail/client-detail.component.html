@@ -1,3 +1,78 @@
-<p>
-  client-detail works!
-</p>
+<div class="content-header">
+  <h3 class="left-half" *ngIf="!searchedClient">Client Detail</h3>
+  <!-- <h5 class="left-half" *ngIf="searchedClient">{{ searchedClient.clientName }}</h5> -->
+</div>
+<section class="content">
+  <div class="container-fluid">
+    <div class="col-md-6" *ngIf = "searchedClient">
+      <div class="box box-default">
+        <div class="box-header with-border">
+          <h3 class="box-title">{{ searchedClient.clientName }}</h3>
+        </div>
+        <div class="box-body">
+          <table class="table">
+            <tbody>
+              <tr>
+                <td>Name</td>
+                <td>{{ searchedClient.clientName }}</td>
+                <td>Phone</td>
+                <td>{{ searchedClient.mobile }}</td>
+              </tr>
+              <tr>
+                <td>Email</td>
+                <td>{{ searchedClient.email }}</td>
+                <td>Age</td>
+                <td>{{ searchedClient.age > 0 ? searchedClient.age : '' }}</td>
+              </tr>
+              <tr>
+                <td>Follow Up Date</td>
+                <td>{{ searchedClient.followupdate }}</td>
+                <td>Status</td>
+                <td>{{ searchedClient.status }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <hr>
+          <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#clientDetailModal">
+            Tell Me More
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="clientDetailModal" tabindex="-1" role="dialog" 
+    aria-labelledby="clientDetailModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title" id="clientDetailModalLabel">Client Name</h4>
+          </div>
+          <div class="modal-body">
+            ...
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2"></div>
+    <div class="col-md-4">
+      <!-- <div class="box box-default">
+        <div class="box-body"> -->
+      <div class="btn-group-vertical">
+        <button class="btn btn-success" type="button">
+          <i class="fa fa-plus" aria-hidden="true"></i>
+          New Session
+        </button>
+        <button class="btn btn-lg btn-info" type="button">Treatment Data</button>
+        <button class="btn btn-lg btn-warning" type="button">Edit MSE</button>
+      </div>
+      <!-- </div>
+      </div> -->
+    </div>
+  </div>
+</section>
