@@ -1,11 +1,11 @@
-import { PsySession } from './../../model/psy-session';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { Client } from './../../model/client';
+import { PsySession } from './../../model/psy-session';
 import { ClientsService } from '../../clients.service';
-//declare var $: any;
+
 @Component({
   selector: 'app-client-detail',
   templateUrl: './client-detail.component.html',
@@ -28,10 +28,6 @@ export class ClientDetailComponent implements OnInit, OnDestroy{
     this.clientSubscription.unsubscribe();
   }
 
-  // openModal () {
-  //   $("#clientDetailModal").modal('show');
-  // }
-
   ngOnInit() {
     this.clientId = +this.route.snapshot.params['id'];
     this.paramSubscription = this.route.params.subscribe(
@@ -42,13 +38,11 @@ export class ClientDetailComponent implements OnInit, OnDestroy{
 
       this.clientSubscription = this.clientsService.findClientById(this.clientId).flatMap(
         (client) => {
-          console.log('client found ', client);
           this.searchedClient = client;
           return this.clientsService.findSessionsByClientId(client.clientId);
         }
         ).subscribe(
             psySession => {
-              console.log(psySession); 
               this.sessionsOfClient.push(psySession); 
               this.sessionSearchComplete = true;
             },
@@ -56,5 +50,7 @@ export class ClientDetailComponent implements OnInit, OnDestroy{
           );
   }
 
-
+  sort(property : any) {
+    
+  }
 }

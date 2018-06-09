@@ -134,17 +134,44 @@ h5 {
   opacity: 1;
 }
 
-.modal-header {
-  padding: 15px;
-  border-bottom: 1px solid #e5e5e5;
+.modal-dialog {
+  height: 600px;
+  max-width: 800px;
 }
+
+ .modal-header {
+   background-color: #a5d5e0;
+  padding: 4.5rem;
+  border-bottom: 1px solid #e5e5e5;
+} 
 
 .modal-title {
   margin: 0;
   line-height: 1.42857143;
 }
 
+/* .modal-content {
+  height: 70%;
+}    */
+
 .modal-body {
   position: relative;
-  padding: 15px;
+  padding: 15px 0px 10px 50px;
+}
+ 
+#clientDetailModal {
+  padding-top: 80px;
+} 
+
+.key {
+  color: rgb(10, 97, 97);
+  font-weight: 600;
+}
+
+.main-header > .navbar {
+  margin-left : 0px;
+}
+
+.main-header > .stackbar:hover {
+  color: #1714cb;
 }

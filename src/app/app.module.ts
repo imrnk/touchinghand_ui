@@ -27,6 +27,8 @@ import { DropdownDirective } from './directive/dropdown.directive';
 import { FuppercasePipe } from './pipes/fuppercase.pipe';
 import { environment } from '../environments/environment';
 import { ErrorInterceptorProvider } from './utility/error.interceptor';
+import { ShortenPipe } from './pipes/shorten.pipe';
+import { SortPipe } from './pipes/sort.pipe';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,9 @@ import { ErrorInterceptorProvider } from './utility/error.interceptor';
     ErrorPageComponent,
     SidebarComponent,
     DropdownDirective,
-    FuppercasePipe    
+    FuppercasePipe,
+    ShortenPipe,
+    SortPipe    
   ],
   imports: [
     BrowserModule,    

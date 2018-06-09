@@ -1,10 +1,10 @@
 <div class="content-header">
-  <h3 class="left-half" *ngIf="!sessionSearchComplete">Client Detail</h3>
+  <h3 class="left-half" *ngIf="!searchedClient">Client Detail</h3>
   <!-- <h5 class="left-half" *ngIf="searchedClient">{{ searchedClient.clientName }}</h5> -->
 </div>
 <section class="content">
   <div class="container-fluid">
-    <div class="col-md-6" *ngIf = "sessionSearchComplete">
+    <div class="col-md-6" *ngIf = "searchedClient">
       <div class="box box-default">
         <div class="box-header with-border">
           <h3 class="box-title">{{ searchedClient.clientName }}</h3>
@@ -13,40 +13,43 @@
           <table class="table">
             <tbody>
               <tr>
-                <td>Name</td>
+                <td class="key">Name</td>
                 <td>{{ searchedClient.clientName }}</td>
-                <td>Phone</td>
+                <td class="key">Phone</td>
                 <td>{{ searchedClient.mobile }}</td>
               </tr>
               <tr>
-                <td>Email</td>
+                <td class="key">Email</td>
                 <td>{{ searchedClient.email }}</td>
-                <td>Age</td>
+                <td class="key">Age</td>
                 <td>{{ searchedClient.age > 0 ? searchedClient.age : '' }}</td>
               </tr>
               <tr>
-                <td>Follow Up Date</td>
+                <td class="key">Follow Up Date</td>
                 <td>{{ searchedClient.followupdate }}</td>
-                <td>Status</td>
+                <td class="key">Status</td>
                 <td>{{ searchedClient.status }}</td>
               </tr>
             </tbody>
           </table>
           <hr>
           <!-- See modal below -->
-          <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#clientDetailModal">
+          <button class="btn btn-primary" 
+            type="button" 
+            data-toggle="modal" 
+            data-target="#clientDetailModal">
             Tell Me More
           </button>
         </div>
       </div>
     </div>
     <div class="col-md-2"></div>
-    <div class="col-md-4">
+    <div class="col-md-4" *ngIf= "searchedClient">
       <!-- <div class="box box-default">
         <div class="box-body"> -->
       <div class="btn-group-vertical">
         <button class="btn btn-success" type="button">
-          <i class="fa fa-plus" aria-hidden="true"></i>
+          <i class="fa fa-plus fa-lg" aria-hidden="true"></i>
           New Session
         </button>
         <button class="btn btn-lg btn-info" type="button">Treatment Data</button>
@@ -57,14 +60,18 @@
     </div>
     <div class="col-md-8">
         <div class="box box-default">
-            <div class="box-header with-border">
+            <div class="box-header with-border" *ngIf= "searchedClient">
               <h3 class="box-title">Sessions of {{ searchedClient.clientName }}</h3>
             </div>
             <div class="box-body table-responsive no-padding" *ngIf = "sessionSearchComplete">
                 <table class="table table-hover">
                     <tr>                       
-                        <th>Session Date</th>                          
-                        <th>Follow Up Date</th>
+                        <th 
+                        >Session Date <i class="fa fa-sort-amount-asc" aria-hidden="true"></i>
+                        </th>                          
+                        <th
+                        >Follow Up Date <i class="fa fa-sort-amount-asc" aria-hidden="true"></i>
+                        </th>
                         <th>Impression</th>
                         <th>Feedback</th>
                     </tr>
@@ -75,8 +82,8 @@
                           </a>
                         </td>
                         <td>{{  psySession.followupDate }}</td>
-                        <td>{{  psySession.impression }}</td>
-                        <td>{{  psySession.feedback }}</td>
+                        <td>{{  psySession.impression | shorten : 20 }}</td>
+                        <td>{{  psySession.feedback  | shorten : 20 }}</td>
                     </tr>                        
                 </table>
             </div>
@@ -94,12 +101,61 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Default Modal</h4>
+              <h2 class="modal-title">Client Detail</h2>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
             </div>
-            <div class="modal-body">
-              <p>One fine body&hellip;</p>
+            <div class="modal-body" *ngIf = "searchedClient">
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td class="key">Name</td>
+                    <td>{{ searchedClient.clientName }}</td>
+                    <td class="key">Phone</td>
+                    <td>{{ searchedClient.mobile }}</td>
+                    <td class="key">Email</td>
+                    <td>{{ searchedClient.email }}</td>
+                  </tr>
+                  <tr>
+                    <td class="key">Age</td>
+                    <td>{{ searchedClient.age > 0 ? searchedClient.age : '' }}</td>
+                    <td class="key">Gender</td>
+                    <td>{{searchedClient.gender }}</td>
+                    <td class="key">Marital Status</td>
+                    <td>{{searchedClient.maritalStatus }}</td>
+                  </tr>
+                  <tr>
+                    <td class="key">Profession</td>
+                    <td>{{ searchedClient.profession }}</td>
+                    <td class="key">Education</td>
+                    <td>{{searchedClient.education }}</td>
+                    <td class="key">Reference</td>
+                    <td>{{searchedClient.reference }}</td>
+                  </tr>
+                  <tr>
+                    <td class="key">Address</td>
+                    <td>{{ searchedClient.address }}</td>
+                    <td class="key">City</td>
+                    <td>{{searchedClient.city }}</td>
+                    <td class="key">State</td>
+                    <td>{{searchedClient.state }}</td>
+                  </tr>
+                  <tr>
+                    <td class="key">Pin Code</td>
+                    <td>{{ searchedClient.pin }}</td>
+                    <td class="key">Country</td>
+                    <td>{{searchedClient.country }}</td>
+                    <td class="key">Second Phone</td>
+                    <td>{{searchedClient.secondPhone }}</td>
+                  </tr>
+                  <tr>
+                    <td class="key">Follow Up Date</td>
+                    <td>{{ searchedClient.followupdate }}</td>
+                    <td class="key">Status</td>
+                    <td>{{ searchedClient.status }}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
