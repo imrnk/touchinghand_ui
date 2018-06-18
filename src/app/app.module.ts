@@ -29,6 +29,8 @@ import { environment } from '../environments/environment';
 import { ErrorInterceptorProvider } from './utility/error.interceptor';
 import { ShortenPipe } from './pipes/shorten.pipe';
 import { SortPipe } from './pipes/sort.pipe';
+import { StatusTransformPipe } from './pipes/status-transform.pipe';
+import { FullGenderPipe } from './pipes/full-gender.pipe';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,9 @@ import { SortPipe } from './pipes/sort.pipe';
     DropdownDirective,
     FuppercasePipe,
     ShortenPipe,
-    SortPipe    
+    SortPipe,
+    StatusTransformPipe,
+    FullGenderPipe    
   ],
   imports: [
     BrowserModule,    

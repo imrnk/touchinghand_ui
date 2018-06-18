@@ -28,7 +28,7 @@
                 <td class="key">Follow Up Date</td>
                 <td>{{ searchedClient.followupdate }}</td>
                 <td class="key">Status</td>
-                <td>{{ searchedClient.status }}</td>
+                <td>{{ searchedClient.status | statusTransform }}</td>
               </tr>
             </tbody>
           </table>
@@ -77,7 +77,10 @@
                     </tr>
                     <tr *ngFor='let psySession of sessionsOfClient'>
                         <td>
-                          <a [routerLink] = "['session/', psySession.sessionId]">
+                          <a id="modal-link" data-toggle="modal" 
+                          (click) = "sessionSelect(psySession.sessionId)"
+                          style="cursor: pointer"
+                          data-target="#sessionDetailModal">
                             {{  psySession.sessionDate }}
                           </a>
                         </td>
@@ -96,7 +99,7 @@
               </div>
         </div>
     </div>
-    <!-- Modal -->
+    <!-- Client Detail Modal -->
     <div class="modal fade" id="clientDetailModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -122,7 +125,7 @@
                     <td class="key">Gender</td>
                     <td>{{searchedClient.gender }}</td>
                     <td class="key">Marital Status</td>
-                    <td>{{searchedClient.maritalStatus }}</td>
+                    <td>{{searchedClient.maritalStatus | statusTransform }}</td>
                   </tr>
                   <tr>
                     <td class="key">Profession</td>
@@ -165,5 +168,47 @@
         </div>
         <!-- /.modal-dialog -->
       </div>
+
+      <!-- Session Detail Modal -->
+    <div class="modal fade" id="sessionDetailModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title">Session Detail</h2>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body" *ngIf = "selectedSession">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td class="key">Session Date</td>
+                  <td>{{ selectedSession.sessionDate }}</td>
+                  <td class="key">Follow Up Date</td>
+                  <td>{{ selectedSession.followupDate }}</td>
+                </tr>
+                <tr>
+                  <td class="key">Impression</td>
+                  <td>{{ selectedSession.impression }}</td>
+                </tr>
+                <tr>
+                  <td class="key">Feedback</td>
+                  <td>{{ selectedSession.feedback }}</td>
+                </tr>
+                <tr>
+                  <td class="key">Next Session Link</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+
   </div>
 </section>

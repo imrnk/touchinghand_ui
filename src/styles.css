@@ -163,6 +163,10 @@ h5 {
   padding-top: 80px;
 } 
 
+#sessionDetailModal {
+  padding-top: 80px;
+} 
+
 .key {
   color: rgb(10, 97, 97);
   font-weight: 600;
@@ -174,4 +178,24 @@ h5 {
 
 .main-header > .stackbar:hover {
   color: #1714cb;
+}
+
+#modal-link {
+  text-decoration: underline;
+}
+
+#modal-link:active {
+  color: rgb(23, 52, 219);
+}
+
+#modal-link:link {
+  color: rgb(23, 52, 219);
+}
+
+#modal-link:visited {
+  color: rgb(204, 125, 21);
+}
+
+#modal-link:hover {
+  color: rgb(45, 3, 122);
 }

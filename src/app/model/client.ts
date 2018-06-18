@@ -89,6 +89,7 @@ export class Client {
     get reference () { return this._reference;}
     get status () { return this._status;}
     get followupdate () { return this._followupdate;}
+    set followupdate(f : string) {this._followupdate = f;}
     get clientMse () { return this._clientMse;}
     
 }

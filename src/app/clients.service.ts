@@ -35,4 +35,10 @@ export class ClientsService {
         .flatMap((sess : PsySession[]) => sess)
         .flatMap(ses => Observable.of(ses));
     }
+
+    addClient(client : Client) : Observable<Client> {
+        console.log('Inside addClient in service ');
+        console.log(client);
+        return this.httpClient.post<Client>(`${environment.apiUrl}${'/clients/'}`, client);
+    }
 }

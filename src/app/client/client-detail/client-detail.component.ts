@@ -20,6 +20,7 @@ export class ClientDetailComponent implements OnInit, OnDestroy{
   sessionsOfClient = new Array<PsySession>();
   errorMessage : string;
   sessionSearchComplete = false;
+  selectedSession : PsySession;
 
   constructor(private route: ActivatedRoute, private clientsService : ClientsService) { }
 
@@ -48,6 +49,10 @@ export class ClientDetailComponent implements OnInit, OnDestroy{
             },
             (error) => this.errorMessage = error
           );
+  }
+
+  sessionSelect(sessionId : string) {
+    this.selectedSession = this.sessionsOfClient.filter(ps => ps.sessionId === sessionId)[0];
   }
 
   sort(property : any) {

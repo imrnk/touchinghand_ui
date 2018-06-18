@@ -102,7 +102,7 @@
                             [ngClass]="searchedClient.status === 'Y' ? 'label label-success' : 
                                             (searchedClient.status === 'C' ? 'label label-primary' : 
                                             'label label-warning' )">
-                            {{ searchedClient.status }}
+                            {{ searchedClient.status | statusTransform }}
                             </span></td>
                         </tr>                        
                       </table>
