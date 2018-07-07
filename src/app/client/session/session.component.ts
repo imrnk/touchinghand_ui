@@ -1,23 +1,45 @@
-import { Component, OnInit } from '@angular/core';
+import { PsySession } from './../../model/psy-session';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+
 import { Utility } from '../../utility/utility';
+import { SessionService } from './../../sessions/session-service';
 
 @Component({
   selector: 'app-session',
   templateUrl: './session.component.html',
   styleUrls: ['./session.component.css']
 })
-export class SessionComponent implements OnInit {
-  clientName = "Namaruk Pinlimas";
-  updateMode = false;
+export class SessionComponent implements OnInit, OnDestroy {
 
+  clientName : string;
+  updateMode = true;
+  paramSubscription : Subscription;
+  createSessionSubscription : Subscription;
   sessionForm : FormGroup;
+  clientId : number;
+  errorMessage: string;
+  successMessage = false;
 
-  constructor() { }
+  constructor(private router : Router, private route: ActivatedRoute, private sessionService : SessionService) { }
 
   ngOnInit() {
     this.createSessionForm();
+    this.clientId = +this.route.snapshot.params['id'];
+    this.paramSubscription = this.route.params.subscribe(
+      (params : Params) => {
+        this.clientId = +params['id'];
+      }
+    );
+  }
 
+  ngOnDestroy () {
+    this.paramSubscription.unsubscribe();
+    if(this.createSessionSubscription) {
+    this.createSessionSubscription.unsubscribe();
+    }
   }
 
   createSessionForm() {
@@ -31,7 +53,22 @@ export class SessionComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.sessionForm.value);
+    const sessionObj = new PsySession(null, 
+      this.clientId,  
+      null,
+      this.sessionForm.value['sessionDate'], 
+      this.sessionForm.value['followupDate'],
+      this.sessionForm.value['impression'],
+      this.sessionForm.value['feedback']
+    );
+    
+    this.createSessionSubscription = this.sessionService.createSession(sessionObj).subscribe(
+      (session : PsySession) => {
+        this.onResetCreateSessionForm(); 
+        this.router.navigate(['../'], {relativeTo:this.route});
+      },
+      (error) => this.errorMessage = error
+    );
   }
 
   onResetCreateSessionForm() {

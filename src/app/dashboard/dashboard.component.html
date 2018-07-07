@@ -3,7 +3,7 @@
 </div>
 <section class="content">
   <div class="container-fluid">
-    <!-- <div class="card card-default"> -->
+    
       <div class="row">
         <div class="col-sm-4 col-md-2">
           <a routerLink = "/client/search" class="btn btn-primary">
@@ -17,8 +17,7 @@
         </div>
       </div>
       <div style="padding-top: 36px;"></div>
-    <!-- </div> -->
-    <div class="card card-default">
+    
       <div class="row">
         <div class="col-md-8">
           <div class="card card-default">
@@ -29,49 +28,39 @@
               </h3>
             </div>
             <!-- /.card-header -->
-            <div class="card-body">
-              blah blah blah
+            <div class="card-body table-responsive no-padding" *ngIf = "sessionSearchComplete">
+              <table class="table table-hover">
+                  <tr> 
+                      <th>Client Name</th>                      
+                      <th>Session Date <i class="fa fa-sort-amount-asc" aria-hidden="true"></i>
+                      </th>                          
+                      <th>Follow Up Date <i class="fa fa-sort-amount-asc" aria-hidden="true"></i>
+                      </th>
+                  </tr>
+                  <tr *ngFor='let psySession of upcomingSessions'>
+                      <td>
+                        <a
+                        [routerLink] = "['/client', psySession.client.clientId]"
+                        style="cursor: pointer">
+                        {{ psySession.client.clientName }}
+                      </a>
+                      </td>
+                      <td>{{  psySession.sessionDate }}</td>
+                      <td>{{  psySession.followupDate }}</td>
+                     
+                  </tr>                        
+              </table>
+            </div>
+            <div class="card-body table-responsive" *ngIf = "errorMessage">
+                <p class="text-red">{{errorMessage}}</p>
             </div>
             <!-- /.card-body -->
           </div>
           <!-- /.card -->
         </div>
         <div class="col-md-4">
-          <div class="card card-default">
-            <div class="card-header">
-              <h3 class="card-title">
-                <i class="fa fa-warning"></i>
-                Notifications
-              </h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-              <!-- Info Boxes Style 2 -->
-              <div class="info-box mb-3 bg-warning">
-                <span class="info-box-icon">
-                  <i class="fa fa-tag"></i>
-                </span>
-
-                <div class="info-box-content">
-                  <span class="info-box-text">Yet to Start Sessions</span>
-                </div>
-                <!-- /.info-box-content -->
-              </div>
-              <div class="info-box mb-3 bg-danger">
-                <span class="info-box-icon">
-                  <i class="fa fa-cloud-download"></i>
-                </span>
-
-                <div class="info-box-content">
-                  <span class="info-box-text">Crossed Follow Up Date</span>
-                </div>
-                <!-- /.info-box-content -->
-              </div>
-              <!-- /.info-box -->
-            </div>
-          </div>
-        </div>
+        <app-notifications></app-notifications>
       </div>
-    </div>
+      </div>
   </div>
 </section>

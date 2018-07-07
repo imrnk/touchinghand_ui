@@ -45,6 +45,7 @@ export class SearchClientComponent implements OnInit, OnDestroy{
     this.unsubscribe();
     this.clientSearchComplete = false;
     this.sessionSearchComplete = false;
+    this.errorMessage = null;
   }
 
   createSearchForm () {

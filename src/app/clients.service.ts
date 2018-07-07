@@ -37,8 +37,16 @@ export class ClientsService {
     }
 
     addClient(client : Client) : Observable<Client> {
-        console.log('Inside addClient in service ');
-        console.log(client);
         return this.httpClient.post<Client>(`${environment.apiUrl}${'/clients/'}`, client);
+    }
+
+    findClientsWithNoSessions() : Observable<Client> {
+        return this.httpClient.get<Client[]>(`${environment.apiUrl}${'/clients/no-session'}`)
+        .flatMap(client => client);
+    }
+
+    findClientsCrossedFollowupDate() : Observable<Client> {
+        return this.httpClient.get<Client[]>(`${environment.apiUrl}${'/clients/crossed-followup'}`)
+        .flatMap(client => client);
     }
 }

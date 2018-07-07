@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { Client } from './../../model/client';
@@ -22,7 +22,7 @@ export class ClientDetailComponent implements OnInit, OnDestroy{
   sessionSearchComplete = false;
   selectedSession : PsySession;
 
-  constructor(private route: ActivatedRoute, private clientsService : ClientsService) { }
+  constructor(private router : Router, private route: ActivatedRoute, private clientsService : ClientsService) { }
 
   ngOnDestroy() {
     this.paramSubscription.unsubscribe();
@@ -53,6 +53,10 @@ export class ClientDetailComponent implements OnInit, OnDestroy{
 
   sessionSelect(sessionId : string) {
     this.selectedSession = this.sessionsOfClient.filter(ps => ps.sessionId === sessionId)[0];
+  }
+
+  onNewSession() {
+    this.router.navigate(['session'], {relativeTo:this.route});
   }
 
   sort(property : any) {

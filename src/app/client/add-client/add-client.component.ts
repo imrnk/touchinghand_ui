@@ -1,27 +1,35 @@
 import { Client } from './../../model/client';
 import { ClientsService } from './../../clients.service';
 import { Utility } from './../../utility/utility';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-client',
   templateUrl: './add-client.component.html',
   styleUrls: ['./add-client.component.css']
 })
-export class AddClientComponent implements OnInit {
+export class AddClientComponent implements OnInit , OnDestroy{
   errorMessage: string;
   successMessage = false;
   genders = ['M', 'F', 'O'];
   maritalstatuses = ['M', 'U'];
   sessionstatuses = ['Y', 'C', 'L'];
-  savedClient : Client;
+  savedClient : {fname : '', lname : ''};
+  addClientSubscription : Subscription;
   
   addClientForm : FormGroup;
   constructor(private clientsService : ClientsService) { }
 
   ngOnInit() : void {
     this.createAddClientForm();
+  }
+
+  ngOnDestroy() {
+    if(this.addClientSubscription) {
+      this.addClientSubscription.unsubscribe();
+    }
   }
 
   createAddClientForm() {
@@ -51,11 +59,11 @@ export class AddClientComponent implements OnInit {
   }
   
   onSubmit() {
-    console.log(this.addClientForm.value);
-    this.clientsService.addClient(this.addClientForm.getRawValue()).subscribe(
+    this.addClientSubscription = this.clientsService.addClient(this.addClientForm.getRawValue()).subscribe(
       (client: Client) =>  {
-        console.log(client); 
-        this.savedClient = client; 
+        console.log(this.addClientForm.get('firstName'), this.addClientForm.get('lastName')); 
+        this.savedClient = {fname : this.addClientForm.get('firstName').value, 
+        lname : this.addClientForm.get('lastName').value}; 
         this.onResetAddClientForm(); 
         this.successMessage = true;
       },

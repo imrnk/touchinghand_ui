@@ -199,3 +199,7 @@ h5 {
 #modal-link:hover {
   color: rgb(45, 3, 122);
 }
+
+.text-green {
+  color: #1e940f;
+}

@@ -74,6 +74,7 @@ var appRoutes = [
             { path: ':id/mse', component: _client_mse_mse_component__WEBPACK_IMPORTED_MODULE_5__["MseComponent"] },
             { path: ':id/sessions', component: _sessions_sessions_component__WEBPACK_IMPORTED_MODULE_10__["SessionsComponent"] },
             { path: ':id/session/:sid', component: _client_session_session_component__WEBPACK_IMPORTED_MODULE_7__["SessionComponent"] },
+            { path: ':id/session', component: _client_session_session_component__WEBPACK_IMPORTED_MODULE_7__["SessionComponent"] },
             { path: ':id/treatment-data', component: _client_treatment_data_treatment_data_component__WEBPACK_IMPORTED_MODULE_8__["TreatmentDataComponent"] },
             { path: 'sessions', component: _sessions_sessions_component__WEBPACK_IMPORTED_MODULE_10__["SessionsComponent"] }
         ] },
@@ -234,15 +235,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _sidebar_sidebar_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./sidebar/sidebar.component */ "./src/app/sidebar/sidebar.component.ts");
 /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
 /* harmony import */ var _clients_service__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./clients.service */ "./src/app/clients.service.ts");
-/* harmony import */ var _directive_dropdown_directive__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./directive/dropdown.directive */ "./src/app/directive/dropdown.directive.ts");
-/* harmony import */ var _pipes_fuppercase_pipe__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./pipes/fuppercase.pipe */ "./src/app/pipes/fuppercase.pipe.ts");
-/* harmony import */ var _utility_error_interceptor__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./utility/error.interceptor */ "./src/app/utility/error.interceptor.ts");
+/* harmony import */ var _sessions_session_service__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./sessions/session-service */ "./src/app/sessions/session-service.ts");
+/* harmony import */ var _directive_dropdown_directive__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./directive/dropdown.directive */ "./src/app/directive/dropdown.directive.ts");
+/* harmony import */ var _pipes_fuppercase_pipe__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./pipes/fuppercase.pipe */ "./src/app/pipes/fuppercase.pipe.ts");
+/* harmony import */ var _utility_error_interceptor__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./utility/error.interceptor */ "./src/app/utility/error.interceptor.ts");
+/* harmony import */ var _pipes_shorten_pipe__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./pipes/shorten.pipe */ "./src/app/pipes/shorten.pipe.ts");
+/* harmony import */ var _pipes_sort_pipe__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./pipes/sort.pipe */ "./src/app/pipes/sort.pipe.ts");
+/* harmony import */ var _pipes_status_transform_pipe__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./pipes/status-transform.pipe */ "./src/app/pipes/status-transform.pipe.ts");
+/* harmony import */ var _pipes_full_gender_pipe__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./pipes/full-gender.pipe */ "./src/app/pipes/full-gender.pipe.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
+
+
+
 
 
 
@@ -293,8 +304,12 @@ var AppModule = /** @class */ (function () {
                 _page_not_found_page_not_found_component__WEBPACK_IMPORTED_MODULE_19__["PageNotFoundComponent"],
                 _error_page_error_page_component__WEBPACK_IMPORTED_MODULE_20__["ErrorPageComponent"],
                 _sidebar_sidebar_component__WEBPACK_IMPORTED_MODULE_21__["SidebarComponent"],
-                _directive_dropdown_directive__WEBPACK_IMPORTED_MODULE_24__["DropdownDirective"],
-                _pipes_fuppercase_pipe__WEBPACK_IMPORTED_MODULE_25__["FuppercasePipe"]
+                _directive_dropdown_directive__WEBPACK_IMPORTED_MODULE_25__["DropdownDirective"],
+                _pipes_fuppercase_pipe__WEBPACK_IMPORTED_MODULE_26__["FuppercasePipe"],
+                _pipes_shorten_pipe__WEBPACK_IMPORTED_MODULE_28__["ShortenPipe"],
+                _pipes_sort_pipe__WEBPACK_IMPORTED_MODULE_29__["SortPipe"],
+                _pipes_status_transform_pipe__WEBPACK_IMPORTED_MODULE_30__["StatusTransformPipe"],
+                _pipes_full_gender_pipe__WEBPACK_IMPORTED_MODULE_31__["FullGenderPipe"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
@@ -303,7 +318,7 @@ var AppModule = /** @class */ (function () {
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
                 _app_routing_module__WEBPACK_IMPORTED_MODULE_22__["AppRoutingModule"]
             ],
-            providers: [_clients_service__WEBPACK_IMPORTED_MODULE_23__["ClientsService"], _utility_error_interceptor__WEBPACK_IMPORTED_MODULE_26__["ErrorInterceptorProvider"]],
+            providers: [_clients_service__WEBPACK_IMPORTED_MODULE_23__["ClientsService"], _sessions_session_service__WEBPACK_IMPORTED_MODULE_24__["SessionService"], _utility_error_interceptor__WEBPACK_IMPORTED_MODULE_27__["ErrorInterceptorProvider"]],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]]
         })
     ], AppModule);
@@ -332,7 +347,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"content-header\">\n  <h3>Add Client</h3>\n</div>\n<section class=\"content\">\n  <div class=\"container-fluid\">\n    <form [formGroup]=\"addClientForm\" (ngSubmit)=\"onSubmit()\">\n\n    <div class=\"card\">\n        <div class=\"card-body\">\n          <div class=\"row\">              \n            <div class=\"col-md-4\">\n      \n                <div class=\"form-group\">\n                  <label for=\"firstName\">First Name</label>\n                  <input type=\"text\" id=\"firstName\" formControlName=\"firstName\" class=\"form-control\">\n\n                  <span *ngIf=\"addClientForm.get('firstName').touched && \n                                        !addClientForm.get('firstName').valid\" class=\"help-block\">\n                    <span *ngIf=\"addClientForm.get('firstName').errors['pattern']\">\n                      Not a valid name.\n                    </span>\n                    <span *ngIf=\"addClientForm.get('firstName').errors['required']\">\n                      First name is required!\n                    </span>\n                  </span>\n                </div>\n\n                <div class=\"form-group\">\n                  <label for=\"gender\">Gender</label>\n                  <select class=\"form-control medium-select\">\n                    <option [value]=\"gender\" *ngFor=\"let gender of genders\">{{ gender | fuppercase:1 }}</option>\n                  </select>\n                </div>\n\n                <div class=\"form-group\">\n                  <label for=\"maritalstatus\">Marital Status</label>\n                  <select class=\"form-control medium-select\">\n                    <option [value]=\"maritalstatus\" \n                    *ngFor=\"let maritalstatus of maritalstatuses\">{{ maritalstatus | fuppercase:1 }}</option>\n                  </select>\n                </div>\n\n            </div> <!-- 1st column -->\n\n            <div class=\"col-md-4\">\n\n                <div class=\"form-group\">\n                    <label for=\"lastName\">Last Name</label>\n                    <input type=\"text\" id=\"lastName\" formControlName=\"lastName\" class=\"form-control\">\n  \n                    <span *ngIf=\"addClientForm.get('lastName').touched && \n                                            !addClientForm.get('lastName').valid\" class=\"help-block\">\n                      <span *ngIf=\"addClientForm.get('lastName').errors['pattern']\">\n                        Not a valid name.\n                      </span>\n                      <span *ngIf=\"addClientForm.get('lastName').errors['required']\">\n                        Last name is required!\n                      </span>\n                    </span>\n                  </div>\n\n                  <div class=\"form-group\">\n                      <label for=\"age\">Age</label>\n                      <input type=\"text\" id=\"age\" formControlName=\"age\" class=\"form-control\">\n    \n                      <span *ngIf=\"addClientForm.get('age').touched && \n                                        !addClientForm.get('age').valid\" class=\"help-block\">\n                        <span *ngIf=\"addClientForm.get('age').errors['pattern']\">\n                          Not a valid age.\n                        </span>\n                        <span *ngIf=\"addClientForm.get('age').errors['required']\">\n                          Age is required!\n                        </span>\n                      </span>\n                    </div>\n\n                    <div class=\"form-group\">\n                        <label for=\"mobile\">Mobile Number</label>\n                        <input type=\"text\" id=\"mobile\" formControlName=\"mobile\" class=\"form-control\">\n      \n                        <span *ngIf=\"addClientForm.get('mobile').touched && \n                                          !addClientForm.get('mobile').valid\" class=\"help-block\">\n                          <span *ngIf=\"addClientForm.get('mobile').errors['pattern']\">\n                            Not a valid mobile number.\n                          </span>\n                          <span *ngIf=\"addClientForm.get('mobile').errors['required']\">\n                            Mobile number is required!\n                          </span>\n                        </span>\n                      </div>\n            </div> <!-- second column -->\n          </div>  <!-- row -->\n        </div> <!-- card body -->\n        </div>  <!-- card -->\n        \n        <div class=\"card\">\n            <div class=\"card-body\">\n              <div class=\"row\">\n                <div class=\"col-md-4\">\n                  \n                    <div class=\"form-group\">\n                        <label for=\"reference\">Reference</label>\n                        <input type=\"text\" id=\"reference\" formControlName=\"reference\" class=\"form-control\">\n      \n                        <span *ngIf=\"addClientForm.get('reference').touched && \n                                                !addClientForm.get('reference').valid\" class=\"help-block\">\n                            Please add the name who referred here\n                        </span>\n                      </div>\n    \n                </div> <!-- 1st column -->\n                <div class=\"col-md-2\">\n                  \n                    <div class=\"form-group\">\n                      <label for=\"status\">Session Status</label>\n                      <select class=\"form-control medium-select\">\n                          <option [value]=\"status\" \n                          *ngFor=\"let status of sessionstatuses\">{{ status | fuppercase:1 }}</option>\n                        </select>\n                    </div>\n    \n                </div> <!-- 2nd column -->\n                <div class=\"col-md-3\">\n                  \n                    <div class=\"form-group\">\n                      <label for=\"followupDate\">Follow Up Date</label>\n                          <div class=\"input-group\">\n                            <div class=\"input-group-prepend\">\n                              <span class=\"input-group-text\"><i class=\"fa fa-calendar\"></i></span>\n                            </div>\n                            <input type=\"text\" id = \"datemask\" class=\"form-control\" \n                            formControlName=\"followupDate\"                            \n                            placeholder=\"dd/mm/yyyy\">\n                            <span \n                            *ngIf=\"!addClientForm.get('followupDate').valid && \n                            addClientForm.get('followupDate').touched\"\n                            class=\"help-block\">\n                            <span class=\"help-block text-danger\"\n                            *ngIf=\"addClientForm.get('followupDate').errors['incorrectDate']\">\n                              Invalid date!\n                            </span>\n                          </span>\n                          </div>\n                    </div>\n    \n                </div> <!-- 2nd column -->\n              </div> <!-- row -->\n            </div> <!--card body -->\n          </div> <!-- card -->\n\n        <div class=\"card\">\n        <div class=\"card-body\">\n          <div class=\"row\">\n            <div class=\"col-md-4\">\n              \n                <div class=\"form-group\">\n                    <label for=\"profession\">Profession</label>\n                    <input type=\"text\" id=\"profession\" formControlName=\"profession\" class=\"form-control\">\n  \n                    <span *ngIf=\"addClientForm.get('profession').touched && \n                                            !addClientForm.get('profession').valid\" class=\"help-block\">\n                        Not a valid profession!\n                    </span>\n                  </div>\n\n            </div> <!-- 1st column -->\n            <div class=\"col-md-4\">\n              \n                <div class=\"form-group\">\n                    <label for=\"education\">Education</label>\n                    <input type=\"text\" id=\"education\" formControlName=\"education\" class=\"form-control\">\n  \n                    <span *ngIf=\"addClientForm.get('education').touched && \n                                            !addClientForm.get('education').valid\" class=\"help-block\">\n                        Not a valid education!\n                    </span>\n                  </div>\n\n            </div> <!-- 2nd column -->\n          </div> <!-- row -->\n        </div> <!--card body -->\n      </div> <!-- card -->\n\n      <div class=\"card\">\n        <div class=\"card-body\">\n          <div class=\"row\">\n            <div class=\"col-md-4\">\n      \n              <div class=\"form-group\">\n                <label for=\"address\">Address - First Line</label>\n                <textarea type=\"text\" id=\"address\" formControlName=\"address\" class=\"form-control\">\n                            </textarea>\n                <span *ngIf=\"addClientForm.get('address').touched && \n                             !addClientForm.get('address').valid\" class=\"help-block\">\n                  Not a valid address!\n                </span>\n              </div>      \n            </div>\n            <!-- 1st column -->\n            <div class=\"col-md-4\">\n      \n              <div class=\"form-group\">\n                <label for=\"pin\">PIN Code</label>\n                <input type=\"text\" id=\"pin\" formControlName=\"pin\" class=\"form-control\">\n      \n                <span *ngIf=\"addClientForm.get('pin').touched && \n                             !addClientForm.get('pin').valid\" class=\"help-block\">\n                  Not a valid pincode!\n                </span>\n              </div>\n            </div>\n            <!-- 2nd column -->\n          </div>\n\n          <div class=\"row\">\n            <div class=\"col-md-4\">\n                <div class=\"form-group\">\n                    <label for=\"city\">City</label>\n                    <input type=\"text\" id=\"city\" formControlName=\"city\" class=\"form-control\">\n          \n                    <span *ngIf=\"addClientForm.get('city').touched && \n                                 !addClientForm.get('city').valid\" class=\"help-block\">\n                      <span *ngIf=\"addClientForm.get('city').errors['pattern']\">\n                        Not a valid city!\n                      </span>\n                      <span *ngIf=\"addClientForm.get('city').errors['required']\">\n                        City is required!\n                      </span>\n                    </span>\n                  </div>\n          \n                  <div class=\"form-group\">\n                    <label for=\"state\">State</label>\n                    <input type=\"text\" id=\"state\" formControlName=\"state\" class=\"form-control\">\n          \n                    <span *ngIf=\"addClientForm.get('state').touched && \n                                 !addClientForm.get('state').valid\" class=\"help-block\">\n                      <span *ngIf=\"addClientForm.get('state').errors['pattern']\">\n                        Not a valid state!\n                      </span>\n                      <span *ngIf=\"addClientForm.get('state').errors['required']\">\n                        State is required!\n                      </span>\n                    </span>\n                  </div> \n            </div>\n            <div class=\"col-md-4\">\n                <div class=\"form-group\">\n                    <label for=\"country\">Country</label>\n                    <input type=\"text\" id=\"country\" formControlName=\"country\" class=\"form-control\">\n          \n                    <span *ngIf=\"addClientForm.get('country').touched && \n                                 !addClientForm.get('country').valid\" class=\"help-block\">\n                      <span *ngIf=\"addClientForm.get('country').errors['pattern']\">\n                        Not a valid Country!\n                      </span>\n                      <span *ngIf=\"addClientForm.get('country').errors['required']\">\n                        Country is required!\n                      </span>\n                    </span>\n                  </div>\n          \n                  <div class=\"form-group\">\n                    <label for=\"email\">Email</label>\n                    <input type=\"text\" id=\"email\" formControlName=\"email\" class=\"form-control\">\n          \n                    <span *ngIf=\"addClientForm.get('email').touched && \n                                 !addClientForm.get('email').valid\" class=\"help-block\">\n                      Not a valid email!\n                    </span>\n                  </div> \n            </div>\n          </div>\n          \n          <!-- row -->\n          <div class=\"row\">\n              <div class=\"col-md-4\">\n                <div class=\"form-group\">\n                    <button class=\"btn btn-block btn-primary\" \n                     type=\"submit\" [disabled]=\"!addClientForm.valid\">Submit</button>\n                </div>\n              </div>\n              <div class=\"col-md-2\">\n                  <div class=\"form-group\">\n                      <button class=\"btn btn-block btn-warning\" \n                      (click)=\"onResetAddClientForm()\">Clear</button>\n                  </div>\n                </div>\n                <div class=\"col-md-2\">\n                    <div class=\"form-group\">\n                        <a routerLink = \"/dashboard\" class=\"btn btn-block btn-danger\">Cancel</a>\n                    </div>\n                  </div>\n          </div>\n        </div>\n        <!--card body -->\n      </div>\n      <!-- card -->\n      \n      </form>\n    </div>\n  \n</section>"
+module.exports = "<div class=\"content-header\">\n  <h3>Add Client</h3>\n</div>\n<section class=\"content\">\n  <div class=\"container-fluid\">\n    <form [formGroup]=\"addClientForm\" (ngSubmit)=\"onSubmit()\">\n\n    <div class=\"card\">\n        <div class=\"card-body\">\n          <div class=\"row\">              \n            <div class=\"col-md-4\">\n      \n                <div class=\"form-group\">\n                  <label for=\"firstName\">First Name</label>\n                  <input type=\"text\" id=\"firstName\" formControlName=\"firstName\" class=\"form-control\" tabindex=\"1\">\n\n                  <span *ngIf=\"addClientForm.get('firstName').touched && \n                                        !addClientForm.get('firstName').valid\" class=\"help-block\">\n                    <span *ngIf=\"addClientForm.get('firstName').errors['pattern']\">\n                      Not a valid name.\n                    </span>\n                    <span *ngIf=\"addClientForm.get('firstName').errors['required']\">\n                      First name is required!\n                    </span>\n                  </span>\n                </div>\n\n                <div class=\"form-group\">\n                  <label for=\"gender\">Gender</label>\n                  <select class=\"form-control medium-select\" tabindex=\"3\">\n                    <option [value]=\"gender\" *ngFor=\"let gender of genders\">{{ gender | fullGender }}</option>\n                  </select>\n                </div>\n\n                <div class=\"form-group\">\n                  <label for=\"maritalStatus\">Marital Status</label>\n                  <select class=\"form-control medium-select\" tabindex=\"5\">\n                    <option [value]=\"maritalStatus\" \n                    *ngFor=\"let maritalstatus of maritalstatuses\">{{ maritalstatus | statusTransform }}</option>\n                  </select>\n                </div>\n\n            </div> <!-- 1st column -->\n\n            <div class=\"col-md-4\">\n\n                <div class=\"form-group\">\n                    <label for=\"lastName\">Last Name</label>\n                    <input type=\"text\" id=\"lastName\" formControlName=\"lastName\" class=\"form-control\" tabindex=\"2\">\n  \n                    <span *ngIf=\"addClientForm.get('lastName').touched && \n                                            !addClientForm.get('lastName').valid\" class=\"help-block\">\n                      <span *ngIf=\"addClientForm.get('lastName').errors['pattern']\">\n                        Not a valid name.\n                      </span>\n                      <span *ngIf=\"addClientForm.get('lastName').errors['required']\">\n                        Last name is required!\n                      </span>\n                    </span>\n                  </div>\n\n                  <div class=\"form-group\">\n                      <label for=\"age\">Age</label>\n                      <input type=\"text\" id=\"age\" formControlName=\"age\" class=\"form-control\" tabindex=\"4\">\n    \n                      <span *ngIf=\"addClientForm.get('age').touched && \n                                        !addClientForm.get('age').valid\" class=\"help-block\">\n                        <span *ngIf=\"addClientForm.get('age').errors['pattern']\">\n                          Not a valid age.\n                        </span>\n                        <span *ngIf=\"addClientForm.get('age').errors['required']\">\n                          Age is required!\n                        </span>\n                      </span>\n                    </div>\n\n                    <div class=\"form-group\">\n                        <label for=\"mobile\">Mobile Number</label>\n                        <input type=\"text\" id=\"mobile\" \n                        formControlName=\"mobile\" \n                        class=\"form-control\" \n                        tabindex=\"6\"\n                        maxlength=\"10\">\n      \n                        <span *ngIf=\"addClientForm.get('mobile').touched && \n                                          !addClientForm.get('mobile').valid\" class=\"help-block\">\n                          <span *ngIf=\"addClientForm.get('mobile').errors['pattern']\">\n                            Not a valid mobile number.\n                          </span>\n                          <span *ngIf=\"addClientForm.get('mobile').errors['required']\">\n                            Mobile number is required!\n                          </span>\n                        </span>\n                      </div>\n            </div> <!-- second column -->\n          </div>  <!-- row -->\n        </div> <!-- card body -->\n        </div>  <!-- card -->\n        \n        <div class=\"card\">\n            <div class=\"card-body\">\n              <div class=\"row\">\n                <div class=\"col-md-4\">\n                  \n                    <div class=\"form-group\">\n                        <label for=\"reference\">Reference</label>\n                        <input type=\"text\" id=\"reference\" formControlName=\"reference\" class=\"form-control\" tabindex=\"7\">\n      \n                        <span *ngIf=\"addClientForm.get('reference').touched && \n                                                !addClientForm.get('reference').valid\" class=\"help-block\">\n                            Please add the name who referred here\n                        </span>\n                      </div>\n    \n                </div> <!-- 1st column -->\n                <div class=\"col-md-2\">\n                  \n                    <div class=\"form-group\">\n                      <label for=\"status\">Session Status</label>\n                      <select class=\"form-control medium-select\" tabindex=\"8\">\n                          <option [value]=\"status\" \n                          *ngFor=\"let status of sessionstatuses\">{{ status | statusTransform }}</option>\n                        </select>\n                    </div>\n    \n                </div> <!-- 2nd column -->\n                <div class=\"col-md-3\">\n                  \n                    <div class=\"form-group\">\n                      <label for=\"followupdate\">Follow Up Date</label>\n                          <div class=\"input-group\">\n                            <div class=\"input-group-prepend\">\n                              <span class=\"input-group-text\"><i class=\"fa fa-calendar\"></i></span>\n                            </div>\n                            <input type=\"text\" id = \"datemask\" class=\"form-control\" \n                            formControlName=\"followupdate\"                            \n                            placeholder=\"yyyy-mm-dd\" tabindex=\"9\">\n                            <span \n                            *ngIf=\"!addClientForm.get('followupdate').valid && \n                            addClientForm.get('followupdate').touched\"\n                            class=\"help-block\">\n                            <span class=\"help-block text-danger\"\n                            *ngIf=\"addClientForm.get('followupdate').errors['incorrectDate']\">\n                              Invalid date!\n                            </span>\n                          </span>\n                          </div>\n                    </div>\n    \n                </div> <!-- 2nd column -->\n              </div> <!-- row -->\n            </div> <!--card body -->\n          </div> <!-- card -->\n\n        <div class=\"card\">\n        <div class=\"card-body\">\n          <div class=\"row\">\n            <div class=\"col-md-4\">\n              \n                <div class=\"form-group\">\n                    <label for=\"profession\">Profession</label>\n                    <input type=\"text\" id=\"profession\" formControlName=\"profession\" class=\"form-control\" tabindex=\"10\">\n  \n                    <span *ngIf=\"addClientForm.get('profession').touched && \n                                            !addClientForm.get('profession').valid\" class=\"help-block\">\n                        Not a valid profession!\n                    </span>\n                  </div>\n\n            </div> <!-- 1st column -->\n            <div class=\"col-md-4\">\n              \n                <div class=\"form-group\">\n                    <label for=\"education\">Education</label>\n                    <input type=\"text\" id=\"education\" formControlName=\"education\" class=\"form-control\" tabindex=\"11\">\n  \n                    <span *ngIf=\"addClientForm.get('education').touched && \n                                            !addClientForm.get('education').valid\" class=\"help-block\">\n                        Not a valid education!\n                    </span>\n                  </div>\n\n            </div> <!-- 2nd column -->\n          </div> <!-- row -->\n        </div> <!--card body -->\n      </div> <!-- card -->\n\n      <div class=\"card\">\n        <div class=\"card-body\">\n          <div class=\"row\">\n            <div class=\"col-md-4\">\n      \n              <div class=\"form-group\">\n                <label for=\"address\">Address - First Line</label>\n                <textarea type=\"text\" id=\"address\" formControlName=\"address\" class=\"form-control\" tabindex=\"12\">\n                            </textarea>\n                <span *ngIf=\"addClientForm.get('address').touched && \n                             !addClientForm.get('address').valid\" class=\"help-block\">\n                  Not a valid address!\n                </span>\n              </div>      \n            </div>\n            <!-- 1st column -->\n            <div class=\"col-md-4\">\n      \n              <div class=\"form-group\">\n                <label for=\"pin\">PIN Code</label>\n                <input type=\"text\" id=\"pin\" formControlName=\"pin\" class=\"form-control\" tabindex=\"13\" maxlength=\"6\">\n      \n                <span *ngIf=\"addClientForm.get('pin').touched && \n                             !addClientForm.get('pin').valid\" class=\"help-block\">\n                  Not a valid pincode!\n                </span>\n              </div>\n            </div>\n            <!-- 2nd column -->\n          </div>\n\n          <div class=\"row\">\n            <div class=\"col-md-4\">\n                <div class=\"form-group\">\n                    <label for=\"city\">City</label>\n                    <input type=\"text\" id=\"city\" formControlName=\"city\" class=\"form-control\" tabindex=\"14\">\n          \n                    <span *ngIf=\"addClientForm.get('city').touched && \n                                 !addClientForm.get('city').valid\" class=\"help-block\">\n                      <span *ngIf=\"addClientForm.get('city').errors['pattern']\">\n                        Not a valid city!\n                      </span>\n                      <span *ngIf=\"addClientForm.get('city').errors['required']\">\n                        City is required!\n                      </span>\n                    </span>\n                  </div>\n          \n                  <div class=\"form-group\">\n                    <label for=\"state\">State</label>\n                    <input type=\"text\" id=\"state\" formControlName=\"state\" class=\"form-control\" tabindex=\"16\">\n          \n                    <span *ngIf=\"addClientForm.get('state').touched && \n                                 !addClientForm.get('state').valid\" class=\"help-block\">\n                      <span *ngIf=\"addClientForm.get('state').errors['pattern']\">\n                        Not a valid state!\n                      </span>\n                      <span *ngIf=\"addClientForm.get('state').errors['required']\">\n                        State is required!\n                      </span>\n                    </span>\n                  </div> \n            </div>\n            <div class=\"col-md-4\">\n                <div class=\"form-group\">\n                    <label for=\"country\">Country</label>\n                    <input type=\"text\" id=\"country\" formControlName=\"country\" class=\"form-control\" tabindex=\"15\">\n          \n                    <span *ngIf=\"addClientForm.get('country').touched && \n                                 !addClientForm.get('country').valid\" class=\"help-block\">\n                      <span *ngIf=\"addClientForm.get('country').errors['pattern']\">\n                        Not a valid Country!\n                      </span>\n                      <span *ngIf=\"addClientForm.get('country').errors['required']\">\n                        Country is required!\n                      </span>\n                    </span>\n                  </div>\n          \n                  <div class=\"form-group\">\n                    <label for=\"email\">Email</label>\n                    <input type=\"text\" id=\"email\" formControlName=\"email\" class=\"form-control\" tabindex=\"17\">\n          \n                    <span *ngIf=\"addClientForm.get('email').touched && \n                                 !addClientForm.get('email').valid\" class=\"help-block\">\n                      Not a valid email!\n                    </span>\n                  </div> \n            </div>\n          </div>\n          \n          <!-- row -->\n          <div class=\"row\">\n              <div class=\"col-md-4\">\n                <div class=\"form-group\">\n                    <button class=\"btn btn-block btn-primary\" \n                     type=\"submit\" [disabled]=\"!addClientForm.valid\" tabindex=\"18\">Submit</button>\n                </div>\n              </div>\n              <div class=\"col-md-2\">\n                  <div class=\"form-group\">\n                      <button class=\"btn btn-block btn-warning\" \n                      (click)=\"onResetAddClientForm()\" tabindex=\"19\">Clear</button>\n                  </div>\n                </div>\n                <div class=\"col-md-2\">\n                    <div class=\"form-group\">\n                        <a routerLink = \"/dashboard\" class=\"btn btn-block btn-danger\" tabindex=\"20\">Cancel</a>\n                    </div>\n                  </div>\n          </div>\n\n          <div class=\"card-body table-responsive\" *ngIf = \"errorMessage\">\n            <div class=\"row\">\n                <div class=\"col-md-12\">\n                  <p class=\"text-red\">{{errorMessage}}</p>\n                </div>\n            </div>\n          </div>\n          <div class=\"card-body table-responsive\" *ngIf = \"successMessage\">\n            <div class=\"row\">\n                <div class=\"col-md-12\">\n                  <p class=\"text-green\">The client {{savedClient.fname}} {{savedClient.lname}} successfully added</p>\n                </div>\n            </div>\n          </div>\n\n\n        </div>\n        <!--card body -->\n      </div>\n      <!-- card -->\n      \n      </form>\n    </div>\n  \n</section>"
 
 /***/ }),
 
@@ -346,9 +361,10 @@ module.exports = "<div class=\"content-header\">\n  <h3>Add Client</h3>\n</div>\
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddClientComponent", function() { return AddClientComponent; });
-/* harmony import */ var _utility_utility__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../utility/utility */ "./src/app/utility/utility.ts");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _clients_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../clients.service */ "./src/app/clients.service.ts");
+/* harmony import */ var _utility_utility__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../utility/utility */ "./src/app/utility/utility.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -361,49 +377,62 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var AddClientComponent = /** @class */ (function () {
-    function AddClientComponent() {
-        this.genders = ['male', 'female', 'other'];
-        this.maritalstatuses = ['married', 'unmarried'];
-        this.sessionstatuses = ['ongoing', 'closed', 'left'];
+    function AddClientComponent(clientsService) {
+        this.clientsService = clientsService;
+        this.successMessage = false;
+        this.genders = ['M', 'F', 'O'];
+        this.maritalstatuses = ['M', 'U'];
+        this.sessionstatuses = ['Y', 'C', 'L'];
     }
     AddClientComponent.prototype.ngOnInit = function () {
         this.createAddClientForm();
     };
+    AddClientComponent.prototype.ngOnDestroy = function () {
+        this.addClientSubscription.unsubscribe();
+    };
     AddClientComponent.prototype.createAddClientForm = function () {
-        this.addClientForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
-            'firstName': new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern("[a-zA-Z ]+")]),
-            'lastName': new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern("[a-zA-Z ]+")]),
-            'gender': new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('male'),
-            'age': new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern("[1-9]{1}[0-9]+")]),
-            'maritalstatus': new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('married'),
-            'mobile': new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern("[0-9]{10}")]),
-            'profession': new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern("[a-zA-Z -.]+")),
-            'education': new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern("[a-zA-Z -.]+")),
-            'reference': new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern("[a-zA-Z .]+")),
-            'status': new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('ongoing'),
-            'followupDate': new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _utility_utility__WEBPACK_IMPORTED_MODULE_0__["Utility"].validDate.bind(this)),
-            'address': new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern("[0-9a-zA-Z -/\\,.]+")),
-            'country': new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern("[a-zA-Z ]+")]),
-            'city': new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern("[a-zA-Z ]+")]),
-            'state': new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern("[a-zA-Z ]+")]),
-            'pin': new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern("[0-9]+")),
-            'email': new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern("[a-zA-Z0-9._\-]+@[a-zA-Z0-9.\-]+[.][a-zA-Z]+"))
+        this.addClientForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormGroup"]({
+            'firstName': new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].pattern("[a-zA-Z ]+")]),
+            'lastName': new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].pattern("[a-zA-Z ]+")]),
+            'gender': new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"]('M'),
+            'age': new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].pattern("[1-9]{1}[0-9]+")]),
+            'maritalStatus': new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"]('M'),
+            'mobile': new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].pattern("[0-9]{10}")]),
+            'profession': new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].pattern("[a-zA-Z -.]+")),
+            'education': new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].pattern("[a-zA-Z -.]+")),
+            'reference': new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].pattern("[a-zA-Z .]+")),
+            'status': new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"]('O'),
+            'followupdate': new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](null, _utility_utility__WEBPACK_IMPORTED_MODULE_1__["Utility"].validDate.bind(this)),
+            'address': new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].pattern("[0-9a-zA-Z -/\\,.]+")),
+            'country': new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].pattern("[a-zA-Z ]+")]),
+            'city': new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].pattern("[a-zA-Z ]+")]),
+            'state': new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].pattern("[a-zA-Z ]+")]),
+            'pin': new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].pattern("[0-9]+")),
+            'email': new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].pattern("[a-zA-Z0-9._\-]+@[a-zA-Z0-9.\-]+[.][a-zA-Z]+"))
         });
     };
     AddClientComponent.prototype.onResetAddClientForm = function () {
         this.createAddClientForm();
     };
     AddClientComponent.prototype.onSubmit = function () {
-        console.log(this.addClientForm.value);
+        var _this = this;
+        this.addClientSubscription = this.clientsService.addClient(this.addClientForm.getRawValue()).subscribe(function (client) {
+            console.log(_this.addClientForm.get('firstName'), _this.addClientForm.get('lastName'));
+            _this.savedClient = { fname: _this.addClientForm.get('firstName').value,
+                lname: _this.addClientForm.get('lastName').value };
+            _this.onResetAddClientForm();
+            _this.successMessage = true;
+        }, function (error) { return _this.errorMessage = error; });
     };
     AddClientComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
             selector: 'app-add-client',
             template: __webpack_require__(/*! ./add-client.component.html */ "./src/app/client/add-client/add-client.component.html"),
             styles: [__webpack_require__(/*! ./add-client.component.css */ "./src/app/client/add-client/add-client.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [_clients_service__WEBPACK_IMPORTED_MODULE_0__["ClientsService"]])
     ], AddClientComponent);
     return AddClientComponent;
 }());
@@ -430,7 +459,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"content-header\">\n  <h3 class=\"left-half\" *ngIf=\"!searchedClient\">Client Detail</h3>\n  <!-- <h5 class=\"left-half\" *ngIf=\"searchedClient\">{{ searchedClient.clientName }}</h5> -->\n</div>\n<section class=\"content\">\n  <div class=\"container-fluid\">\n    <div class=\"col-md-6\" *ngIf = \"searchedClient\">\n      <div class=\"box box-default\">\n        <div class=\"box-header with-border\">\n          <h3 class=\"box-title\">{{ searchedClient.clientName }}</h3>\n        </div>\n        <div class=\"box-body\">\n          <table class=\"table\">\n            <tbody>\n              <tr>\n                <td>Name</td>\n                <td>{{ searchedClient.clientName }}</td>\n                <td>Phone</td>\n                <td>{{ searchedClient.mobile }}</td>\n              </tr>\n              <tr>\n                <td>Email</td>\n                <td>{{ searchedClient.email }}</td>\n                <td>Age</td>\n                <td>{{ searchedClient.age > 0 ? searchedClient.age : '' }}</td>\n              </tr>\n              <tr>\n                <td>Follow Up Date</td>\n                <td>{{ searchedClient.followupdate }}</td>\n                <td>Status</td>\n                <td>{{ searchedClient.status }}</td>\n              </tr>\n            </tbody>\n          </table>\n          <hr>\n          <button class=\"btn btn-primary\" type=\"button\" data-toggle=\"modal\" data-target=\"#clientDetailModal\">\n            Tell Me More\n          </button>\n        </div>\n      </div>\n    </div>\n    <div class=\"col-md-2\"></div>\n    <div class=\"col-md-4\">\n      <!-- <div class=\"box box-default\">\n        <div class=\"box-body\"> -->\n      <div class=\"btn-group-vertical\">\n        <button class=\"btn btn-success\" type=\"button\">\n          <i class=\"fa fa-plus\" aria-hidden=\"true\"></i>\n          New Session\n        </button>\n        <button class=\"btn btn-lg btn-info\" type=\"button\">Treatment Data</button>\n        <button class=\"btn btn-lg btn-warning\" type=\"button\">Edit MSE</button>\n      </div>\n      <!-- </div>\n      </div> -->\n    </div>\n    <!-- Modal -->\n    <div class=\"modal fade\" id=\"clientDetailModal\">\n        <div class=\"modal-dialog\">\n          <div class=\"modal-content\">\n            <div class=\"modal-header\">\n              <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n                <span aria-hidden=\"true\">&times;</span></button>\n              <h4 class=\"modal-title\">Default Modal</h4>\n            </div>\n            <div class=\"modal-body\">\n              <p>One fine body&hellip;</p>\n            </div>\n            <div class=\"modal-footer\">\n              <button type=\"button\" class=\"btn btn-default pull-left\" data-dismiss=\"modal\">Close</button>\n            </div>\n          </div>\n          <!-- /.modal-content -->\n        </div>\n        <!-- /.modal-dialog -->\n      </div>\n  </div>\n</section>"
+module.exports = "<div class=\"content-header\">\n  <h3 class=\"left-half\" *ngIf=\"!searchedClient\">Client Detail</h3>\n  <!-- <h5 class=\"left-half\" *ngIf=\"searchedClient\">{{ searchedClient.clientName }}</h5> -->\n</div>\n<section class=\"content\">\n  <div class=\"container-fluid\">\n    <div class=\"col-md-6\" *ngIf = \"searchedClient\">\n      <div class=\"box box-default\">\n        <div class=\"box-header with-border\">\n          <h3 class=\"box-title\">{{ searchedClient.clientName }}</h3>\n        </div>\n        <div class=\"box-body\">\n          <table class=\"table\">\n            <tbody>\n              <tr>\n                <td class=\"key\">Name</td>\n                <td>{{ searchedClient.clientName }}</td>\n                <td class=\"key\">Phone</td>\n                <td>{{ searchedClient.mobile }}</td>\n              </tr>\n              <tr>\n                <td class=\"key\">Email</td>\n                <td>{{ searchedClient.email }}</td>\n                <td class=\"key\">Age</td>\n                <td>{{ searchedClient.age > 0 ? searchedClient.age : '' }}</td>\n              </tr>\n              <tr>\n                <td class=\"key\">Follow Up Date</td>\n                <td>{{ searchedClient.followupdate }}</td>\n                <td class=\"key\">Status</td>\n                <td>{{ searchedClient.status | statusTransform }}</td>\n              </tr>\n            </tbody>\n          </table>\n          <hr>\n          <!-- See modal below -->\n          <button class=\"btn btn-primary\" \n            type=\"button\" \n            data-toggle=\"modal\" \n            data-target=\"#clientDetailModal\">\n            Tell Me More\n          </button>\n        </div>\n      </div>\n    </div>\n    <div class=\"col-md-2\"></div>\n    <div class=\"col-md-4\" *ngIf= \"searchedClient\">\n      <!-- <div class=\"box box-default\">\n        <div class=\"box-body\"> -->\n      <div class=\"btn-group-vertical\">\n        <button class=\"btn btn-success\" type=\"button\" (click)= \"onNewSession()\">\n          <i class=\"fa fa-plus fa-lg\" aria-hidden=\"true\"></i>\n          New Session\n        </button>\n        <button class=\"btn btn-lg btn-info\" type=\"button\">Treatment Data</button>\n        <button class=\"btn btn-lg btn-warning\" type=\"button\">Edit MSE</button>\n      </div>\n      <!-- </div>\n      </div> -->\n    </div>\n    <div class=\"col-md-8\">\n        <div class=\"box box-default\">\n            <div class=\"box-header with-border\" *ngIf= \"searchedClient\">\n              <h3 class=\"box-title\">Sessions of {{ searchedClient.clientName }}</h3>\n            </div>\n            <div class=\"box-body table-responsive no-padding\" *ngIf = \"sessionSearchComplete\">\n                <table class=\"table table-hover\">\n                    <tr>                       \n                        <th \n                        >Session Date <i class=\"fa fa-sort-amount-asc\" aria-hidden=\"true\"></i>\n                        </th>                          \n                        <th\n                        >Follow Up Date <i class=\"fa fa-sort-amount-asc\" aria-hidden=\"true\"></i>\n                        </th>\n                        <th>Impression</th>\n                        <th>Feedback</th>\n                    </tr>\n                    <tr *ngFor='let psySession of sessionsOfClient'>\n                        <td>\n                          <a id=\"modal-link\" data-toggle=\"modal\" \n                          (click) = \"sessionSelect(psySession.sessionId)\"\n                          style=\"cursor: pointer\"\n                          data-target=\"#sessionDetailModal\">\n                            {{  psySession.sessionDate }}\n                          </a>\n                        </td>\n                        <td>{{  psySession.followupDate }}</td>\n                        <td>{{  psySession.impression | shorten : 20 }}</td>\n                        <td>{{  psySession.feedback  | shorten : 20 }}</td>\n                    </tr>                        \n                </table>\n            </div>\n            <div class=\"box-body table-responsive\" *ngIf = \"errorMessage\">\n                <div class=\"row\">\n                    <div class=\"col-md-12\">\n                      <p class=\"text-red\">{{errorMessage}}</p>\n                    </div>\n                </div>\n              </div>\n        </div>\n    </div>\n    <!-- Client Detail Modal -->\n    <div class=\"modal fade\" id=\"clientDetailModal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\n        <div class=\"modal-dialog\">\n          <div class=\"modal-content\">\n            <div class=\"modal-header\">\n              <h2 class=\"modal-title\">Client Detail</h2>\n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n                <span aria-hidden=\"true\">&times;</span></button>\n            </div>\n            <div class=\"modal-body\" *ngIf = \"searchedClient\">\n              <table class=\"table\">\n                <tbody>\n                  <tr>\n                    <td class=\"key\">Name</td>\n                    <td>{{ searchedClient.clientName }}</td>\n                    <td class=\"key\">Phone</td>\n                    <td>{{ searchedClient.mobile }}</td>\n                    <td class=\"key\">Email</td>\n                    <td>{{ searchedClient.email }}</td>\n                  </tr>\n                  <tr>\n                    <td class=\"key\">Age</td>\n                    <td>{{ searchedClient.age > 0 ? searchedClient.age : '' }}</td>\n                    <td class=\"key\">Gender</td>\n                    <td>{{searchedClient.gender }}</td>\n                    <td class=\"key\">Marital Status</td>\n                    <td>{{searchedClient.maritalStatus | statusTransform }}</td>\n                  </tr>\n                  <tr>\n                    <td class=\"key\">Profession</td>\n                    <td>{{ searchedClient.profession }}</td>\n                    <td class=\"key\">Education</td>\n                    <td>{{searchedClient.education }}</td>\n                    <td class=\"key\">Reference</td>\n                    <td>{{searchedClient.reference }}</td>\n                  </tr>\n                  <tr>\n                    <td class=\"key\">Address</td>\n                    <td>{{ searchedClient.address }}</td>\n                    <td class=\"key\">City</td>\n                    <td>{{searchedClient.city }}</td>\n                    <td class=\"key\">State</td>\n                    <td>{{searchedClient.state }}</td>\n                  </tr>\n                  <tr>\n                    <td class=\"key\">Pin Code</td>\n                    <td>{{ searchedClient.pin }}</td>\n                    <td class=\"key\">Country</td>\n                    <td>{{searchedClient.country }}</td>\n                    <td class=\"key\">Second Phone</td>\n                    <td>{{searchedClient.secondPhone }}</td>\n                  </tr>\n                  <tr>\n                    <td class=\"key\">Follow Up Date</td>\n                    <td>{{ searchedClient.followupdate }}</td>\n                    <td class=\"key\">Status</td>\n                    <td>{{ searchedClient.status }}</td>\n                  </tr>\n                </tbody>\n              </table>\n            </div>\n            <div class=\"modal-footer\">\n              <button type=\"button\" class=\"btn btn-default pull-left\" data-dismiss=\"modal\">Close</button>\n            </div>\n          </div>\n          <!-- /.modal-content -->\n        </div>\n        <!-- /.modal-dialog -->\n      </div>\n\n      <!-- Session Detail Modal -->\n    <div class=\"modal fade\" id=\"sessionDetailModal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\n      <div class=\"modal-dialog\">\n        <div class=\"modal-content\">\n          <div class=\"modal-header\">\n            <h2 class=\"modal-title\">Session Detail</h2>\n              <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n              <span aria-hidden=\"true\">&times;</span></button>\n          </div>\n          <div class=\"modal-body\" *ngIf = \"selectedSession\">\n            <table class=\"table\">\n              <tbody>\n                <tr>\n                  <td class=\"key\">Session Date</td>\n                  <td>{{ selectedSession.sessionDate }}</td>\n                  <td class=\"key\">Follow Up Date</td>\n                  <td>{{ selectedSession.followupDate }}</td>\n                </tr>\n                <tr>\n                  <td class=\"key\">Impression</td>\n                  <td>{{ selectedSession.impression }}</td>\n                </tr>\n                <tr>\n                  <td class=\"key\">Feedback</td>\n                  <td>{{ selectedSession.feedback }}</td>\n                </tr>\n                <tr>\n                  <td class=\"key\">Next Session Link</td>\n                </tr>\n              </tbody>\n            </table>\n          </div>\n          <div class=\"modal-footer\">\n            <button type=\"button\" class=\"btn btn-default pull-left\" data-dismiss=\"modal\">Close</button>\n          </div>\n        </div>\n        <!-- /.modal-content -->\n      </div>\n      <!-- /.modal-dialog -->\n    </div>\n\n  </div>\n</section>"
 
 /***/ }),
 
@@ -460,15 +489,16 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 var ClientDetailComponent = /** @class */ (function () {
-    function ClientDetailComponent(route, clientsService) {
+    function ClientDetailComponent(router, route, clientsService) {
+        this.router = router;
         this.route = route;
         this.clientsService = clientsService;
+        this.sessionsOfClient = new Array();
+        this.sessionSearchComplete = false;
     }
     ClientDetailComponent.prototype.ngOnDestroy = function () {
         this.paramSubscription.unsubscribe();
-    };
-    ClientDetailComponent.prototype.openModal = function () {
-        $("#clientDetailModal").modal('show');
+        this.clientSubscription.unsubscribe();
     };
     ClientDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -476,7 +506,21 @@ var ClientDetailComponent = /** @class */ (function () {
         this.paramSubscription = this.route.params.subscribe(function (params) {
             _this.clientId = +params['id'];
         });
-        this.clientsService.findClientById(this.clientId).subscribe(function (client) { return _this.searchedClient = client; });
+        this.clientSubscription = this.clientsService.findClientById(this.clientId).flatMap(function (client) {
+            _this.searchedClient = client;
+            return _this.clientsService.findSessionsByClientId(client.clientId);
+        }).subscribe(function (psySession) {
+            _this.sessionsOfClient.push(psySession);
+            _this.sessionSearchComplete = true;
+        }, function (error) { return _this.errorMessage = error; });
+    };
+    ClientDetailComponent.prototype.sessionSelect = function (sessionId) {
+        this.selectedSession = this.sessionsOfClient.filter(function (ps) { return ps._sessionId === sessionId; })[0];
+    };
+    ClientDetailComponent.prototype.onNewSession = function () {
+        this.router.navigate(['session'], { relativeTo: this.route });
+    };
+    ClientDetailComponent.prototype.sort = function (property) {
     };
     ClientDetailComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -484,7 +528,7 @@ var ClientDetailComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./client-detail.component.html */ "./src/app/client/client-detail/client-detail.component.html"),
             styles: [__webpack_require__(/*! ./client-detail.component.css */ "./src/app/client/client-detail/client-detail.component.css")]
         }),
-        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"], _clients_service__WEBPACK_IMPORTED_MODULE_2__["ClientsService"]])
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"], _clients_service__WEBPACK_IMPORTED_MODULE_2__["ClientsService"]])
     ], ClientDetailComponent);
     return ClientDetailComponent;
 }());
@@ -637,7 +681,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"content-header\">\n    <h5 class=\"left-half\">Search Client</h5>\n</div>\n<section class=\"content\">\n    <div class=\"container-fluid\">\n    \n        <div class=\"card\"> \n                <div class=\"card-body\">\n                <form [formGroup]=\"searchClientForm\" (ngSubmit)=\"onSubmit()\">\n                 <div class=\"col-md-8\">\n                    <div class=\"row\">\n                        <div class=\"col-md-4\">\n                            <div class=\"form-group\">\n                                <label for=\"firstName\">First Name</label>\n                                <input type=\"text\" \n                                        id=\"firstName\" \n                                        formControlName=\"firstName\" \n                                        class=\"form-control\">\n\n                                <span *ngIf=\"searchClientForm.get('firstName').touched && \n                                        !searchClientForm.get('firstName').valid\" class=\"help-block\">\n                                    <span *ngIf=\"searchClientForm.get('firstName').errors['required']\">\n                                        First name is required in search!\n                                    </span>\n                                </span>\n                            </div>\n                        </div>\n                        <span class=\"left-onehalf\"></span>\n                        <div class=\"col-md-4\">\n                            <div class=\"form-group\">\n                                <label for=\"lastName\">Last Name</label>\n                                <input type=\"text\" \n                                        id=\"lastName\" \n                                        formControlName=\"lastName\" \n                                        class=\"form-control\">\n\n                                <span *ngIf=\"searchClientForm.get('lastName').touched &&\n                                        !searchClientForm.get('lastName').valid\" class=\"help-block\">\n                                    <span *ngIf=\"searchClientForm.get('lastName').errors['required']\">\n                                        Last name is required in search!\n                                    </span>\n                                </span>\n                            </div>\n                        </div>\n                    </div>\n                    <br><br>\n                    <div class=\"row\">\n                        <div class=\"col-md-4\">\n                            <div class=\"row\"></div>\n                            <div class=\"form-group\">\n                                <button class=\"btn btn-block btn-primary\" \n                                type=\"submit\" \n                                [disabled]=\"!searchClientForm.valid\">Search</button>\n                            </div>\n                        </div>\n                        <div class=\"col-md-4\">\n                            <div class=\"row\"></div>\n                            <div class=\"form-group\">\n                                <button type= \"button\"\n                                class=\"btn btn-block btn-secondary\" \n                                (click)=\"onResetSearchForm()\">Clear</button>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                </form>\n                <!-- <div class=\"row\"> -->\n                    <div class=\"col-md-4 top10\">\n                        <div class=\"row\"></div>\n                        <div class=\"row\"></div>\n                        <div class=\"form-group\">\n                            <button \n                            type=\"button\"\n                            class=\"btn btn-block btn-danger float-right\" \n                            (click)=\"onUpcomingSessions()\">Upcoming Sessions</button>\n                        </div>\n                    </div>\n                <!-- </div> -->\n                </div> <!-- card body -->\n        </div> <!-- card --> \n    \n    <!-- Search Result below -->\n    <!-- <div class=\"col-xs-12\"> -->\n    <div class=\"box\">\n        <div class=\"box-header\">\n            Search Result\n        </div>\n        <div class=\"box-body table-responsive no-padding\" *ngIf = \"clientSearchComplete\">\n                <table class=\"table table-hover\">\n                        <tr>\n                          <th>Name</th>                          \n                          <th>Follow Up Date</th>                          \n                          <th>Status</th>\n                        </tr>\n                        <tr>\n                          <td>\n                            <a [routerLink] = \"['../', searchedClient.clientId]\">{{ searchedClient.clientName }}</a>\n                          </td>                          \n                          <td>{{ searchedClient.followupdate }}</td>\n                          <td>\n                            <span \n                            [ngClass]=\"searchedClient.status === 'Y' ? 'label label-success' : \n                                            (searchedClient.status === 'C' ? 'label label-primary' : \n                                            'label label-warning' )\">\n                            {{ searchedClient.status }}\n                            </span></td>\n                        </tr>                        \n                      </table>\n            \n        </div>\n        <!-- Upcoming Sessions -->\n        <div class=\"box-body table-responsive no-padding\" *ngIf = \"sessionSearchComplete\">\n            <table class=\"table table-hover\">\n                <tr>\n                    <th>Name</th>                          \n                    <th>Follow Up Date</th>                          \n                    <th>Status</th>\n                </tr>\n                <tr *ngFor='let psySession of searchedUpcomingSessions'>\n                    <td>\n                        <a [routerLink] = \"['../', psySession.client.clientId]\">{{ psySession.client.clientName }}</a>\n                    </td>                          \n                    <td>{{  psySession.followupDate }}</td>\n                    <td>\n                    <span \n                    [ngClass]=\"psySession.client.status === 'Y' ? 'label label-success' : \n                                (psySession.client.status === 'C' ? 'label label-primary' : \n                                'label label-warning' )\">\n                    {{ psySession.client.status }}\n                    </span></td>\n                </tr>                        \n            </table>\n        </div>\n\n        <div class=\"box-body table-responsive\" *ngIf = \"errorMessage\">\n          <div class=\"row\">\n              <div class=\"col-md-12\">\n                <p class=\"text-red\">{{errorMessage}}</p>\n              </div>\n          </div>\n        </div>\n    </div>\n    <!-- </div> -->\n    </div>\n</section>"
+module.exports = "<div class=\"content-header\">\n    <h5 class=\"left-half\">Search Client</h5>\n</div>\n<section class=\"content\">\n    <div class=\"container-fluid\">\n    \n        <div class=\"card\"> \n                <div class=\"card-body\">\n                <form [formGroup]=\"searchClientForm\" (ngSubmit)=\"onSubmit()\">\n                 <div class=\"col-md-8\">\n                    <div class=\"row\">\n                        <div class=\"col-md-4\">\n                            <div class=\"form-group\">\n                                <label for=\"firstName\">First Name</label>\n                                <input type=\"text\" \n                                        id=\"firstName\" \n                                        formControlName=\"firstName\" \n                                        class=\"form-control\">\n\n                                <span *ngIf=\"searchClientForm.get('firstName').touched && \n                                        !searchClientForm.get('firstName').valid\" class=\"help-block\">\n                                    <span *ngIf=\"searchClientForm.get('firstName').errors['required']\">\n                                        First name is required in search!\n                                    </span>\n                                </span>\n                            </div>\n                        </div>\n                        <span class=\"left-onehalf\"></span>\n                        <div class=\"col-md-4\">\n                            <div class=\"form-group\">\n                                <label for=\"lastName\">Last Name</label>\n                                <input type=\"text\" \n                                        id=\"lastName\" \n                                        formControlName=\"lastName\" \n                                        class=\"form-control\">\n\n                                <span *ngIf=\"searchClientForm.get('lastName').touched &&\n                                        !searchClientForm.get('lastName').valid\" class=\"help-block\">\n                                    <span *ngIf=\"searchClientForm.get('lastName').errors['required']\">\n                                        Last name is required in search!\n                                    </span>\n                                </span>\n                            </div>\n                        </div>\n                    </div>\n                    <br><br>\n                    <div class=\"row\">\n                        <div class=\"col-md-4\">\n                            <div class=\"row\"></div>\n                            <div class=\"form-group\">\n                                <button class=\"btn btn-block btn-primary\" \n                                type=\"submit\" \n                                [disabled]=\"!searchClientForm.valid\">Search</button>\n                            </div>\n                        </div>\n                        <div class=\"col-md-4\">\n                            <div class=\"row\"></div>\n                            <div class=\"form-group\">\n                                <button type= \"button\"\n                                class=\"btn btn-block btn-secondary\" \n                                (click)=\"onResetSearchForm()\">Clear</button>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                </form>\n                <!-- <div class=\"row\"> -->\n                    <div class=\"col-md-4 top10\">\n                        <div class=\"row\"></div>\n                        <div class=\"row\"></div>\n                        <div class=\"form-group\">\n                            <button \n                            type=\"button\"\n                            class=\"btn btn-block btn-danger float-right\" \n                            (click)=\"onUpcomingSessions()\">Upcoming Sessions</button>\n                        </div>\n                    </div>\n                <!-- </div> -->\n                </div> <!-- card body -->\n        </div> <!-- card --> \n    \n    <!-- Search Result below -->\n    <!-- <div class=\"col-xs-12\"> -->\n    <div class=\"box\">\n        <div class=\"box-header\">\n            Search Result\n        </div>\n        <div class=\"box-body table-responsive no-padding\" *ngIf = \"clientSearchComplete\">\n                <table class=\"table table-hover\">\n                        <tr>\n                          <th>Name</th>                          \n                          <th>Follow Up Date</th>                          \n                          <th>Status</th>\n                        </tr>\n                        <tr>\n                          <td>\n                            <a [routerLink] = \"['../', searchedClient.clientId]\">{{ searchedClient.clientName }}</a>\n                          </td>                          \n                          <td>{{ searchedClient.followupdate }}</td>\n                          <td>\n                            <span \n                            [ngClass]=\"searchedClient.status === 'Y' ? 'label label-success' : \n                                            (searchedClient.status === 'C' ? 'label label-primary' : \n                                            'label label-warning' )\">\n                            {{ searchedClient.status | statusTransform }}\n                            </span></td>\n                        </tr>                        \n                      </table>\n            \n        </div>\n        <!-- Upcoming Sessions -->\n        <div class=\"box-body table-responsive no-padding\" *ngIf = \"sessionSearchComplete\">\n            <table class=\"table table-hover\">\n                <tr>\n                    <th>Name</th>                          \n                    <th>Follow Up Date</th>                          \n                    <th>Status</th>\n                </tr>\n                <tr *ngFor='let psySession of searchedUpcomingSessions'>\n                    <td>\n                        <a [routerLink] = \"['../', psySession.client.clientId]\">{{ psySession.client.clientName }}</a>\n                    </td>                          \n                    <td>{{  psySession.followupDate }}</td>\n                    <td>\n                    <span \n                    [ngClass]=\"psySession.client.status === 'Y' ? 'label label-success' : \n                                (psySession.client.status === 'C' ? 'label label-primary' : \n                                'label label-warning' )\">\n                    {{ psySession.client.status }}\n                    </span></td>\n                </tr>                        \n            </table>\n        </div>\n\n        <div class=\"box-body table-responsive\" *ngIf = \"errorMessage\">\n          <div class=\"row\">\n              <div class=\"col-md-12\">\n                <p class=\"text-red\">{{errorMessage}}</p>\n              </div>\n          </div>\n        </div>\n    </div>\n    <!-- </div> -->\n    </div>\n</section>"
 
 /***/ }),
 
@@ -689,6 +733,7 @@ var SearchClientComponent = /** @class */ (function () {
         this.unsubscribe();
         this.clientSearchComplete = false;
         this.sessionSearchComplete = false;
+        this.errorMessage = null;
     };
     SearchClientComponent.prototype.createSearchForm = function () {
         this.searchClientForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormGroup"]({
@@ -706,14 +751,13 @@ var SearchClientComponent = /** @class */ (function () {
         this.onresetSearch();
         this.searchedUpcomingSessions.splice(0, this.searchedUpcomingSessions.length);
         this.sessionSubscription = this.clientsService.findUpcomingSessions()
-            .flatMap(function (psyArr) { return psyArr; })
             .flatMap(function (session) {
             _this.searchedUpcomingSessions.push(session);
-            return _this.clientsService.findClientById(session.clientId);
+            return _this.clientsService.findClientById(session._clientId);
         }).subscribe(function (client) {
             _this.searchedUpcomingSessions
-                .filter(function (s) { return s.clientId === client.clientId; })
-                .map(function (s) { return s.client = client; });
+                .filter(function (s) { return s._clientId === client.clientId; })
+                .map(function (s) { return s._client = client; });
             _this.sessionSearchComplete = true;
         }, function (error) { return _this.errorMessage = error; });
     };
@@ -754,7 +798,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"sessionForm\" (ngSubmit)=\"onSubmit()\">\n<div class=\"content-header\">\n  <h3>{{updateMode ? 'Update' : 'Create' }} Session for {{clientName}}</h3>\n</div>\n<section class=\"content\">\n  <div class=\"container-fluid\">\n    \n    <div class=\"card\">\n        <div class=\"card-body\">\n            <div class=\"row\">              \n                <div class=\"col-md-4\">\n\n                    <div class=\"form-group\">\n                        <label for=\"sessionDate\">Session Date</label>\n                            <div class=\"input-group\">\n                              <div class=\"input-group-prepend\">\n                                <span class=\"input-group-text\"><i class=\"fa fa-calendar\"></i></span>\n                              </div>\n                              <input type=\"text\" class=\"form-control\"                              \n                              formControlName=\"sessionDate\"\n                              placeholder=\"dd/mm/yyyy\">                             \n                            </div>\n                            <span \n                                *ngIf=\"!sessionForm.get('sessionDate').valid && \n                                sessionForm.get('sessionDate').touched\"\n                                class=\"help-block\">\n                                <span class=\"help-block text-danger\"\n                                    *ngIf=\"sessionForm.get('sessionDate').errors['required']\">\n                                  Session date is required!\n                                </span>\n                                <span class=\"help-block text-danger\"\n                                    *ngIf=\"sessionForm.get('sessionDate').errors['incorrectDate']\">\n                                  Invalid date!\n                                </span>\n                              </span>\n                      </div>\n\n                      <div class=\"form-group\">\n                          <label for=\"impression\">Impression</label>\n                          <textarea id=\"impression\" \n                          formControlName=\"impression\" class=\"form-control\" rows=\"12\">\n                          </textarea>                          \n                        </div>\n\n                        <div class=\"form-group\">\n                            <label for=\"feedback\">Feedback</label>\n                            <textarea id=\"feedback\" \n                              formControlName=\"feedback\" \n                              class=\"form-control\" rows=\"12\">\n                            </textarea>\n                          </div>\n\n                      <div class=\"form-group\">\n                          <label for=\"followupDate\">Follow Up Date</label>\n                              <div class=\"input-group\">\n                                <div class=\"input-group-prepend\">\n                                  <span class=\"input-group-text\"><i class=\"fa fa-calendar\"></i></span>\n                                </div>\n                                <input type=\"text\" id = \"datemask\" class=\"form-control\" \n                                formControlName=\"followupDate\"                            \n                                placeholder=\"dd/mm/yyyy\">\n                                <span \n                                *ngIf=\"!sessionForm.get('followupDate').valid && \n                                sessionForm.get('followupDate').touched\"\n                                class=\"help-block\">\n                                <span class=\"help-block text-danger\"\n                                    *ngIf=\"sessionForm.get('followupDate').errors['incorrectDate']\">\n                                  Invalid date!\n                                </span>\n                              </span>\n                              </div>\n                        </div>\n\n                 </div>\n            </div> \n             <!-- row -->\n          <div class=\"row\">\n              <div class=\"col-md-4\">\n                <div class=\"form-group\">\n                    <button class=\"btn btn-block btn-primary\" \n                     type=\"submit\" [disabled]=\"!sessionForm.valid\">Submit</button>\n                </div>\n              </div>\n              <div class=\"col-md-2\">\n                  <div class=\"form-group\">\n                      <button class=\"btn btn-block btn-warning\" \n                      (click)=\"onResetCreateSessionForm()\">Clear</button>\n                  </div>\n                </div>\n                <div class=\"col-md-2\">\n                    <div class=\"form-group\">\n                        <a routerLink = \"/dashboard\" class=\"btn btn-block btn-danger\">Cancel</a>\n                    </div>\n                    <!-- //TODO This should go back to client/:id -->\n                  </div>\n          </div>     \n        </div>\n    </div>\n  </div>\n</section>\n</form>   \n\n "
+module.exports = "<form [formGroup]=\"sessionForm\" (ngSubmit)=\"onSubmit()\">\n<div class=\"content-header\">\n  <h3>{{updateMode ? 'Update' : 'Create' }} Session for {{clientName}}</h3>\n</div>\n<section class=\"content\">\n  <div class=\"container-fluid\">\n    \n    <div class=\"card\">\n        <div class=\"card-body\">\n            <div class=\"row\">              \n                <div class=\"col-md-4\">\n\n                    <div class=\"form-group\">\n                        <label for=\"sessionDate\">Session Date</label>\n                            <div class=\"input-group\">\n                              <div class=\"input-group-prepend\">\n                                <span class=\"input-group-text\"><i class=\"fa fa-calendar\"></i></span>\n                              </div>\n                              <input type=\"text\" class=\"form-control\"                              \n                              formControlName=\"sessionDate\"\n                              placeholder=\"yyyy-mm-dd\" tabindex=\"1\" >                             \n                            </div>\n                            <span \n                                *ngIf=\"!sessionForm.get('sessionDate').valid && \n                                sessionForm.get('sessionDate').touched\"\n                                class=\"help-block\">\n                                <span class=\"help-block text-danger\"\n                                    *ngIf=\"sessionForm.get('sessionDate').errors['required']\">\n                                  Session date is required!\n                                </span>\n                                <span class=\"help-block text-danger\"\n                                    *ngIf=\"sessionForm.get('sessionDate').errors['incorrectDate']\">\n                                  Invalid date!\n                                </span>\n                              </span>\n                      </div>\n\n                      <div class=\"form-group\">\n                          <label for=\"impression\">Impression</label>\n                          <textarea id=\"impression\" \n                          formControlName=\"impression\" class=\"form-control\" rows=\"12\" tabindex=\"2\" >\n                          </textarea>                          \n                        </div>\n\n                        <div class=\"form-group\">\n                            <label for=\"feedback\">Feedback</label>\n                            <textarea id=\"feedback\" \n                              formControlName=\"feedback\" \n                              class=\"form-control\" rows=\"12\" tabindex=\"3\" >\n                            </textarea>\n                          </div>\n\n                      <div class=\"form-group\">\n                          <label for=\"followupDate\">Follow Up Date</label>\n                              <div class=\"input-group\">\n                                <div class=\"input-group-prepend\">\n                                  <span class=\"input-group-text\"><i class=\"fa fa-calendar\"></i></span>\n                                </div>\n                                <input type=\"text\" id = \"datemask\" class=\"form-control\" \n                                formControlName=\"followupDate\"                            \n                                placeholder=\"yyyy-mm-dd\" tabindex=\"4\" >\n                                <span \n                                *ngIf=\"!sessionForm.get('followupDate').valid && \n                                sessionForm.get('followupDate').touched\"\n                                class=\"help-block\">\n                                <span class=\"help-block text-danger\"\n                                    *ngIf=\"sessionForm.get('followupDate').errors['incorrectDate']\">\n                                  Invalid date!\n                                </span>\n                              </span>\n                              </div>\n                        </div>\n\n                 </div>\n            </div> \n             <!-- row -->\n          <div class=\"row\">\n              <div class=\"col-md-4\">\n                <div class=\"form-group\">\n                    <button class=\"btn btn-block btn-primary\" \n                     type=\"submit\" [disabled]=\"!sessionForm.valid\" tabindex=\"5\" >Submit</button>\n                </div>\n              </div>\n              <div class=\"col-md-2\">\n                  <div class=\"form-group\">\n                      <button class=\"btn btn-block btn-warning\" \n                      (click)=\"onResetCreateSessionForm()\" tabindex=\"6\" >Clear</button>\n                  </div>\n                </div>\n                <div class=\"col-md-2\">\n                    <div class=\"form-group\">\n                        <a routerLink = \"/dashboard\" class=\"btn btn-block btn-danger\">Cancel</a>\n                    </div>\n                    <!-- //TODO This should go back to client/:id -->\n                  </div>\n          </div>     \n        </div>\n    </div>\n  </div>\n</section>\n</form>   \n\n "
 
 /***/ }),
 
@@ -768,9 +812,12 @@ module.exports = "<form [formGroup]=\"sessionForm\" (ngSubmit)=\"onSubmit()\">\n
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SessionComponent", function() { return SessionComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _utility_utility__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utility/utility */ "./src/app/utility/utility.ts");
+/* harmony import */ var _model_psy_session__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../model/psy-session */ "./src/app/model/psy-session.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _utility_utility__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utility/utility */ "./src/app/utility/utility.ts");
+/* harmony import */ var _sessions_session_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../sessions/session-service */ "./src/app/sessions/session-service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -783,35 +830,59 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
+
 var SessionComponent = /** @class */ (function () {
-    function SessionComponent() {
-        this.clientName = "Namaruk Pinlimas";
-        this.updateMode = false;
+    function SessionComponent(router, route, sessionService) {
+        this.router = router;
+        this.route = route;
+        this.sessionService = sessionService;
+        this.updateMode = true;
+        this.successMessage = false;
     }
     SessionComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.createSessionForm();
+        this.clientId = +this.route.snapshot.params['id'];
+        this.paramSubscription = this.route.params.subscribe(function (params) {
+            _this.clientId = +params['id'];
+        });
+    };
+    SessionComponent.prototype.ngOnDestroy = function () {
+        this.paramSubscription.unsubscribe();
+        this.createSessionSubscription.unsubscribe();
     };
     SessionComponent.prototype.createSessionForm = function () {
-        this.sessionForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormGroup"]({
-            'sessionDate': new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required, _utility_utility__WEBPACK_IMPORTED_MODULE_2__["Utility"].validDate.bind(this)]),
-            'followupDate': new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"](null, _utility_utility__WEBPACK_IMPORTED_MODULE_2__["Utility"].validDate.bind(this)),
-            'impression': new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"](null),
-            'feedback': new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"](null)
+        this.sessionForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
+            'sessionDate': new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _utility_utility__WEBPACK_IMPORTED_MODULE_4__["Utility"].validDate.bind(this)]),
+            'followupDate': new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, _utility_utility__WEBPACK_IMPORTED_MODULE_4__["Utility"].validDate.bind(this)),
+            'impression': new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null),
+            'feedback': new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null)
         });
     };
     SessionComponent.prototype.onSubmit = function () {
-        console.log(this.sessionForm.value);
+        var _this = this;
+        console.log(this.sessionForm.value['sessionDate']);
+        console.log('client Id ', this.clientId);
+        var sessionObj = new _model_psy_session__WEBPACK_IMPORTED_MODULE_0__["PsySession"](null, this.clientId, null, this.sessionForm.value['sessionDate'], this.sessionForm.value['followupDate'], this.sessionForm.value['impression'], this.sessionForm.value['feedback']);
+        console.log(sessionObj._clientId);
+        console.log(sessionObj._sessionDate);
+        this.createSessionSubscription = this.sessionService.createSession(sessionObj).subscribe(function (session) {
+            _this.onResetCreateSessionForm();
+            _this.router.navigate(['../'], { relativeTo: _this.route });
+        }, function (error) { return _this.errorMessage = error; });
     };
     SessionComponent.prototype.onResetCreateSessionForm = function () {
         this.createSessionForm();
     };
     SessionComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-session',
             template: __webpack_require__(/*! ./session.component.html */ "./src/app/client/session/session.component.html"),
             styles: [__webpack_require__(/*! ./session.component.css */ "./src/app/client/session/session.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"], _sessions_session_service__WEBPACK_IMPORTED_MODULE_5__["SessionService"]])
     ], SessionComponent);
     return SessionComponent;
 }());
@@ -896,7 +967,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var rxjs_Rx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/Rx */ "./node_modules/rxjs-compat/_esm5/Rx.js");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var rxjs_Observable__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/Observable */ "./node_modules/rxjs-compat/_esm5/Observable.js");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../environments/environment */ "./src/environments/environment.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -911,20 +983,32 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var ClientsService = /** @class */ (function () {
     function ClientsService(httpClient) {
         this.httpClient = httpClient;
     }
     ClientsService.prototype.searchClient = function (f, l) {
         var params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpParams"]().set('fname', f).set('lname', l).set('search-by', 'name');
-        return this.httpClient.get("" + _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].apiUrl + '/clients/search/', { params: params });
+        return this.httpClient.get("" + _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].apiUrl + '/clients/search/', { params: params });
     };
     ClientsService.prototype.findUpcomingSessions = function () {
-        return this.httpClient.get("" + _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].apiUrl + '/psy-session/upcoming/');
+        return this.httpClient.get("" + _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].apiUrl + '/psy-session/upcoming/')
+            .flatMap(function (sess) { return sess; })
+            .flatMap(function (ses) { return rxjs_Observable__WEBPACK_IMPORTED_MODULE_3__["Observable"].of(ses); });
     };
     ClientsService.prototype.findClientById = function (clientId) {
         var params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpParams"]().set('id', '' + clientId).set('search-by', 'id');
-        return this.httpClient.get("" + _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].apiUrl + '/clients/search/', { params: params });
+        return this.httpClient.get("" + _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].apiUrl + '/clients/search/', { params: params });
+    };
+    ClientsService.prototype.findSessionsByClientId = function (clientId) {
+        return this.httpClient.get("" + _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].apiUrl + '/psy-session/' + clientId)
+            .flatMap(function (sess) { return sess; })
+            .flatMap(function (ses) { return rxjs_Observable__WEBPACK_IMPORTED_MODULE_3__["Observable"].of(ses); });
+    };
+    ClientsService.prototype.addClient = function (client) {
+        console.log('Inside addClient in service ');
+        return this.httpClient.post("" + _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].apiUrl + '/clients/', client);
     };
     ClientsService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
@@ -1194,7 +1278,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<header class=\"main-header\">\n  <nav class=\"navbar navbar-static-top\">\n    <ul class=\"navbar-nav\">\n      <!-- <li class=\"nav-item\">\n        <a href=\"#\" class=\"sidebar-toggle\" data-toggle=\"push-menu\" role=\"button\"></a>\n      </li> -->\n      <li class=\"nav-item\">\n        <a class=\"nav-link\" data-widget=\"pushmenu\" href=\"#\"><i class=\"fa fa-bars\"></i></a>\n      </li>\n    </ul>\n\n    <ul class=\"navbar-nav ml-auto\">\n      <li>\n        Welcome, Sahana Ray\n      </li>\n    </ul>\n\n  </nav>\n</header>\n\n\n<!-- Navbar \n <nav class=\"main-header-no-sidebar navbar navbar-expand bg-white navbar-light border-bottom\">\n   Left navbar links\n    <ul class=\"navbar-nav\">\n      <li class=\"nav-item\">\n        <a class=\"nav-link\" data-widget=\"pushmenu\" href=\"#\"><i class=\"fa fa-bars\"></i></a>\n      </li>\n      <li class=\"nav-item d-none d-sm-inline-block\">\n        <a routerLink=\"/\" class=\"navbar-brand\">Touching Hand</a>\n      </li>\n    </ul> -->\n\n<!-- Right navbar links \n    <ul class=\"navbar-nav ml-auto\">\n      Welcome, Sahana Ray\n    </ul>\n  </nav>\n  navbar -->"
+module.exports = "<header class=\"main-header\">\n  <nav class=\"navbar navbar-static-top\">\n    <ul class=\"navbar-nav\">\n      <li class=\"nav-item\">\n        <a href=\"#\" class=\"stackbar\" data-toggle=\"push-menu\" role=\"button\">\n          <i class=\"fa fa-bars\"></i>\n        </a>\n      </li>\n      <!-- <li class=\"nav-item\">\n        <a class=\"nav-link\" data-widget=\"pushmenu\" href=\"#\"><i class=\"fa fa-bars\"></i></a>\n      </li> -->\n    </ul>\n\n    <ul class=\"navbar-nav ml-auto\">\n      <li>\n        Welcome, Sahana Ray\n      </li>\n    </ul>\n\n  </nav>\n</header>\n\n\n<!-- Navbar \n <nav class=\"main-header-no-sidebar navbar navbar-expand bg-white navbar-light border-bottom\">\n   Left navbar links\n    <ul class=\"navbar-nav\">\n      <li class=\"nav-item\">\n        <a class=\"nav-link\" data-widget=\"pushmenu\" href=\"#\"><i class=\"fa fa-bars\"></i></a>\n      </li>\n      <li class=\"nav-item d-none d-sm-inline-block\">\n        <a routerLink=\"/\" class=\"navbar-brand\">Touching Hand</a>\n      </li>\n    </ul> -->\n\n<!-- Right navbar links \n    <ul class=\"navbar-nav ml-auto\">\n      Welcome, Sahana Ray\n    </ul>\n  </nav>\n  navbar -->"
 
 /***/ }),
 
@@ -1233,6 +1317,69 @@ var HeaderComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], HeaderComponent);
     return HeaderComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/model/psy-session.ts":
+/*!**************************************!*\
+  !*** ./src/app/model/psy-session.ts ***!
+  \**************************************/
+/*! exports provided: PsySession */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PsySession", function() { return PsySession; });
+var PsySession = /** @class */ (function () {
+    function PsySession(_sessionId, _clientId, _client, _sessionDate, _followupDate, _impression, _feedback) {
+        this.sessionId = _sessionId;
+        this.clientId = _clientId;
+        this.client = _client;
+        this.sessionDate = _sessionDate;
+        this.followupDate = _followupDate;
+        this.impression = _impression;
+        this.feedback = _feedback;
+    }
+    Object.defineProperty(PsySession.prototype, "_sessionId", {
+        get: function () { return this.sessionId; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(PsySession.prototype, "_clientId", {
+        get: function () { return this.clientId; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(PsySession.prototype, "_client", {
+        get: function () { return this.client; },
+        set: function (_c) { console.log('setting client: ', _c); this.client = _c; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(PsySession.prototype, "_sessionDate", {
+        get: function () { return this.sessionDate; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(PsySession.prototype, "_followupDate", {
+        get: function () { return this.followupDate; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(PsySession.prototype, "_impression", {
+        get: function () { return this.impression; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(PsySession.prototype, "_feedback", {
+        get: function () { return this.feedback; },
+        enumerable: true,
+        configurable: true
+    });
+    return PsySession;
 }());
 
 
@@ -1302,6 +1449,51 @@ var PageNotFoundComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/pipes/full-gender.pipe.ts":
+/*!*******************************************!*\
+  !*** ./src/app/pipes/full-gender.pipe.ts ***!
+  \*******************************************/
+/*! exports provided: FullGenderPipe */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FullGenderPipe", function() { return FullGenderPipe; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var FullGenderPipe = /** @class */ (function () {
+    function FullGenderPipe() {
+    }
+    FullGenderPipe.prototype.transform = function (value) {
+        if (value === 'M') {
+            return 'Male';
+        }
+        else if (value === 'F') {
+            return 'Female';
+        }
+        else if (value === 'O') {
+            return 'Other';
+        }
+        return null;
+    };
+    FullGenderPipe = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Pipe"])({
+            name: 'fullGender'
+        })
+    ], FullGenderPipe);
+    return FullGenderPipe;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/pipes/fuppercase.pipe.ts":
 /*!******************************************!*\
   !*** ./src/app/pipes/fuppercase.pipe.ts ***!
@@ -1334,6 +1526,191 @@ var FuppercasePipe = /** @class */ (function () {
         })
     ], FuppercasePipe);
     return FuppercasePipe;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/pipes/shorten.pipe.ts":
+/*!***************************************!*\
+  !*** ./src/app/pipes/shorten.pipe.ts ***!
+  \***************************************/
+/*! exports provided: ShortenPipe */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ShortenPipe", function() { return ShortenPipe; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var ShortenPipe = /** @class */ (function () {
+    function ShortenPipe() {
+    }
+    ShortenPipe.prototype.transform = function (value, limit) {
+        if (value.length > limit) {
+            return value.substr(0, limit) + '...';
+        }
+        return value;
+    };
+    ShortenPipe = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Pipe"])({
+            name: 'shorten'
+        })
+    ], ShortenPipe);
+    return ShortenPipe;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/pipes/sort.pipe.ts":
+/*!************************************!*\
+  !*** ./src/app/pipes/sort.pipe.ts ***!
+  \************************************/
+/*! exports provided: SortPipe */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SortPipe", function() { return SortPipe; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var SortPipe = /** @class */ (function () {
+    function SortPipe() {
+    }
+    SortPipe.prototype.transform = function (value, sortType, propName) {
+        if (value.length == 0 || sortType.length === 0)
+            return value;
+        var result = [];
+        return value.sort(function (a, b) {
+            if (sortType === 'asc') {
+                return a > b ? 1 : -1;
+            }
+            else if (sortType === 'desc') {
+                return b > a ? 1 : -1;
+            }
+        });
+        // if(sortType === 'asc') {
+        //   result = value.sort((a, b) => a - b);
+        // } else if(sortType === 'desc') {
+        //   result = value.sort((a, b) => b - a);
+        // }
+        // return result;
+    };
+    SortPipe = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Pipe"])({
+            name: 'sort'
+        })
+    ], SortPipe);
+    return SortPipe;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/pipes/status-transform.pipe.ts":
+/*!************************************************!*\
+  !*** ./src/app/pipes/status-transform.pipe.ts ***!
+  \************************************************/
+/*! exports provided: StatusTransformPipe */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StatusTransformPipe", function() { return StatusTransformPipe; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var StatusTransformPipe = /** @class */ (function () {
+    function StatusTransformPipe() {
+    }
+    StatusTransformPipe.prototype.transform = function (value) {
+        if (value === 'Y') {
+            return 'Ongoing';
+        }
+        else if (value === 'C') {
+            return 'Closed';
+        }
+        else if (value === 'L') {
+            return 'Left';
+        }
+        else if (value === 'M') {
+            return 'Married';
+        }
+        else if (value === 'U') {
+            return 'Unmarried';
+        }
+        return null;
+    };
+    StatusTransformPipe = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Pipe"])({
+            name: 'statusTransform'
+        })
+    ], StatusTransformPipe);
+    return StatusTransformPipe;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/sessions/session-service.ts":
+/*!*********************************************!*\
+  !*** ./src/app/sessions/session-service.ts ***!
+  \*********************************************/
+/*! exports provided: SessionService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SessionService", function() { return SessionService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../environments/environment */ "./src/environments/environment.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var SessionService = /** @class */ (function () {
+    function SessionService(httpClient) {
+        this.httpClient = httpClient;
+    }
+    SessionService.prototype.createSession = function (session) {
+        return this.httpClient.post("" + _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].apiUrl + '//psy-session/', session);
+    };
+    SessionService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+    ], SessionService);
+    return SessionService;
 }());
 
 
@@ -1681,7 +2058,8 @@ var Utility = /** @class */ (function () {
     }
     Utility.validDate = function (control) {
         var datePattern = /^(0[1-9]|[12][0-9]|3[01])[\/](0[1-9]|1[012])[\/](19|20)\d\d$/;
-        if (control.value !== null && !control.value.match(datePattern)) {
+        var datePattern2 = /^(19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/;
+        if (control.value !== null && !control.value.match(datePattern2)) {
             return { 'incorrectDate': true };
         }
         return null; //in case of valid value send null, not false!

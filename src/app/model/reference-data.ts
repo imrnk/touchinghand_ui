@@ -1,27 +1,27 @@
 export class ReferenceData {
-    private _referenceTypeId: number;	
-    private _referenceDataGroup: number;
-    private _referenceDataType: string;	
-    private _referenceKey: string;	
-    private _referenceValue: string;
+    private referenceTypeId: number;	
+    private referenceDataGroup: number;
+    private referenceDataType: string;	
+    private referenceKey: string;	
+    private referenceValue: string;
     
     constructor(
-         referenceTypeId: number,	
-         referenceDataGroup: number,	
-         referenceDataType: string,	
-         referenceKey: string,	
-         referenceValue: string
+         _referenceTypeId: number,	
+         _referenceDataGroup: number,	
+         _referenceDataType: string,	
+         _referenceKey: string,	
+         _referenceValue: string
     ) {
-        this._referenceTypeId = referenceTypeId;	
-        this._referenceDataGroup = referenceDataGroup;	
-        this._referenceDataType = referenceDataType;	
-        this._referenceKey = referenceKey;	
-        this._referenceValue = referenceValue;
+        this.referenceTypeId = _referenceTypeId;	
+        this.referenceDataGroup = _referenceDataGroup;	
+        this.referenceDataType = _referenceDataType;	
+        this.referenceKey = _referenceKey;	
+        this.referenceValue = _referenceValue;
     }
 
-    get referenceTypeId () { return this._referenceTypeId;}	
-    get referenceDataGroup () { return this._referenceDataGroup;}	
-    get referenceDataType () { return this._referenceDataType;}	
-    get referenceKey () { return this._referenceKey;}	
-    get referenceValue () { return this._referenceValue;}
+    get _referenceTypeId () { return this.referenceTypeId;}	
+    get _referenceDataGroup () { return this.referenceDataGroup;}	
+    get _referenceDataType () { return this.referenceDataType;}	
+    get _referenceKey () { return this.referenceKey;}	
+    get _referenceValue () { return this.referenceValue;}
 }

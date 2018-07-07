@@ -23,6 +23,7 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ClientsService } from './clients.service';
+import { SessionService } from './sessions/session-service';
 import { DropdownDirective } from './directive/dropdown.directive';
 import { FuppercasePipe } from './pipes/fuppercase.pipe';
 import { environment } from '../environments/environment';
@@ -31,6 +32,7 @@ import { ShortenPipe } from './pipes/shorten.pipe';
 import { SortPipe } from './pipes/sort.pipe';
 import { StatusTransformPipe } from './pipes/status-transform.pipe';
 import { FullGenderPipe } from './pipes/full-gender.pipe';
+import { NotificationsComponent } from './dashboard/notifications/notifications.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +58,8 @@ import { FullGenderPipe } from './pipes/full-gender.pipe';
     ShortenPipe,
     SortPipe,
     StatusTransformPipe,
-    FullGenderPipe    
+    FullGenderPipe,
+    NotificationsComponent    
   ],
   imports: [
     BrowserModule,    
@@ -65,7 +68,7 @@ import { FullGenderPipe } from './pipes/full-gender.pipe';
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [ClientsService, ErrorInterceptorProvider],
+  providers: [ClientsService, SessionService, ErrorInterceptorProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

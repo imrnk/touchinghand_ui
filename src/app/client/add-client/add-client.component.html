@@ -287,6 +287,7 @@
               <div class="col-md-2">
                   <div class="form-group">
                       <button class="btn btn-block btn-warning" 
+                      button type = "button"
                       (click)="onResetAddClientForm()" tabindex="19">Clear</button>
                   </div>
                 </div>
@@ -307,7 +308,7 @@
           <div class="card-body table-responsive" *ngIf = "successMessage">
             <div class="row">
                 <div class="col-md-12">
-                  <p class="text-red">The client {{savedClient.clientName}} successfully added</p>
+                  <p class="text-green">The client {{savedClient.fname}} {{savedClient.lname}} successfully added</p>
                 </div>
             </div>
           </div>
