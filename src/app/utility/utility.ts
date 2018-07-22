@@ -11,4 +11,12 @@ export class Utility {
         }
         return null; //in case of valid value send null, not false!
       }
+
+      static validMobileNumber(control : FormControl) : {[s:string]: boolean} {
+        let mobilenumberPattern = /([0-9]{10})|(\+[0-9]{2}[-]?[0-9]{10})/;
+        if(control.value !== null && !control.value.match(mobilenumberPattern)) {
+          return {'invalidNumber' : true};
+        }
+        return null; //in case of valid value send null, not false!
+      }  
 }

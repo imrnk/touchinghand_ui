@@ -49,6 +49,7 @@ export class ClientDetailComponent implements OnInit, OnDestroy{
             },
             (error) => this.errorMessage = error
           );
+       
   }
 
   sessionSelect(sessionId : string) {
@@ -56,7 +57,15 @@ export class ClientDetailComponent implements OnInit, OnDestroy{
   }
 
   onNewSession() {
-    this.router.navigate(['session'], {relativeTo:this.route});
+    this.router.navigate(['session'], {relativeTo:this.route, queryParams: {'clientName' : this.searchedClient.clientName}});
+  }
+
+  onNewMSE() {
+    this.router.navigate(['mse'], {relativeTo:this.route, queryParams: {'clientName' : this.searchedClient.clientName}});
+  }
+
+  onNewTreatmentData() {
+    this.router.navigate(['treatment-data'], {relativeTo:this.route, queryParams: {'clientName' : this.searchedClient.clientName}});
   }
 
   sort(property : any) {

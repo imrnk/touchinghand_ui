@@ -14,7 +14,7 @@ export class AddClientComponent implements OnInit , OnDestroy{
   errorMessage: string;
   successMessage = false;
   genders = ['M', 'F', 'O'];
-  maritalstatuses = ['M', 'U'];
+  maritalstatuses = ['M', 'U', 'D', 'W', 'L', 'J'];
   sessionstatuses = ['Y', 'C', 'L'];
   savedClient : {fname : '', lname : ''};
   addClientSubscription : Subscription;
@@ -39,11 +39,11 @@ export class AddClientComponent implements OnInit , OnDestroy{
       'gender' : new FormControl('M'),
       'age' :  new FormControl(null, [Validators.required, Validators.pattern("[1-9]{1}[0-9]+")]),
       'maritalStatus' : new FormControl('M'),  
-      'mobile' : new FormControl(null, [Validators.required, Validators.pattern("[0-9]{10}")]),
+      'mobile' : new FormControl(null, Utility.validMobileNumber.bind(this)),
       'profession' : new FormControl(null, Validators.pattern("[a-zA-Z -.]+")),  
       'education' : new FormControl(null, Validators.pattern("[a-zA-Z -.]+")),
       'reference' : new FormControl(null, Validators.pattern("[a-zA-Z .]+")),
-      'status' : new FormControl('O'),
+      'status' : new FormControl('Y'),
       'followupdate' : new FormControl(null, Utility.validDate.bind(this)),
       'address' : new FormControl(null, Validators.pattern("[0-9a-zA-Z -/\\,.]+")),
       'country' : new FormControl(null, [Validators.required, Validators.pattern("[a-zA-Z ]+")]),

@@ -12,11 +12,7 @@ export class StatusTransformPipe implements PipeTransform {
       return 'Closed';
     } else if (value === 'L') {
       return 'Left';
-    } else if (value === 'M') {
-      return 'Married';
-    } else if (value === 'U') {
-      return 'Unmarried';
-    }
+    } 
     return null;
   }
 

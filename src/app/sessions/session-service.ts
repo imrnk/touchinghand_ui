@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpParams } from "@angular/common/http";
-
+import { GroupedReferenceData } from './../model/grouped-reference-data';
 import { PsySession } from './../model/psy-session';
 import { environment } from '../../environments/environment';
 import { Observable } from "rxjs";
@@ -22,4 +22,8 @@ export class SessionService {
         
     }
     
+    getReferenceDataByGroup(groupId : number) : Observable<GroupedReferenceData>{
+        return this.httpClient.get<GroupedReferenceData[]>(`${environment.apiUrl}${'/ref-data/by-group/'}`+groupId)
+        .flatMap(gData => gData);
+    } 
 }

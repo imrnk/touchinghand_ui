@@ -1,3 +1,69 @@
-<p>
-  mse works!
-</p>
+<div class="content-header">
+  <h3 class="left-half">Add Mental Status Exam for {{ clientName }}</h3>
+</div>
+<section class="content">
+  <div class="container-fluid">
+
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-16">
+            <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+              <div class="form-group" *ngIf="groupedDataComplete">
+                <div class="table-responsive">
+                  <div class="checkbox" *ngFor="let groupedData of groupdataArr; let i=index">
+                    <span class="checkbox-label">
+                      {{ groupedData.referenceDataType | fuppercase : 1 }}
+                    </span>
+                    <label class="checkbox-inline" *ngFor="let rd of groupedData.refData let k=index">
+                      <input type="checkbox" 
+                      [id]="rd.referenceValue" 
+                      ngModel
+                      [name] = "rd.referenceValue"                      
+                      (click) = "onSelectBox(i, k)"
+                      [value]="i-k"> 
+                      
+                      {{rd.referenceValue | fuppercase : 1 }}
+
+                      <input type="text" 
+                      id="{{groupedData.referenceDataType+'-'+rd.referenceValue}}" 
+                      ngModel
+                      [name] = "rd.referenceValue" 
+                      class = "inline-text"
+                        *ngIf = "rd.referenceValue === 'other'"/>
+                    </label>
+                    
+                  </div>
+                  <!-- <table class="table">
+                <tbody>
+                  <tr *ngFor="let groupedData of groupdataArr; let i=index">
+                    <td>
+                      <span class="checkbox-label">
+                        {{ groupedData.referenceDataType | fuppercase : 1 }}
+                      </span>
+                    </td>
+                    <td class="checkbox-horiz" *ngFor="let rd of groupedData.refData let k=index">
+                      <label>
+                        <input type="checkbox" value="rd.referenceValue" /> 
+                        {{rd.referenceValue | fuppercase : 1 }}
+                      </label>
+                    </td>
+                  </tr>
+                </tbody>
+              </table> -->
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12">
+                  <button class="btn btn-success" type="submit" [disabled]="!f.valid">Submit</button>
+                  <button class="btn btn-primary" type="button" (click)="resetForm()">Clear</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>

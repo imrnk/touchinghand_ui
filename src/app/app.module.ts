@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
@@ -33,6 +33,7 @@ import { SortPipe } from './pipes/sort.pipe';
 import { StatusTransformPipe } from './pipes/status-transform.pipe';
 import { FullGenderPipe } from './pipes/full-gender.pipe';
 import { NotificationsComponent } from './dashboard/notifications/notifications.component';
+import { MaritalStatusPipe } from './pipes/marital-status.pipe';
 
 @NgModule({
   declarations: [
@@ -59,14 +60,16 @@ import { NotificationsComponent } from './dashboard/notifications/notifications.
     SortPipe,
     StatusTransformPipe,
     FullGenderPipe,
-    NotificationsComponent    
+    NotificationsComponent,
+    MaritalStatusPipe    
   ],
   imports: [
     BrowserModule,    
     HttpClientModule,
     HttpModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [ClientsService, SessionService, ErrorInterceptorProvider],
   bootstrap: [AppComponent]

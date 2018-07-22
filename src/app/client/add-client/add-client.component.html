@@ -36,7 +36,7 @@
                   <label for="maritalStatus">Marital Status</label>
                   <select class="form-control medium-select" tabindex="5">
                     <option [value]="maritalStatus" 
-                    *ngFor="let maritalstatus of maritalstatuses">{{ maritalstatus | statusTransform }}</option>
+                    *ngFor="let maritalstatus of maritalstatuses">{{ maritalstatus | maritalStatus }}</option>
                   </select>
                 </div>
 
@@ -46,7 +46,8 @@
 
                 <div class="form-group">
                     <label for="lastName">Last Name</label>
-                    <input type="text" id="lastName" formControlName="lastName" class="form-control" tabindex="2">
+                    <input type="text" id="lastName" formControlName="lastName" class="form-control" 
+                    tabindex="2">
   
                     <span *ngIf="addClientForm.get('lastName').touched && 
                                             !addClientForm.get('lastName').valid" class="help-block">
@@ -80,17 +81,17 @@
                         formControlName="mobile" 
                         class="form-control" 
                         tabindex="6"
-                        maxlength="10">
+                        maxlength="14">
       
-                        <span *ngIf="addClientForm.get('mobile').touched && 
-                                          !addClientForm.get('mobile').valid" class="help-block">
-                          <span *ngIf="addClientForm.get('mobile').errors['pattern']">
-                            Not a valid mobile number.
-                          </span>
-                          <span *ngIf="addClientForm.get('mobile').errors['required']">
-                            Mobile number is required!
-                          </span>
+                        <span 
+                        *ngIf="!addClientForm.get('mobile').valid && 
+                        addClientForm.get('mobile').touched"
+                        class="help-block">
+                        <span class="help-block text-danger"
+                        *ngIf="addClientForm.get('mobile').errors['invalidNumber']">
+                          Invalid mobile number!
                         </span>
+                      </span>
                       </div>
             </div> <!-- second column -->
           </div>  <!-- row -->
@@ -104,10 +105,12 @@
                   
                     <div class="form-group">
                         <label for="reference">Reference</label>
-                        <input type="text" id="reference" formControlName="reference" class="form-control" tabindex="7">
+                        <input type="text" id="reference" formControlName="reference" 
+                        class="form-control" tabindex="7">
       
                         <span *ngIf="addClientForm.get('reference').touched && 
-                                                !addClientForm.get('reference').valid" class="help-block">
+                                                !addClientForm.get('reference').valid" 
+                                                class="help-block">
                             Please add the name who referred here
                         </span>
                       </div>
