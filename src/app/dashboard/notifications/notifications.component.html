@@ -1,66 +1,46 @@
-  <div class="card card-default">
-    <div class="card-header">
-      <h3 class="card-title">
-        <i class="fa fa-warning"></i>
-        Notifications
-      </h3>
-    </div>
-    <!-- /.card-header -->
-    <div class="card-body">
-      <!-- Info Boxes Style 2 -->
-      <div class="info-box mb-3 bg-warning">
-        <span class="info-box-icon">
-          <i class="fa fa-tag"></i>
-        </span>
-
-        <div> <!-- class="info-box-content"-->
-          <span>Yet to Start Sessions</span>
-          <table class="table table-hover" *ngIf = "noSessionClientFound">
-              <tr> 
-                  <th>Client Name</th>                      
-                  <th>Follow Up Date</th>
-              </tr>
-              <tr *ngFor='let client of clientsWithNoSession'>
-                  <td>
-                    <a [routerLink] = "['/client', client.clientId]"
-                    style="cursor: pointer">{{ client.clientName }}</a>
-                  </td>
-                  <td>
-                    {{ client.followupdate }}
-                  </td>
-              </tr>                  
-          </table>
-          <p *ngIf="!noSessionClientFound"> {{ errorMessageNoSession }}</p>
-        </div>
-        <!-- /.info-box-content -->
-      </div>
-      <div class="info-box mb-3 bg-danger">
-        <span class="info-box-icon">
-          <i class="fa fa-cloud-download"></i>
-        </span>
-
-        <div> <!-- class="info-box-content"-->
-          <span>Crossed Follow Up Date</span>
-          <table class="table table-hover" *ngIf = "crossedFollowupClientFound">
-              <tr> 
-                  <th>Client Name</th>                      
-                  <th>Follow Up Date</th>
-              </tr>
-              <tr *ngFor='let client of clientsCrossedFollowup'>
-                  <td>
-                    <a [routerLink] = "['/client', client.clientId]"
-                    style="cursor: pointer">{{ client.clientName }}</a>
-                  </td>
-                  <td>
-                    {{ client.followupdate }}
-                  </td>
-              </tr>                  
-          </table>
-          <p *ngIf="!crossedFollowupClientFound"> {{ errorMessageCrossedFollowup }}</p>
-        </div>
-        <!-- /.info-box-content -->
-        
-      </div>
-      <!-- /.info-box -->
-    </div>
+<div class="card card-default">
+  <div class="card-header">
+    <h3 class="card-title">
+      <i class="fa fa-bell-o"></i>
+      Notifications
+    </h3>
   </div>
+  <!-- /.card-header -->
+  <div class="card-body">
+    <!-- Info Boxes Style 2 -->
+    <div class="info-box mb-3 bg-warning">
+      <span class="info-box-icon">
+        <i class="fa fa-circle-o-notch"></i>
+      </span>
+
+      <div style="margin-left: 10px"> <!-- class="info-box-content"-->
+        <h3>Yet to Start Sessions</h3>
+        <ul class="list-unstyled">
+          <li *ngFor='let client of clientsWithNoSession'>
+          <span> <a [routerLink] = "['/client', client.clientId]"
+            style="cursor: pointer; text-decoration: underline">{{ client.clientName }} {{ client.followupdate }}</a></span>
+          </li>
+        </ul>
+        <p *ngIf="!noSessionClientFound"> {{ errorMessageNoSession }}</p>
+      </div>
+      <!-- /.info-box-content -->
+    </div>
+    <div class="info-box mb-3 bg-danger">
+      <span class="info-box-icon">
+        <i class="fa fa-hourglass-end"></i>
+      </span>
+      <div style="margin-left: 10px"> <!-- class="info-box-content"-->
+        <h3>Crossed Follow Up</h3>
+        <ul class="list-unstyled">
+          <li *ngFor='let client of clientsCrossedFollowup'>
+          <span> <a [routerLink] = "['/client', client.clientId]"
+            style="cursor: pointer">{{ client.clientName }} ({{ client.followupdate }})</a></span>
+          </li>
+        </ul>
+        <p *ngIf="!crossedFollowupClientFound"> {{ errorMessageCrossedFollowup }}</p>
+      </div>
+      <!-- /.info-box-content -->
+    </div>
+    <!-- /.info-box -->
+  </div>
+</div>

@@ -23,7 +23,7 @@
           <div class="card card-default">
             <div class="card-header">
               <h3 class="card-title">
-                <i class="fa fa-warning"></i>
+                <i class="fa fa-heartbeat"></i>
                 Ongoing Sessions
               </h3>
             </div>
@@ -32,21 +32,18 @@
               <table class="table table-hover">
                   <tr> 
                       <th>Client Name</th>                      
-                      <th>Session Date <i class="fa fa-sort-amount-asc" aria-hidden="true"></i>
-                      </th>                          
                       <th>Follow Up Date <i class="fa fa-sort-amount-asc" aria-hidden="true"></i>
                       </th>
                   </tr>
-                  <tr *ngFor='let psySession of upcomingSessions'>
+                  <tr *ngFor='let client of upcomingSessionsClients'>
                       <td>
                         <a
-                        [routerLink] = "['/client', psySession.client.clientId]"
+                        [routerLink] = "['/client', client.clientId]"
                         style="cursor: pointer">
-                        {{ psySession.client.clientName }}
+                        {{ client.clientName }}
                       </a>
                       </td>
-                      <td>{{  psySession.sessionDate }}</td>
-                      <td>{{  psySession.followupDate }}</td>
+                      <td>{{  client.followupdate }}</td>
                      
                   </tr>                        
               </table>

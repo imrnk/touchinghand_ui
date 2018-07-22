@@ -23,6 +23,11 @@
                                         First name is required in search!
                                     </span>
                                 </span>
+                                <span *ngIf="(searchClientForm.get('firstName').touched
+                                    || searchClientForm.get('lastName').touched)
+                                    && !searchClientForm.valid" class="help-block">
+                                    At least one of the name is required in search!
+                                </span>
                             </div>
                         </div>
                         <span class="left-onehalf"></span>
@@ -85,14 +90,14 @@
         <div class="box-header">
             Search Result
         </div>
-        <div class="box-body table-responsive no-padding" *ngIf = "clientSearchComplete">
+        <div class="box-body table-responsive no-padding" *ngIf = "clientSearchResultFound">
                 <table class="table table-hover">
                         <tr>
                           <th>Name</th>                          
                           <th>Follow Up Date</th>                          
                           <th>Status</th>
                         </tr>
-                        <tr>
+                        <tr *ngFor="let searchedClient of searchedClients">
                           <td>
                             <a [routerLink] = "['../', searchedClient.clientId]">{{ searchedClient.clientName }}</a>
                           </td>                          
@@ -116,17 +121,18 @@
                     <th>Follow Up Date</th>                          
                     <th>Status</th>
                 </tr>
-                <tr *ngFor='let psySession of searchedUpcomingSessions'>
+                <tr *ngFor='let client of 
+                this.searchedUpcomingFollowUpDateOfClients'>
                     <td>
-                        <a [routerLink] = "['../', psySession.client.clientId]">{{ psySession.client.clientName }}</a>
+                        <a [routerLink] = "['../', client.clientId]">{{ client.clientName }}</a>
                     </td>                          
-                    <td>{{  psySession.followupDate }}</td>
+                    <td>{{  client.followupdate }}</td>
                     <td>
                     <span 
-                    [ngClass]="psySession.client.status === 'Y' ? 'label label-success' : 
-                                (psySession.client.status === 'C' ? 'label label-primary' : 
+                    [ngClass]="client.status === 'Y' ? 'label label-success' : 
+                                (client.status === 'C' ? 'label label-primary' : 
                                 'label label-warning' )">
-                    {{ psySession.client.status }}
+                    {{ client.status }}
                     </span></td>
                 </tr>                        
             </table>

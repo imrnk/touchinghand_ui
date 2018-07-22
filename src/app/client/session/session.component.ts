@@ -6,6 +6,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { Utility } from '../../utility/utility';
 import { SessionService } from './../../sessions/session-service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-session',
@@ -23,11 +24,15 @@ export class SessionComponent implements OnInit, OnDestroy {
   errorMessage: string;
   successMessage = false;
 
-  constructor(private router : Router, private route: ActivatedRoute, private sessionService : SessionService) { }
+  constructor(private router : Router, private route: ActivatedRoute, 
+    private sessionService : SessionService) { }
 
   ngOnInit() {
     this.createSessionForm();
     this.clientId = +this.route.snapshot.params['id'];
+
+    this.clientName = this.route.snapshot.queryParamMap.get('clientName');
+
     this.paramSubscription = this.route.params.subscribe(
       (params : Params) => {
         this.clientId = +params['id'];

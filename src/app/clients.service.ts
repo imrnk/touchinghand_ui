@@ -13,15 +13,10 @@ export class ClientsService {
 
     constructor(private httpClient: HttpClient) {}
 
-    searchClient(f : string, l : string) {
+    searchClient(f : string, l : string) : Observable<Client> {
         let params = new HttpParams().set('fname', f).set('lname', l).set('search-by', 'name');
-        return this.httpClient.get<Client>(`${environment.apiUrl}${'/clients/search/'}`, {params})
-    }
-
-    findUpcomingSessions() : Observable<PsySession>{
-        return this.httpClient.get(`${environment.apiUrl}${'/psy-session/upcoming/'}`)
-        .flatMap((sess : PsySession[]) => sess)
-        .flatMap(ses => Observable.of(ses));
+        return this.httpClient.get<Client[]>(`${environment.apiUrl}${'/clients/search/'}`, {params})
+        .flatMap(client => client);
     }
 
     findClientById(clientId : number) {

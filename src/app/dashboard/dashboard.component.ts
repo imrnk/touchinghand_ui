@@ -3,6 +3,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { SessionService } from './../sessions/session-service';
+import { Client } from '../model/client';
 
 
 @Component({
@@ -12,7 +13,7 @@ import { SessionService } from './../sessions/session-service';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
-  upcomingSessions = new Array<PsySession>();
+  upcomingSessionsClients = new Array<Client>();
   sessionSubscription : Subscription;
   sessionSearchComplete = false;
   errorMessage : string;
@@ -20,14 +21,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
   constructor(private sessionService : SessionService) { }
 
   ngOnInit() {
-
     this.sessionSubscription = this.sessionService.upcomingSessions("10").subscribe(
-      (session) => {
-        this.upcomingSessions.push(session);
+      (client) => {
+        this.upcomingSessionsClients.push(client);
         this.sessionSearchComplete = true;
       }, 
       (error) => this.errorMessage = "No upcoming sessions for now..."
-    )
+    );
   }
 
   ngOnDestroy() {
