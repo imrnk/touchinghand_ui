@@ -12,10 +12,33 @@
               <div class="form-group" *ngIf="groupedDataComplete">
                 <div class="table-responsive">
                   <div class="checkbox" *ngFor="let groupedData of groupdataArr; let i=index">
-                    <span class="checkbox-label">
+                    <span class="checkbox-label checkbox-name">
                       {{ groupedData.referenceDataType | fuppercase : 1 }}
                     </span>
-                    <label class="checkbox-inline" *ngFor="let rd of groupedData.refData let k=index">
+                    <ul class="checkbox-grid">
+                      <li *ngFor="let rd of groupedData.refData let k=index">
+                        <label class="boxitem">
+                          <input type="checkbox" 
+                            [id]="rd.referenceValue" 
+                            ngModel
+                            [name] = "rd.referenceValue"                      
+                            (click) = "onSelectBox(i, k)"
+                            [value]="i-k"> 
+                            
+                            {{rd.referenceValue | fuppercase : 1 }}
+                        </label>
+
+                        <input type="text" 
+                              id="{{groupedData.referenceDataType+'-'+rd.referenceValue}}" 
+                              ngModel
+                              [name] = "rd.referenceValue" 
+                              class = "inline-text"
+                              *ngIf = "rd.referenceValue === 'other'"/>
+
+                      </li>
+                    </ul>
+                    <!-- <label class="checkbox-inline" *ngFor="let rd of groupedData.refData let k=index">
+                     
                       <input type="checkbox" 
                       [id]="rd.referenceValue" 
                       ngModel
@@ -24,14 +47,14 @@
                       [value]="i-k"> 
                       
                       {{rd.referenceValue | fuppercase : 1 }}
-
+                    
                       <input type="text" 
                       id="{{groupedData.referenceDataType+'-'+rd.referenceValue}}" 
                       ngModel
                       [name] = "rd.referenceValue" 
                       class = "inline-text"
                         *ngIf = "rd.referenceValue === 'other'"/>
-                    </label>
+                    </label> -->
                     
                   </div>
                   <!-- <table class="table">
