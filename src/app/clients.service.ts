@@ -1,3 +1,5 @@
+//import { environment } from './../environments/environment.prod';
+import { ClientMse } from './model/client-mse';
 import { PsySession } from './model/psy-session';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
@@ -33,6 +35,10 @@ export class ClientsService {
 
     addClient(client : Client) : Observable<Client> {
         return this.httpClient.post<Client>(`${environment.apiUrl}${'/clients/'}`, client);
+    }
+
+    addClientMse(clientMse : ClientMse) : Observable<ClientMse> {
+        return this.httpClient.post<ClientMse>(`${environment.apiUrl}${'/clients/mse/'}`+clientMse.clientId, clientMse);
     }
 
     findClientsWithNoSessions() : Observable<Client> {
