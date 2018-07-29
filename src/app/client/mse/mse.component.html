@@ -7,22 +7,6 @@
     <div class="card">
       <div class="card-body">
 
-          <div class="card-body table-responsive" *ngIf = "errorMessage">
-              <div class="row">
-                  <div class="col-md-12">
-                    <p class="text-red">{{errorMessage}}</p>
-                  </div>
-              </div>
-            </div>
-            <div class="card-body table-responsive" *ngIf = "successMessage">
-              <div class="row">
-                  <div class="col-md-12">
-                    <p class="text-green">The MSE Record is successfully added.</p>
-                  </div>
-              </div>
-            </div>
-
-
         <div class="row">
           <div class="col-md-16">
             <form (ngSubmit)="onSubmit(f)" #f="ngForm">
@@ -40,7 +24,7 @@
                             ngModel
                             tabindex="i+k"
                             [name] = "rd.referenceValue"                      
-                            (click) = "onSelectBox(i, k)"
+                            (click) = "onSelectBox(i, k, this)"
                             [value]="i-k"> 
                             
                             {{rd.referenceValue | fuppercase : 1 }}
@@ -56,51 +40,49 @@
 
                       </li>
                     </ul>
-                    <!-- <label class="checkbox-inline" *ngFor="let rd of groupedData.refData let k=index">
-                     
-                      <input type="checkbox" 
-                      [id]="rd.referenceValue" 
-                      ngModel
-                      [name] = "rd.referenceValue"                      
-                      (click) = "onSelectBox(i, k)"
-                      [value]="i-k"> 
-                      
-                      {{rd.referenceValue | fuppercase : 1 }}
-                    
-                      <input type="text" 
-                      id="{{groupedData.referenceDataType+'-'+rd.referenceValue}}" 
-                      ngModel
-                      [name] = "rd.referenceValue" 
-                      class = "inline-text"
-                        *ngIf = "rd.referenceValue === 'other'"/>
-                    </label> -->
-                    
                   </div>
-                  <!-- <table class="table">
-                <tbody>
-                  <tr *ngFor="let groupedData of groupdataArr; let i=index">
-                    <td>
-                      <span class="checkbox-label">
-                        {{ groupedData.referenceDataType | fuppercase : 1 }}
-                      </span>
-                    </td>
-                    <td class="checkbox-horiz" *ngFor="let rd of groupedData.refData let k=index">
-                      <label>
-                        <input type="checkbox" value="rd.referenceValue" /> 
-                        {{rd.referenceValue | fuppercase : 1 }}
-                      </label>
-                    </td>
-                  </tr>
-                </tbody>
-              </table> -->
                 </div>
               </div>
+
               <div class="row">
-                <div class="col-xs-12">
-                  <button class="btn btn-success" type="submit" [disabled]="!f.valid">Submit</button>
-                  <button class="btn btn-primary" type="button" (click)="resetForm()">Clear</button>
+                <div class="col-md-4">
+                  <div class="form-group">
+                      <button class="btn btn-block btn-primary" 
+                       type="submit" 
+                       [disabled]="!f.valid" 
+                       tabindex="{{lastTabIndex + 1}}">Submit</button>
+                  </div>
                 </div>
-              </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <button class="btn btn-block btn-warning" 
+                        button type = "button"
+                        (click)="resetForm()" tabindex="{{lastTabIndex + 2}}">Clear</button>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                      <div class="form-group">
+                        <button class="btn btn-block btn-danger" 
+                        button type = "button"
+                        (click)="onCancel()" tabindex="{{lastTabIndex + 3}}">Cancel</button>
+                      </div>
+                    </div>
+
+                    <div class="card-body table-responsive" *ngIf = "errorMessage">
+                      <div class="row" *ngIf = "errorMessage"> 
+                          <div class="col-md-12">
+                            <p class="text-red">{{errorMessage}}</p>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="card-body table-responsive" *ngIf = "successMessage">
+                      <div class="row" *ngIf = "errorMessage"> 
+                          <div class="col-md-12">
+                            <p class="text-green">The MSE Record is successfully added.</p>
+                          </div>
+                      </div>
+                    </div>
+            </div>
             </form>
           </div>
         </div>
