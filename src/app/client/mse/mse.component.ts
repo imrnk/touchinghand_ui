@@ -28,6 +28,7 @@ export class MseComponent implements OnInit, OnDestroy {
   otherComments : string[];
   commentBoxCount = 0;
   clientMse = new ClientMse();
+  checked : boolean[][] = Array(17).fill(false).map(x => Array(10).fill(false));
   appearances: string[] = [];
   speeches : string[] = [];
   eyeContacts : string[] = [];
@@ -61,7 +62,13 @@ export class MseComponent implements OnInit, OnDestroy {
         this.commentBoxCount += groupedData.refData.filter(rd => rd.referenceValue === 'other').length;
       }, 
       (error) => {},
-      () => {this.otherComments = new Array(this.commentBoxCount).fill('')}
+      () => {
+              this.otherComments = new Array(this.commentBoxCount).fill('');
+              
+              // this.checked = this.groupdataArr
+              //   .map(gd => Array<boolean>(this.groupdataArr.length).fill(false)
+              //   .map(x => Array<boolean>(gd.refData.length).fill(false)));
+            }
     );
   }
 
@@ -71,55 +78,129 @@ export class MseComponent implements OnInit, OnDestroy {
   }
 
   onSelectBox(i : number, k : number, elem : HTMLInputElement) {
-   
+    const insert = (arr, index, ...newItems) => [
+      // part of the array before the specified index
+      ...arr.slice(0, index),
+      // inserted items
+      ...newItems,
+      // part of the array after the specified index
+      ...arr.slice(index)
+    ]
     let refData = this.groupdataArr[i].refData[k];
-    
+    console.log(refData);
     if(refData.referenceTypeId === 1 && refData.referenceValue !== 'other'){
-      if(elem.checked){
-        this.appearances.push(refData.referenceValue);
+      console.log(this.checked, i, k, this.checked[i][k]);
+      if(this.checked[i][k]){
+        //insert(this.appearances, k, refData.referenceValue);
+        this.appearances = this.appearances.splice(k,0, refData.referenceValue);
+        console.log(k, refData.referenceValue, this.appearances);
       } else {
-        this.appearances.pop();
+        this.appearances.slice(k, 1);
+        console.log(this.appearances);
       }
-      
     } else if(refData.referenceTypeId === 2 && refData.referenceValue !== 'other') {
-     this.speeches.push(refData.referenceValue);      
+      if(elem.checked){
+        insert(this.speeches, k, refData.referenceValue);        
+      } else {
+        this.appearances.slice(k, 1);
+      }
     } else if(refData.referenceTypeId === 3 && refData.referenceValue !== 'other') {
-     this.eyeContacts.push(refData.referenceValue);      
+      if(elem.checked){
+        insert(this.eyeContacts, k, refData.referenceValue);
+      } else {
+        this.eyeContacts.slice(k, 1);
+      }
     } else if(refData.referenceTypeId === 4 && refData.referenceValue !== 'other') {
-      this.motorActivities.push(refData.referenceValue);      
+      if(elem.checked){
+        insert(this.motorActivities, k, refData.referenceValue);
+      } else {
+        this.motorActivities.slice(k, 1);
+      }
     }  else if(refData.referenceTypeId === 5 && refData.referenceValue !== 'other') {
-      this.affects.push(refData.referenceValue);      
+      if(elem.checked){
+        insert(this.affects, k, refData.referenceValue);
+      } else {
+        this.affects.slice(k, 1);
+      }
     } else if(refData.referenceTypeId === 6 && refData.referenceValue !== 'other') {
-      this.moods.push(refData.referenceValue);      
+      if(elem.checked){
+        insert(this.moods, k, refData.referenceValue);
+      } else {
+        this.moods.slice(k, 1);
+      }
     } else if(refData.referenceTypeId === 7 && refData.referenceValue !== 'other') {
-      this.orientationImpairment.push(refData.referenceValue);
+      if(elem.checked){
+        insert(this.orientationImpairment, k, refData.referenceValue);
+      } else {
+        this.orientationImpairment.slice(k, 1);
+      }
     } else if(refData.referenceTypeId === 8 && refData.referenceValue !== 'other') {
-      this.memoryImpairment.push(refData.referenceValue);
+      if(elem.checked){
+        insert(this.memoryImpairment, k, refData.referenceValue);
+      } else {
+        this.memoryImpairment.slice(k, 1);
+      }
     } else if(refData.referenceTypeId === 9 && refData.referenceValue !== 'other') {
-      this.attentions.push(refData.referenceValue);
+      if(elem.checked){
+        insert(this.attentions, k, refData.referenceValue);
+      } else {
+        this.attentions.slice(k, 1);
+      }
     } else if(refData.referenceTypeId === 10 && refData.referenceValue !== 'other') {
-      this.hallucinations.push(refData.referenceValue);
+      if(elem.checked){
+        insert(this.hallucinations, k, refData.referenceValue);
+      } else {
+        this.hallucinations.slice(k, 1);
+      }
     } else if(refData.referenceTypeId === 11 && refData.referenceValue !== 'other') {
-      this.perceptionOthers.push(refData.referenceValue);
+      if(elem.checked){
+        insert(this.perceptionOthers, k , refData.referenceValue);
+      } else {
+        this.perceptionOthers.slice(k, 1);
+      }
     } else if(refData.referenceTypeId === 12 && refData.referenceValue !== 'other') {
-      this.suicidiality.push(refData.referenceValue);
+      if(elem.checked){
+        insert(this.suicidiality, k, refData.referenceValue);
+      } else {
+        this.suicidiality.slice(refData.referenceTypeId, 1);
+      }
     } else if(refData.referenceTypeId === 13 && refData.referenceValue !== 'other') {
-      this.homicidiliaty.push(refData.referenceValue);      
+      if(elem.checked){
+        insert(this.homicidiliaty, k, refData.referenceValue);
+      } else {
+        this.homicidiliaty.slice(refData.referenceTypeId, 1);
+      }
     } else if(refData.referenceTypeId === 14 && refData.referenceValue !== 'other') {
-      this.delusions.push(refData.referenceValue);      
+      if(elem.checked){
+        insert(this.delusions, k , refData.referenceValue);
+      } else {
+        this.delusions.slice(refData.referenceTypeId, 1);
+      }
     } else if(refData.referenceTypeId === 15 && refData.referenceValue !== 'other') {
-      this.behaviors.push(refData.referenceValue);
+      if(elem.checked){
+        insert(this.behaviors, k , refData.referenceValue);
+      } else {
+        this.behaviors.slice(refData.referenceTypeId, 1);
+      }
     } else if(refData.referenceTypeId === 16 && refData.referenceValue !== 'other') {
-      this.insights.push(refData.referenceValue);
+      if(elem.checked){
+        insert(this.insights, k , refData.referenceValue);
+      } else {
+        this.insights.slice(k, 1);
+      }
     } else if(refData.referenceTypeId === 17 && refData.referenceValue !== 'other') {
-      this.judgements.push(refData.referenceValue);
+      if(elem.checked){
+        insert(this.judgements, refData.referenceTypeId , refData.referenceValue);
+      } else {
+        this.judgements.slice(k, 1);
+      }
     }
   }
 
 
   onSubmit (form : NgForm) {
 
-//    this.otherComments.forEach(console.log);
+    //this.otherComments.forEach(console.log);
     const reducer = (s1: string, s2: string) => s1 + ',' + s2;
 
     for(var i = 0; i < this.otherComments.length; i++ ){
@@ -189,16 +270,16 @@ export class MseComponent implements OnInit, OnDestroy {
     if(this.judgements  !== null)  
       this.clientMse.judgement = this.judgements.reduce(reducer, '').toString();
    
-    //console.log(JSON.stringify(this.clientMse));
+    console.log(JSON.stringify(this.clientMse));
 
-    this.submitFormSubscription = this.clientService.addClientMse(this.clientMse).subscribe(
-      (clientMSE) => {
-        this.successMessage = true;
-      },
-      (error) => {
-        this.errorMessage = error;
-      }
-    );
+    // this.submitFormSubscription = this.clientService.addClientMse(this.clientMse).subscribe(
+    //   (clientMSE) => {
+    //     this.successMessage = true;
+    //   },
+    //   (error) => {
+    //     this.errorMessage = error;
+    //   }
+    // );
     //this.resetForm();
   }
 

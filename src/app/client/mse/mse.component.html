@@ -21,11 +21,11 @@
                         <label class="boxitem">
                           <input type="checkbox" 
                             [id]="rd.referenceValue" 
-                            ngModel
+                            [ngModel]="checked[i][k]"
                             tabindex="i+k"
                             [name] = "rd.referenceValue"                      
-                            (click) = "onSelectBox(i, k, this)"
-                            [value]="i-k"> 
+                            (click) = "onSelectBox(i, k)"
+                            > 
                             
                             {{rd.referenceValue | fuppercase : 1 }}
                         </label>
