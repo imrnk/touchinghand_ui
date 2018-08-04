@@ -1,5 +1,5 @@
+import { Utility } from './../../utility/utility';
 import { ClientsService } from './../../clients.service';
-import { SortPipe } from './../../pipes/sort.pipe';
 import { ClientMse } from './../../model/client-mse';
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -7,7 +7,8 @@ import { Subscription } from 'rxjs';
 import { FormGroup, FormBuilder, FormControl, NgForm } from '@angular/forms';
 import { SessionService } from './../../sessions/session-service';
 import { GroupedReferenceData } from '../../model/grouped-reference-data';
-import { relative } from 'path';
+
+
 
 @Component({
   selector: 'app-mse',
@@ -28,7 +29,7 @@ export class MseComponent implements OnInit, OnDestroy {
   otherComments : string[];
   commentBoxCount = 0;
   clientMse = new ClientMse();
-  checked : boolean[][] = Array(17).fill(false).map(x => Array(10).fill(false));
+  checked : boolean[][] = new Array(new Array()); //Array(17).fill(false).map(x => Array(10).fill(false));
   appearances: string[] = [];
   speeches : string[] = [];
   eyeContacts : string[] = [];
@@ -59,140 +60,149 @@ export class MseComponent implements OnInit, OnDestroy {
         this.groupdataArr.push(groupedData); 
         this.groupedDataComplete = true;
         this.lastTabIndex = this.groupdataArr.map(gd => gd.refData.length).reduce((a1, a2) => a1 + a2);
-        this.commentBoxCount += groupedData.refData.filter(rd => rd.referenceValue === 'other').length;
+        this.commentBoxCount += groupedData.refData.length; //filter(rd => rd.referenceValue === 'other')
       }, 
       (error) => {},
       () => {
               this.otherComments = new Array(this.commentBoxCount).fill('');
-              
-              // this.checked = this.groupdataArr
-              //   .map(gd => Array<boolean>(this.groupdataArr.length).fill(false)
-              //   .map(x => Array<boolean>(gd.refData.length).fill(false)));
+              for(var out = 0; out < this.groupdataArr.length; out++) {
+                this.checked[out] = new Array();
+                var thisrefData = this.groupdataArr[out].refData;
+                this.checked[out] = Array(thisrefData.length).fill(false);
+              }
             }
     );
   }
 
   onCancel() {
-    console.log('on cancel');
-    this.router.navigate(['../'], {relativeTo : this.route});
+    this.router.navigate(['../'], {relativeTo: this.route});
   }
 
-  onSelectBox(i : number, k : number, elem : HTMLInputElement) {
-    const insert = (arr, index, ...newItems) => [
-      // part of the array before the specified index
-      ...arr.slice(0, index),
-      // inserted items
-      ...newItems,
-      // part of the array after the specified index
-      ...arr.slice(index)
-    ]
+  onSelectBox(i : number, k : number) {
+    
     let refData = this.groupdataArr[i].refData[k];
-    console.log(refData);
+    
     if(refData.referenceTypeId === 1 && refData.referenceValue !== 'other'){
-      console.log(this.checked, i, k, this.checked[i][k]);
-      if(this.checked[i][k]){
-        //insert(this.appearances, k, refData.referenceValue);
-        this.appearances = this.appearances.splice(k,0, refData.referenceValue);
-        console.log(k, refData.referenceValue, this.appearances);
+      //Somehow angular checked and unchecked is working opposite, when 
+      // the checkbox is checked its sending false, and when unchecked its sending true !!!
+      if(!this.checked[i][k]){      
+        this.appearances.splice(k, 0, refData.referenceValue);
       } else {
-        this.appearances.slice(k, 1);
-        console.log(this.appearances);
+        let index = this.appearances.indexOf(refData.referenceValue);
+        this.appearances.splice(index, 1);
       }
-    } else if(refData.referenceTypeId === 2 && refData.referenceValue !== 'other') {
-      if(elem.checked){
-        insert(this.speeches, k, refData.referenceValue);        
+    } 
+    else if(refData.referenceTypeId === 2 && refData.referenceValue !== 'other') {
+      if(!this.checked[i][k]){      
+        this.speeches.splice(k, 0, refData.referenceValue);     
       } else {
-        this.appearances.slice(k, 1);
+        let index = this.speeches.indexOf(refData.referenceValue);
+        this.speeches.splice(index, 1);
       }
     } else if(refData.referenceTypeId === 3 && refData.referenceValue !== 'other') {
-      if(elem.checked){
-        insert(this.eyeContacts, k, refData.referenceValue);
+      if(!this.checked[i][k]){      
+        this.eyeContacts.splice(k, 0, refData.referenceValue);   
       } else {
-        this.eyeContacts.slice(k, 1);
+        let index = this.eyeContacts.indexOf(refData.referenceValue);
+        this.eyeContacts.splice(index, 1);
       }
     } else if(refData.referenceTypeId === 4 && refData.referenceValue !== 'other') {
-      if(elem.checked){
-        insert(this.motorActivities, k, refData.referenceValue);
+      if(!this.checked[i][k]){      
+        this.motorActivities.splice(k, 0, refData.referenceValue);   
       } else {
-        this.motorActivities.slice(k, 1);
+        let index = this.motorActivities.indexOf(refData.referenceValue);
+        this.motorActivities.splice(index, 1);
       }
     }  else if(refData.referenceTypeId === 5 && refData.referenceValue !== 'other') {
-      if(elem.checked){
-        insert(this.affects, k, refData.referenceValue);
+      if(!this.checked[i][k]){      
+        this.affects.splice(k, 0, refData.referenceValue);   
       } else {
-        this.affects.slice(k, 1);
+        let index = this.affects.indexOf(refData.referenceValue);
+        this.affects.splice(index, 1);
       }
     } else if(refData.referenceTypeId === 6 && refData.referenceValue !== 'other') {
-      if(elem.checked){
-        insert(this.moods, k, refData.referenceValue);
+      if(!this.checked[i][k]){      
+        this.moods.splice(k, 0, refData.referenceValue);   
       } else {
-        this.moods.slice(k, 1);
+        let index = this.moods.indexOf(refData.referenceValue);
+        this.moods.splice(index, 1);
       }
     } else if(refData.referenceTypeId === 7 && refData.referenceValue !== 'other') {
-      if(elem.checked){
-        insert(this.orientationImpairment, k, refData.referenceValue);
+      if(!this.checked[i][k]){      
+        this.orientationImpairment.splice(k, 0, refData.referenceValue);   
       } else {
-        this.orientationImpairment.slice(k, 1);
+        let index = this.orientationImpairment.indexOf(refData.referenceValue);
+        this.orientationImpairment.splice(index, 1);
       }
     } else if(refData.referenceTypeId === 8 && refData.referenceValue !== 'other') {
-      if(elem.checked){
-        insert(this.memoryImpairment, k, refData.referenceValue);
+      if(!this.checked[i][k]){      
+        this.memoryImpairment.splice(k, 0, refData.referenceValue);  
       } else {
-        this.memoryImpairment.slice(k, 1);
+        let index = this.memoryImpairment.indexOf(refData.referenceValue);
+        this.memoryImpairment.splice(index, 1);
       }
     } else if(refData.referenceTypeId === 9 && refData.referenceValue !== 'other') {
-      if(elem.checked){
-        insert(this.attentions, k, refData.referenceValue);
+      if(!this.checked[i][k]){      
+        this.attentions.splice(k, 0, refData.referenceValue);  
       } else {
-        this.attentions.slice(k, 1);
+        let index = this.attentions.indexOf(refData.referenceValue);
+        this.attentions.splice(index, 1);
       }
     } else if(refData.referenceTypeId === 10 && refData.referenceValue !== 'other') {
-      if(elem.checked){
-        insert(this.hallucinations, k, refData.referenceValue);
+      if(!this.checked[i][k]){      
+        this.hallucinations.splice(k, 0, refData.referenceValue);  
       } else {
-        this.hallucinations.slice(k, 1);
+        let index = this.hallucinations.indexOf(refData.referenceValue);
+        this.hallucinations.splice(index, 1);
       }
     } else if(refData.referenceTypeId === 11 && refData.referenceValue !== 'other') {
-      if(elem.checked){
-        insert(this.perceptionOthers, k , refData.referenceValue);
+      if(!this.checked[i][k]){      
+        this.perceptionOthers.splice(k, 0, refData.referenceValue);  
       } else {
-        this.perceptionOthers.slice(k, 1);
+        let index = this.perceptionOthers.indexOf(refData.referenceValue);
+        this.perceptionOthers.splice(index, 1);
       }
     } else if(refData.referenceTypeId === 12 && refData.referenceValue !== 'other') {
-      if(elem.checked){
-        insert(this.suicidiality, k, refData.referenceValue);
+      if(!this.checked[i][k]){      
+        this.suicidiality.splice(k, 0, refData.referenceValue);  
       } else {
-        this.suicidiality.slice(refData.referenceTypeId, 1);
+        let index = this.suicidiality.indexOf(refData.referenceValue);
+        this.suicidiality.splice(index, 1);
       }
     } else if(refData.referenceTypeId === 13 && refData.referenceValue !== 'other') {
-      if(elem.checked){
-        insert(this.homicidiliaty, k, refData.referenceValue);
+      if(!this.checked[i][k]){      
+        this.homicidiliaty.splice(k, 0, refData.referenceValue);  
       } else {
-        this.homicidiliaty.slice(refData.referenceTypeId, 1);
+        let index = this.homicidiliaty.indexOf(refData.referenceValue);
+        this.homicidiliaty.splice(index, 1);
       }
     } else if(refData.referenceTypeId === 14 && refData.referenceValue !== 'other') {
-      if(elem.checked){
-        insert(this.delusions, k , refData.referenceValue);
+      if(!this.checked[i][k]){      
+        this.delusions.splice(k, 0, refData.referenceValue);  
       } else {
-        this.delusions.slice(refData.referenceTypeId, 1);
+        let index = this.delusions.indexOf(refData.referenceValue);
+        this.delusions.splice(index, 1);
       }
     } else if(refData.referenceTypeId === 15 && refData.referenceValue !== 'other') {
-      if(elem.checked){
-        insert(this.behaviors, k , refData.referenceValue);
+      if(!this.checked[i][k]){      
+        this.behaviors.splice(k, 0, refData.referenceValue);  
       } else {
-        this.behaviors.slice(refData.referenceTypeId, 1);
+        let index = this.behaviors.indexOf(refData.referenceValue);
+        this.behaviors.splice(index, 1);
       }
     } else if(refData.referenceTypeId === 16 && refData.referenceValue !== 'other') {
-      if(elem.checked){
-        insert(this.insights, k , refData.referenceValue);
+      if(!this.checked[i][k]){      
+        this.insights.splice(k, 0, refData.referenceValue);  
       } else {
-        this.insights.slice(k, 1);
+        let index = this.insights.indexOf(refData.referenceValue);
+        this.insights.splice(index, 1);
       }
     } else if(refData.referenceTypeId === 17 && refData.referenceValue !== 'other') {
-      if(elem.checked){
-        insert(this.judgements, refData.referenceTypeId , refData.referenceValue);
+      if(!this.checked[i][k]){      
+        this.judgements.splice(k, 0, refData.referenceValue);  
       } else {
-        this.judgements.slice(k, 1);
+        let index = this.judgements.indexOf(refData.referenceValue);
+        this.judgements.splice(index, 1);
       }
     }
   }
@@ -200,28 +210,27 @@ export class MseComponent implements OnInit, OnDestroy {
 
   onSubmit (form : NgForm) {
 
-    //this.otherComments.forEach(console.log);
     const reducer = (s1: string, s2: string) => s1 + ',' + s2;
 
     for(var i = 0; i < this.otherComments.length; i++ ){
       if(i === 0) {
         this.judgements.push(this.otherComments[i]);
-      } else if (i === 1) {
-        this.moods.push(this.otherComments[i]);
       } else if (i === 2) {
-        this.affects.push(this.otherComments[i]);
+        this.moods.push(this.otherComments[i]);
       } else if (i === 3) {
-        this.motorActivities.push(this.otherComments[i]);
-      } else if (i === 5) {
-        this.eyeContacts.push(this.otherComments[i]);
-      } else if (i === 6) {
-        this.insights.push(this.otherComments[i]);
-      } else if (i === 8) {
-        this.appearances.push(this.otherComments[i]);
-      } else if (i === 9) {
-        this.delusions.push(this.otherComments[i]);
-      } else if (i === 11) {
+        this.affects.push(this.otherComments[i]);
+      } else if (i === 4) {
         this.memoryImpairment.push(this.otherComments[i]);
+      } else if (i == 5) {
+        this.motorActivities.push(this.otherComments[i]);
+      }else if (i === 7) {
+        this.eyeContacts.push(this.otherComments[i]);
+      } else if (i === 8) {
+        this.insights.push(this.otherComments[i]);
+      } else if (i === 9) {
+        this.appearances.push(this.otherComments[i]);
+      }else if (i === 10) {
+        this.delusions.push(this.otherComments[i]);
       } else if (i === 12) {
         this.speeches.push(this.otherComments[i]);
       } else if (i === 13) {
@@ -232,55 +241,55 @@ export class MseComponent implements OnInit, OnDestroy {
         this.hallucinations.push(this.otherComments[i]);
       }
     }
-    
+  
 
     this.clientMse.clientId = this.clientId;
-    if(this.appearances !== null)
+    if(Utility.atleastOneElem(this.appearances))
       this.clientMse.appearance = this.appearances.reduce(reducer, '').toString();
-    if(this.speeches  !== null)  
+    if(Utility.atleastOneElem(this.speeches)) 
       this.clientMse.speech = this.speeches.reduce(reducer, '').toString();
-    if(this.eyeContacts  !== null)  
+    if(Utility.atleastOneElem(this.eyeContacts))
       this.clientMse.eyeContact = this.eyeContacts.reduce(reducer, '').toString();
-    if(this.motorActivities  !== null)  
+    if(Utility.atleastOneElem(this.motorActivities))
       this.clientMse.motorActivity = this.motorActivities.reduce(reducer, '').toString();
-    if(this.affects  !== null)  
+    if(Utility.atleastOneElem(this.affects))
       this.clientMse.affect = this.affects.reduce(reducer, '').toString();
-    if(this.moods  !== null)  
+    if(Utility.atleastOneElem(this.moods))
       this.clientMse.mood = this.moods.reduce(reducer, '').toString();
-    if(this.orientationImpairment  !== null)  
+    if(Utility.atleastOneElem(this.orientationImpairment))
       this.clientMse.orientationImpairment = this.orientationImpairment.reduce(reducer, '').toString();
-    if(this.memoryImpairment  !== null)  
+    if(Utility.atleastOneElem(this.memoryImpairment))
       this.clientMse.memoryImpairment = this.memoryImpairment.reduce(reducer, '').toString();
-    if(this.attentions  !== null)  
+    if(Utility.atleastOneElem(this.attentions))
       this.clientMse.attention = this.attentions.reduce(reducer, '').toString();
-    if(this.hallucinations  !== null)  
+    if(Utility.atleastOneElem(this.hallucinations))
       this.clientMse.hallucinations = this.hallucinations.reduce(reducer, '').toString();
-    if(this.perceptionOthers  !== null)  
+    if(Utility.atleastOneElem(this.perceptionOthers))
       this.clientMse.perceptionComments = this.perceptionOthers.reduce(reducer, '').toString();
-    if(this.suicidiality  !== null)   
+    if(Utility.atleastOneElem(this.suicidiality))
       this.clientMse.suicidality = this.suicidiality.reduce(reducer, '').toString();
-    if(this.homicidiliaty  !== null)  
+    if(Utility.atleastOneElem(this.homicidiliaty))
       this.clientMse.homicidality = this.homicidiliaty.reduce(reducer, '').toString();
-    if(this.delusions  !== null)  
+    if(Utility.atleastOneElem(this.delusions))
       this.clientMse.delusions = this.delusions.reduce(reducer, '').toString();
-    if(this.behaviors  !== null)  
+    if(Utility.atleastOneElem(this.behaviors))
       this.clientMse.behavior = this.behaviors.reduce(reducer, '').toString();
-    if(this.insights  !== null)  
+    if(Utility.atleastOneElem(this.insights))
       this.clientMse.insight = this.insights.reduce(reducer, '').toString();
-    if(this.judgements  !== null)  
+    if(Utility.atleastOneElem(this.judgements))
       this.clientMse.judgement = this.judgements.reduce(reducer, '').toString();
    
     console.log(JSON.stringify(this.clientMse));
 
-    // this.submitFormSubscription = this.clientService.addClientMse(this.clientMse).subscribe(
-    //   (clientMSE) => {
-    //     this.successMessage = true;
-    //   },
-    //   (error) => {
-    //     this.errorMessage = error;
-    //   }
-    // );
-    //this.resetForm();
+    this.submitFormSubscription = this.clientService.addClientMse(this.clientMse).subscribe(
+      (clientMSE) => {
+        this.successMessage = true;
+      },
+      (error) => {
+        this.errorMessage = error;
+      }
+    );
+    this.resetForm();
   }
 
   resetForm() {
@@ -290,6 +299,8 @@ export class MseComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.refDataSubscription.unsubscribe();
-    this.submitFormSubscription.unsubscribe();
+    if(this.submitFormSubscription){
+      this.submitFormSubscription.unsubscribe();
+    }
   }
 }

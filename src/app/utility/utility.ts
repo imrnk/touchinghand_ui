@@ -19,4 +19,13 @@ export class Utility {
         }
         return null; //in case of valid value send null, not false!
       }  
+
+      static emptyArray (arr : any[]) :boolean {
+
+        return arr.every(a => a === '');
+      }
+
+      static atleastOneElem(arr : any[]) : boolean {
+        return arr.some(a => a !== '');
+      }
 }

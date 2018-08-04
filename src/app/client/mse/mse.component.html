@@ -21,7 +21,7 @@
                         <label class="boxitem">
                           <input type="checkbox" 
                             [id]="rd.referenceValue" 
-                            [ngModel]="checked[i][k]"
+                            [(ngModel)]="checked[i][k]"
                             tabindex="i+k"
                             [name] = "rd.referenceValue"                      
                             (click) = "onSelectBox(i, k)"
@@ -76,7 +76,7 @@
                       </div>
                     </div>
                     <div class="card-body table-responsive" *ngIf = "successMessage">
-                      <div class="row" *ngIf = "errorMessage"> 
+                      <div class="row" *ngIf = "successMessage"> 
                           <div class="col-md-12">
                             <p class="text-green">The MSE Record is successfully added.</p>
                           </div>
