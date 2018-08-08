@@ -53,7 +53,8 @@
           New Session
         </button>
         <button class="btn btn-lg btn-info" type="button" (click) = "onNewTreatmentData()">Treatment Data</button>
-        <button class="btn btn-lg btn-warning" type="button" (click) = "onNewMSE()">Edit MSE</button>
+        <button *ngIf= "searchedClient.clientMse === null ; else mseLink" class="btn btn-lg btn-warning" type="button" (click) = "onNewMSE()">Create MSE</button>
+        <ng-template #mseLink><button class="btn btn-lg btn-warning" type="button" (click)="showMSE()">Show MSE</button></ng-template>
       </div>
       <!-- </div>
       </div> -->

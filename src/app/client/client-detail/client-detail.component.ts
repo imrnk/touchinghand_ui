@@ -64,6 +64,10 @@ export class ClientDetailComponent implements OnInit, OnDestroy{
     this.router.navigate(['mse'], {relativeTo:this.route, queryParams: {'clientName' : this.searchedClient.clientName}});
   }
 
+  showMSE() {
+    console.log(this.searchedClient.clientMse);
+  }
+
   onNewTreatmentData() {
     this.router.navigate(['treatment-data'], {relativeTo:this.route, queryParams: {'clientName' : this.searchedClient.clientName}});
   }
