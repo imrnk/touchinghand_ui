@@ -28,4 +28,8 @@ export class Utility {
       static atleastOneElem(arr : any[]) : boolean {
         return arr.some(a => a !== '');
       }
+
+      static anyTrue(arrr : boolean[][]) : boolean {
+        return arrr.map(arr => arr.some(x => x)).length > 0;
+      }
 }

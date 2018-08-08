@@ -29,6 +29,7 @@ export class ClientsService {
     findSessionsByClientId(clientId : number) : Observable<PsySession>{
 
         return this.httpClient.get(`${environment.apiUrl}${'/psy-session/'}`+clientId)
+        .filter(arr => arr != null)
         .flatMap((sess : PsySession[]) => sess)
         .flatMap(ses => Observable.of(ses));
     }
@@ -43,11 +44,13 @@ export class ClientsService {
 
     findClientsWithNoSessions() : Observable<Client> {
         return this.httpClient.get<Client[]>(`${environment.apiUrl}${'/clients/no-session'}`)
-        .flatMap(client => client);
+        .filter(arr => arr != null)
+        .flatMap((clients : Client[])=> clients).flatMap(client => Observable.of(client));
     }
 
     findClientsCrossedFollowupDate() : Observable<Client> {
         return this.httpClient.get<Client[]>(`${environment.apiUrl}${'/clients/crossed-followup'}`)
-        .flatMap(client => client);
+        .filter(arr => arr != null)
+        .flatMap((clients : Client[]) => clients).flatMap(client => Observable.of(client));
     }
 }

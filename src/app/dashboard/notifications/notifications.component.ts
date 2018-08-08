@@ -29,7 +29,10 @@ export class NotificationsComponent implements OnInit, OnDestroy {
         this.clientsWithNoSession.push(c);
         this.noSessionClientFound = true;
       },
-      (error) => this.errorMessageNoSession = "Nothing yet."
+      (error) => {
+        this.errorMessageNoSession = "Nothing yet.";
+        console.log(error);
+      }
     );
 
     this.clientsCrossedFollowupDateSubscription = this.clientService.findClientsCrossedFollowupDate()
@@ -38,7 +41,10 @@ export class NotificationsComponent implements OnInit, OnDestroy {
         this.clientsCrossedFollowup.push(c);
         this.crossedFollowupClientFound = true;
       },
-      (error) => this.errorMessageCrossedFollowup = "Nothing yet."
+      (error) => {
+        this.errorMessageCrossedFollowup = "Nothing yet.";
+        console.log(error);
+      }
     )
   }
 

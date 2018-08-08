@@ -48,7 +48,7 @@ export class MseComponent implements OnInit, OnDestroy {
   insights : string[] = [];
   judgements : string[] = [];
   lastTabIndex = 0;
-
+  formValid = false;
   constructor(private router : Router, private route: ActivatedRoute, 
     private sessionService : SessionService, private clientService : ClientsService) { }
 
@@ -205,12 +205,21 @@ export class MseComponent implements OnInit, OnDestroy {
         this.judgements.splice(index, 1);
       }
     }
+
+    this.formValid = Utility.anyTrue(this.checked.slice());
   }
 
 
   onSubmit (form : NgForm) {
 
-    const reducer = (s1: string, s2: string) => s1 + ',' + s2;
+    const reducer = (s1: string, s2: string) => {
+                                    if(s1 === '') 
+                                    return s2;
+                                    else if(s2 === '')
+                                    return s1;
+                                    else 
+                                    return s1 + ',' + s2
+                                  };
 
     for(var i = 0; i < this.otherComments.length; i++ ){
       if(i === 0) {
@@ -294,7 +303,7 @@ export class MseComponent implements OnInit, OnDestroy {
 
   resetForm() {
     this.mseForm.reset();
-    
+    this.formValid = false;
   }
 
   ngOnDestroy() {
