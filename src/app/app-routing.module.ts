@@ -26,7 +26,7 @@ const appRoutes : Routes = [
         {path : ':id/sessions', component : SessionsComponent},
         {path : ':id/session/:sid', component : SessionComponent},
         {path : ':id/session', component : SessionComponent},
-        {path : ':id/treatment-data', component : TreatmentDataComponent},
+        {path : ':id/session/:sid/treatment-data', component : TreatmentDataComponent},
         {path : 'sessions', component :  SessionsComponent}
     ]},
     {path : 'page-not-found', component : PageNotFoundComponent },

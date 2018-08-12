@@ -1,12 +1,11 @@
-import { PsySession } from './../../model/psy-session';
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-
+import { Subscription } from 'rxjs';
 import { Utility } from '../../utility/utility';
+import { PsySession } from './../../model/psy-session';
 import { SessionService } from './../../sessions/session-service';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+
 
 @Component({
   selector: 'app-session',
@@ -23,6 +22,8 @@ export class SessionComponent implements OnInit, OnDestroy {
   clientId : number;
   errorMessage: string;
   successMessage = false;
+  treatmentDataLink :string;
+  savedSessionId : Number;
 
   constructor(private router : Router, private route: ActivatedRoute, 
     private sessionService : SessionService) { }
@@ -68,11 +69,14 @@ export class SessionComponent implements OnInit, OnDestroy {
     );
     
     this.createSessionSubscription = this.sessionService.createSession(sessionObj).subscribe(
-      (session : PsySession) => {
-        this.onResetCreateSessionForm(); 
-        this.router.navigate(['../'], {relativeTo:this.route});
+      (sessionId : Number) => {
+        this.savedSessionId = sessionId;
+        this.onResetCreateSessionForm();         
+        this.treatmentDataLink = this.savedSessionId+'/treatment-data';
+        this.successMessage = true;
       },
       (error) => this.errorMessage = error
+      
     );
   }
 

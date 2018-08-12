@@ -54,7 +54,13 @@
         </button>
         <button class="btn btn-lg btn-info" type="button" (click) = "onNewTreatmentData()">Treatment Data</button>
         <button *ngIf= "searchedClient.clientMse === null ; else mseLink" class="btn btn-lg btn-warning" type="button" (click) = "onNewMSE()">Create MSE</button>
-        <ng-template #mseLink><button class="btn btn-lg btn-warning" type="button" (click)="showMSE()">Show MSE</button></ng-template>
+        <ng-template #mseLink>
+          <button class="btn btn-lg btn-warning" 
+          type="button" 
+          data-toggle="modal" 
+            data-target="#clientMSEModal">Show MSE
+        </button>
+      </ng-template>
       </div>
       <!-- </div>
       </div> -->
@@ -203,6 +209,76 @@
                 <!-- <tr>
                   <td class="key">Next Session Link</td>
                 </tr> -->
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+
+    <!-- Client MSE Modal -->
+    <div class="modal fade" id="clientMSEModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title">Mental Status Exam</h2>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body" *ngIf = "clientMSE">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td class="key">Appearance</td>
+                  <td>{{ clientMSE.appearance }}</td>
+                  <td class="key">Speech</td>
+                  <td>{{ clientMSE.speech }}</td>
+                  <td class="key">Eye Contact</td>
+                  <td>{{ clientMSE.eyeContact }}</td>
+                </tr>
+                <tr>
+                  <td class="key">Motor Activity</td>
+                  <td>{{ clientMSE.motorActivity }}</td>
+                  <td class="key">Affect</td>
+                  <td>{{ clientMSE.affect }}</td>
+                  <td class="key">Mood</td>
+                  <td>{{ clientMSE.mood }}</td>
+                </tr>
+                <tr>
+                  <td class="key">Orientation Impairment</td>
+                  <td>{{ clientMSE.orientationImpairment }}</td>
+                  <td class="key">Memory Impairment</td>
+                  <td>{{ clientMSE.memoryImpairment }}</td>
+                  <td class="key">Attention</td>
+                  <td>{{ clientMSE.attention }}</td>
+                </tr>
+                <tr>
+                  <td class="key">Hallucinations</td>
+                  <td>{{ clientMSE.hallucinations }}</td>
+                  <td class="key">Other Perceptions</td>
+                  <td>{{ clientMSE.perceptionComments }}</td>
+                  <td class="key">Suicidality</td>
+                  <td>{{ clientMSE.suicidality }}</td>
+                </tr>
+                <tr>
+                  <td class="key">Homicidality</td>
+                  <td>{{ clientMSE.homicidality }}</td>
+                  <td class="key">Delusion</td>
+                  <td>{{ clientMSE.delusions }}</td>
+                  <td class="key">Behavior</td>
+                  <td>{{ clientMSE.behavior }}</td>
+                </tr>
+                <tr>
+                  <td class="key">Insights</td>
+                  <td>{{ clientMSE.insight }}</td>
+                  <td class="key">Judgement</td>
+                  <td>{{ clientMSE.judgement }}</td>
+                </tr>
               </tbody>
             </table>
           </div>

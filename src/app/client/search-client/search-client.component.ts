@@ -68,9 +68,11 @@ export class SearchClientComponent implements OnInit, OnDestroy{
 
   onSubmit() {
     this.onresetSearch();
+    let fname = this.searchClientForm.value['firstName'] ? this.searchClientForm.value['firstName'] : '';
+    let lname = this.searchClientForm.value['lastName'] ? this.searchClientForm.value['lastName'] : '';
     this.searchSubscription = this.clientsService.searchClient(
-      this.searchClientForm.value['firstName'],
-      this.searchClientForm.value['lastName']).subscribe(
+      fname,
+      lname).subscribe(
         (client) => {this.searchedClients.push(client); this.clientSearchResultFound = true;},
         (error) => this.errorMessage = error
         
@@ -86,7 +88,8 @@ export class SearchClientComponent implements OnInit, OnDestroy{
         this.searchedUpcomingFollowUpDateOfClients.push(client);
         this.sessionSearchComplete = true;
         //return this.clientsService.findClientById(session.clientId);
-       }
+       },
+       (error) => this.errorMessage = error
     );
     
     //.subscribe(

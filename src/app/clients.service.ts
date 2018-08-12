@@ -53,4 +53,9 @@ export class ClientsService {
         .filter(arr => arr != null)
         .flatMap((clients : Client[]) => clients).flatMap(client => Observable.of(client));
     }
+
+    //We don't this now. When we get Client, ClientMSE also get fetched.
+    findClientMSE(clientId : number) : Observable<ClientMse>{
+        return this.httpClient.get<ClientMse>(`${environment.apiUrl}${'/clients/mse/'}`+clientId);        
+    }
 }

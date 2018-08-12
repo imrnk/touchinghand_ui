@@ -1,3 +1,4 @@
+import { ClientMse } from './../../model/client-mse';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -21,6 +22,7 @@ export class ClientDetailComponent implements OnInit, OnDestroy{
   errorMessage : string;
   sessionSearchComplete = false;
   selectedSession : PsySession;
+  clientMSE : ClientMse;
 
   constructor(private router : Router, private route: ActivatedRoute, private clientsService : ClientsService) { }
 
@@ -40,6 +42,7 @@ export class ClientDetailComponent implements OnInit, OnDestroy{
       this.clientSubscription = this.clientsService.findClientById(this.clientId).flatMap(
         (client) => {
           this.searchedClient = client;
+          this.clientMSE = this.searchedClient.clientMse;
           return this.clientsService.findSessionsByClientId(client.clientId);
         }
         ).subscribe(
@@ -62,10 +65,6 @@ export class ClientDetailComponent implements OnInit, OnDestroy{
 
   onNewMSE() {
     this.router.navigate(['mse'], {relativeTo:this.route, queryParams: {'clientName' : this.searchedClient.clientName}});
-  }
-
-  showMSE() {
-    console.log(this.searchedClient.clientMse);
   }
 
   onNewTreatmentData() {

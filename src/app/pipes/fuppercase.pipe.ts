@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class FuppercasePipe implements PipeTransform {
 
   transform(value: string, howmany: number): any {
-    if(value.length === 0 || howmany === 0) return value;
+    if(value === null || value.length === 0 || howmany === 0) return value;
     return value.substr(0,howmany).toUpperCase() + value.slice(howmany, value.length);    
   }
 

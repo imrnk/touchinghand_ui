@@ -141,7 +141,7 @@ h5 {
 
  .modal-header {
    background-color: #a5d5e0;
-  padding: 4.5rem;
+  padding: 6rem 2rem 1rem 4rem;
   border-bottom: 1px solid #e5e5e5;
 } 
 
@@ -166,6 +166,10 @@ h5 {
 #sessionDetailModal {
   padding-top: 80px;
 } 
+
+#clientMSEModal {
+  padding-top: 80px;
+}
 
 .key {
   color: rgb(10, 97, 97);

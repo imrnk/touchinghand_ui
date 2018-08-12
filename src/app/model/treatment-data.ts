@@ -1,21 +1,21 @@
 export class TreatmentData {
 
-        private treatmentId: number;
-        private sessionId: string;
-        private clientId: string;
-        private physicalComp: string;
-        private mentalComp: string;
-        private onsetDate: string;
-        private duration: string;
-        private degree: string;
-        private therapyApplied: string;
-        private casehistory: string;
-        private psyEvaluation: string;
-        private labTesting: string;
-        private diagnosis: string;
-        private diffDiagnosis: string;
-        private formulation: string;
-        private clientDocLink: string;
+        treatmentId: number;
+        sessionId: string;
+        clientId: string;
+        physicalComp: string;
+        mentalComp: string;
+        onsetDate: string;
+        duration: string;
+        degree: string;
+        therapyApplied: string;
+        casehistory: string;
+        psyEvaluation: string;
+        labTesting: string;
+        diagnosis: string;
+        diffDiagnosis: string;
+        formulation: string;
+        clientDocLink: string;
 
         constructor(
                 _treatmentId: number,

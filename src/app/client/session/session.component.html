@@ -92,8 +92,25 @@
                     <div class="form-group">
                         <a routerLink = "../" class="btn btn-block btn-danger">Cancel</a>
                     </div>
-                    <!-- //TODO This should go back to client/:id -->
                   </div>
+          </div>
+          <div class="card-body table-responsive" *ngIf = "successMessage">
+            <div class="row">
+                <div class="col-md-12">
+                  <p class="text-green">The session detail is successfully added.
+                  </p>
+                  <br>
+                  <h4>Would you like to add treatment data for this session?</h4>
+                  <div class="col-md-4">
+                  <a [routerLink]="treatmentDataLink">Yes, please. Take me to the Treatment Data page</a>
+                </div>
+                <div class="col-md-2">
+                  <a routerLink="../" class="btn btn-block btn-danger">
+                  No thanks.
+                </a>
+                </div>
+                </div>
+            </div>
           </div>   
           <div class="card-body table-responsive" *ngIf = "errorMessage">
             <div class="row">
@@ -101,7 +118,8 @@
                   <p class="text-red">{{errorMessage}}</p>
                 </div>
             </div>
-          </div>  
+          </div> 
+
         </div>
     </div>
   </div>
