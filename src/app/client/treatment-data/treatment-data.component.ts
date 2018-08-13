@@ -1,3 +1,4 @@
+import { PsySession } from './../../model/psy-session';
 import { TreatmentData } from './../../model/treatment-data';
 import { Utility } from './../../utility/utility';
 import { SessionService } from './../../sessions/session-service';
@@ -16,9 +17,10 @@ export class TreatmentDataComponent implements OnInit, OnDestroy {
   paramSubscription : Subscription;
   param2Subscription : Subscription;
   createTreatmentDataSubscription : Subscription;
+  psySession : PsySession;
   treatmentDataForm : FormGroup;
-  clientId : string;
-  sessionId : string;
+  clientId : number;
+  sessionId : number;
   errorMessage: string;
   successMessage = false;
   degrees = Array.from(Array(11).keys());  
@@ -28,19 +30,25 @@ export class TreatmentDataComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.createTreatmentDataForm();
-    this.clientId = this.route.snapshot.params['id'];
-    this.sessionId = this.route.snapshot.params['sid'];
+    this.clientId = +this.route.snapshot.params['id'];
+    this.sessionId = +this.route.snapshot.params['sid'];
 
     this.paramSubscription = this.route.params.subscribe(
       (params : Params) => {
-        this.clientId = params['id'];
+        this.clientId = +params['id'];                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
       }
-    );
+    );                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
 
-    this.param2Subscription = this.route.params.subscribe(
+    this.param2Subscription = this.route.params.flatMap(
       (params : Params) => {
         this.sessionId = params['sid'];
+        return this.sessionService.getSession(this.sessionId);
       }
+    ).subscribe(
+      (psySession : PsySession) => { 
+        this.psySession = psySession;
+      },
+      (error) => this.errorMessage = error
     );
   }
 

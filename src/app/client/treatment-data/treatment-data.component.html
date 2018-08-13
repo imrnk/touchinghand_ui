@@ -1,6 +1,6 @@
 <form [formGroup]="treatmentDataForm" (ngSubmit)="onSubmit()">
   <div class="content-header">
-    <h3>Treatment Data for {{clientName}}</h3>
+    <h3>Treatment Data for <span *ngIf="psySession">{{psySession.client.clientName}}</span></h3>
   </div>
   <section class="content">
     <div class="container-fluid">
@@ -86,7 +86,7 @@
                           </div>
 
                           <div class="form-group">
-                            <label for="labTesting">Labratory Testing</label>
+                            <label for="labTesting">Laboratory Testing</label>
                             <textarea id="labTesting" 
                               formControlName="labTesting" 
                               class="form-control" rows="5" tabindex="8" >

@@ -13,11 +13,16 @@ export class SessionService {
     constructor(private httpClient: HttpClient) {}
 
     createSession(session : PsySession) : Observable<Number> {
-        return this.httpClient.post<Number>(`${environment.apiUrl}${'//psy-session/'}`, session);
+        return this.httpClient.post<Number>(`${environment.apiUrl}${'/psy-session/'}`, session);
+    }
+
+    getSession(sessionId : number) : Observable<PsySession> {
+        let params = new HttpParams().set('sessionId', ''+sessionId);
+        return this.httpClient.get<PsySession>(`${environment.apiUrl}${'/psy-session/'}`, {params});
     }
 
     createTreatmentData(treatmentData : TreatmentData) {
-        return this.httpClient.post<any>(`${environment.apiUrl}${'//psy-session/treatment-data'}`, treatmentData);
+        return this.httpClient.post<any>(`${environment.apiUrl}${'/psy-session/treatment-data'}`, treatmentData);
     }
     
     upcomingSessions(days: string) : Observable<Client> {

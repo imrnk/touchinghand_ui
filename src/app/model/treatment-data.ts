@@ -1,8 +1,8 @@
 export class TreatmentData {
 
         treatmentId: number;
-        sessionId: string;
-        clientId: string;
+        sessionId: number;
+        clientId: number;
         physicalComp: string;
         mentalComp: string;
         onsetDate: string;
@@ -19,8 +19,8 @@ export class TreatmentData {
 
         constructor(
                 _treatmentId: number,
-                _sessionId: string,
-                _clientId: string,
+                _sessionId: number,
+                _clientId: number,
                 _physicalComp: string,
                 _mentalComp: string,
                 _onsetDate: string,
