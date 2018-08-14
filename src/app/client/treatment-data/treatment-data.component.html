@@ -55,9 +55,9 @@
 
                           <div class="form-group">
                             <label for="degree">Degree</label>
-                            <select class="form-control medium-select" tabindex="5">
-                                <option [value]="degree" 
-                                *ngFor="let degree of degrees">{{ degree }}</option>
+                            <select class="form-control medium-select" formControlName="degree" tabindex="5">
+                                <option [value]="d" 
+                                *ngFor="let d of degrees">{{ d }}</option>
                               </select>
                           </div>
 

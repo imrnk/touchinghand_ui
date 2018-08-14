@@ -1,3 +1,5 @@
+import { TreatmentData } from './../../model/treatment-data';
+import { SessionService } from './../../sessions/session-service';
 import { ClientMse } from './../../model/client-mse';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -22,9 +24,13 @@ export class ClientDetailComponent implements OnInit, OnDestroy{
   errorMessage : string;
   sessionSearchComplete = false;
   selectedSession : PsySession;
+  selectedTreatmentData : TreatmentData;
   clientMSE : ClientMse;
 
-  constructor(private router : Router, private route: ActivatedRoute, private clientsService : ClientsService) { }
+  constructor(private router : Router, 
+    private route: ActivatedRoute, 
+    private clientsService : ClientsService,
+    private sessionService : SessionService) { }
 
   ngOnDestroy() {
     this.paramSubscription.unsubscribe();
@@ -39,13 +45,17 @@ export class ClientDetailComponent implements OnInit, OnDestroy{
       }
     )
 
-      this.clientSubscription = this.clientsService.findClientById(this.clientId).flatMap(
+      this.clientSubscription = this.clientsService.findClientById(this.clientId).
+      timeout(5000).
+      flatMap(
         (client) => {
           this.searchedClient = client;
           this.clientMSE = this.searchedClient.clientMse;
           return this.clientsService.findSessionsByClientId(client.clientId);
         }
-        ).subscribe(
+        ).
+        timeout(5000).
+        subscribe(
             psySession => {
               this.sessionsOfClient.push(psySession); 
               this.sessionSearchComplete = true;
@@ -56,7 +66,14 @@ export class ClientDetailComponent implements OnInit, OnDestroy{
   }
 
   sessionSelect(sessionId : string) {
-    this.selectedSession = this.sessionsOfClient.filter(ps => ps.sessionId === sessionId)[0];
+    this.selectedSession = this.getSelectedSession(sessionId);
+  }
+
+  getSelectedSession(sessionId : string) {
+    return this.sessionsOfClient.find(ps => ps.sessionId === sessionId);
+  }
+  selectTreatmentData(sessionId: string) {
+   this.selectedTreatmentData = this.getSelectedSession(sessionId).treatmentData;
   }
 
   onNewSession() {

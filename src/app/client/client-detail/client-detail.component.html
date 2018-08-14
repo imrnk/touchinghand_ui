@@ -94,6 +94,12 @@
                         <td>{{  psySession.followupDate }}</td>
                         <td>{{  psySession.impression | shorten : 20 }}</td>
                         <td>{{  psySession.feedback  | shorten : 20 }}</td>
+                        <td><a id="modal-link" data-toggle="modal"
+                          (click)="selectTreatmentData(psySession.sessionId)"
+                          style="cursor: pointer"
+                          data-target="#treatmentDataModal">
+                          Treatment Data for Session {{ psySession.sessionId }}
+                        </a></td>
                     </tr>                        
                 </table>
             </div>
@@ -278,6 +284,66 @@
                   <td>{{ clientMSE.insight }}</td>
                   <td class="key">Judgement</td>
                   <td>{{ clientMSE.judgement }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+
+    <!-- Treatment Data Modal -->
+    <div class="modal fade" id="treatmentDataModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title">Treatment Data <span *ngIf = "selectedTreatmentData">for session {{ selectedTreatmentData.sessionId}}</span></h2>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body" *ngIf = "selectedTreatmentData">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td class="key">Physical Component</td>
+                  <td>{{ selectedTreatmentData.physicalComp }}</td>
+                  <td class="key">Mental Component</td>
+                  <td>{{ selectedTreatmentData.mentalComp }}</td>
+                  <td class="key">Onset Date</td>
+                  <td>{{ selectedTreatmentData.onsetDate }}</td>
+                </tr>
+                <tr>
+                  <td class="key">Duration</td>
+                  <td>{{ selectedTreatmentData.duration }}</td>
+                  <td class="key">Degree</td>
+                  <td>{{ selectedTreatmentData.degree }}</td>
+                  <td class="key">Therapy Applied</td>
+                  <td>{{ selectedTreatmentData.therapyApplied }}</td>
+                </tr>
+                <tr>
+                  <td class="key">Case History</td>
+                  <td>{{ selectedTreatmentData.casehistory }}</td>
+                  <td class="key">Psychological Evaluation</td>
+                  <td>{{ selectedTreatmentData.psyEvaluation }}</td>
+                  <td class="key">Laboratary Testing</td>
+                  <td>{{ selectedTreatmentData.labTesting }}</td>
+                </tr>
+                <tr>
+                  <td class="key">Diagnosis</td>
+                  <td>{{ selectedTreatmentData.diagnosis }}</td>
+                  <td class="key">Differential Diagnosis</td>
+                  <td>{{ selectedTreatmentData.diffDiagnosis }}</td>
+                  <td class="key">Formulation</td>
+                  <td>{{ selectedTreatmentData.formulation }}</td>
+                </tr>
+                <tr>
+                  <td class="key">Client Document Link</td>
+                  <td>{{ selectedTreatmentData.clientDocLink }}</td>
                 </tr>
               </tbody>
             </table>

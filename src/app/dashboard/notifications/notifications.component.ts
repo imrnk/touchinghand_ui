@@ -24,7 +24,9 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   constructor(private clientService : ClientsService) {}
 
   ngOnInit() {
-    this.clientsNoSessionSubscription = this.clientService.findClientsWithNoSessions().subscribe(
+    this.clientsNoSessionSubscription = this.clientService.findClientsWithNoSessions().
+    timeout(5000).
+    subscribe(
       c => {
         this.clientsWithNoSession.push(c);
         this.noSessionClientFound = true;
@@ -35,8 +37,9 @@ export class NotificationsComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.clientsCrossedFollowupDateSubscription = this.clientService.findClientsCrossedFollowupDate()
-    .subscribe(
+    this.clientsCrossedFollowupDateSubscription = this.clientService.findClientsCrossedFollowupDate().
+    timeout(5000).
+    subscribe(
       c => {
         this.clientsCrossedFollowup.push(c);
         this.crossedFollowupClientFound = true;

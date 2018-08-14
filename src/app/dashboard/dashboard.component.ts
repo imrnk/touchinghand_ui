@@ -21,7 +21,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   constructor(private sessionService : SessionService) { }
 
   ngOnInit() {
-    this.sessionSubscription = this.sessionService.upcomingSessions("10").subscribe(
+    this.sessionSubscription = this.sessionService.upcomingSessions("10").
+    timeout(5000).
+    subscribe(
       (client) => {
         this.upcomingSessionsClients.push(client);
         this.sessionSearchComplete = true;

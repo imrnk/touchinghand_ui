@@ -66,7 +66,7 @@ export class TreatmentDataComponent implements OnInit, OnDestroy {
       'mentalComp' : new FormControl(null),
       'onsetDate' : new FormControl(null, Utility.validDate.bind(this)),
       'duration' : new FormControl(null),
-      'degree' : new FormControl(null),
+      'degree' : new FormControl(0),
       'therapyApplied' : new FormControl(null),
       'caseHistory' : new FormControl(null),
       'psyEvaluation' : new FormControl(null),
@@ -94,7 +94,7 @@ export class TreatmentDataComponent implements OnInit, OnDestroy {
         this.treatmentDataForm.value['diffDiagnosis'],
         this.treatmentDataForm.value['formulation'],
         this.treatmentDataForm.value['clientDocLink']);
-
+      
   this.createTreatmentDataSubscription = this.sessionService.createTreatmentData(treatmentDataObj).subscribe(
     (whatever : any) => {
       this.successMessage = true;

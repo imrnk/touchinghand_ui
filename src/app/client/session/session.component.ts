@@ -62,6 +62,7 @@ export class SessionComponent implements OnInit, OnDestroy {
     const sessionObj = new PsySession(null, 
       this.clientId,  
       null,
+      null,
       this.sessionForm.value['sessionDate'], 
       this.sessionForm.value['followupDate'],
       this.sessionForm.value['impression'],

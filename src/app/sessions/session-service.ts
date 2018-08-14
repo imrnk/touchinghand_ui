@@ -24,12 +24,27 @@ export class SessionService {
     createTreatmentData(treatmentData : TreatmentData) {
         return this.httpClient.post<any>(`${environment.apiUrl}${'/psy-session/treatment-data'}`, treatmentData);
     }
+
+    getTreatmentDataOfSession(sessionId: number) : Observable<TreatmentData> {
+        let params = new HttpParams().set('sessionId', ''+sessionId);
+        return this.httpClient.
+        get<TreatmentData>(`${environment.apiUrl}${'/psy-session/treatment-data/session'}`, {params});
+    }
+
+    getTreatmentData(clientId: number) : Observable<TreatmentData> {
+        let params = new HttpParams().set('clientId', ''+clientId);
+        return this.httpClient.
+        get<TreatmentData[]>(`${environment.apiUrl}${'/psy-session/treatment-data'}`, {params})
+        .flatMap((tds : TreatmentData[]) => tds)
+        .flatMap(td => Observable.of(td));
+    }
     
     upcomingSessions(days: string) : Observable<Client> {
         let params = new HttpParams().set('till', days)
         return this.httpClient
         .get<Client[]>(`${environment.apiUrl}${'/clients/upcoming'}`, {params})
-        .flatMap((client : Client[]) => client);
+        .flatMap((clients : Client[]) => clients)
+        .flatMap(client => Observable.of(client));
     }
 
     getReferenceDataByGroup(groupId : number) : Observable<GroupedReferenceData>{

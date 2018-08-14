@@ -59,6 +59,7 @@ export class AddClientComponent implements OnInit , OnDestroy{
   }
   
   onSubmit() {
+   
     this.addClientSubscription = this.clientsService.addClient(this.addClientForm.getRawValue()).subscribe(
       (client: Client) =>  {
         this.savedClient = {fname : this.addClientForm.get('firstName').value, 

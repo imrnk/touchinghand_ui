@@ -1,9 +1,11 @@
+import { TreatmentData } from './treatment-data';
 import { Client } from './client';
 export class PsySession {
 
      sessionId: string;	
      clientId: number;	 
      client : Client;
+     treatmentData : TreatmentData;
      sessionDate: string;
      followupDate: string;	
      impression: string;
@@ -13,6 +15,7 @@ export class PsySession {
      _sessionId: string,	
      _clientId: number,	 
      _client : Client,
+     _treatmentData : TreatmentData,
      _sessionDate: string,	
      _followupDate: string,	
      _impression: string,	
@@ -21,6 +24,7 @@ export class PsySession {
         this.sessionId = _sessionId;
         this.clientId = _clientId;
         this.client = _client;
+        this.treatmentData = _treatmentData;
         this.sessionDate = _sessionDate;
         this.followupDate = _followupDate;
         this.impression = _impression;
