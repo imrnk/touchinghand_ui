@@ -12,16 +12,20 @@
                         <div class="form-group">
                             <label for="physicalComp">Physical Component</label>
                             <textarea id="physicalComp" 
+                            maxlength="200"
                             formControlName="physicalComp" class="form-control" rows="6" tabindex="1" >
-                            </textarea>                          
+                            </textarea>      
+                            <span class="help">{{phycompLength}} characters left</span>                     
                           </div>
   
                           <div class="form-group">
                               <label for="mentalComp">Mental Component</label>
                               <textarea id="mentalComp" 
+                                maxlength="200"
                                 formControlName="mentalComp" 
                                 class="form-control" rows="6" tabindex="2" >
                               </textarea>
+                              <span class="help">{{mencompLength}} characters left</span> 
                             </div>
   
                         <div class="form-group">
@@ -48,9 +52,11 @@
                           <div class="form-group">
                             <label for="duration">Duration</label>
                             <textarea id="duration" 
+                              maxlength="45"
                               formControlName="duration" 
                               class="form-control" rows="1" tabindex="4" >
                             </textarea>
+                            <span class="help">{{durationLength}} characters left</span>
                           </div>
 
                           <div class="form-group">
@@ -64,65 +70,81 @@
                           <div class="form-group">
                             <label for="therapyApplied">Therapy Applied</label>
                             <textarea id="therapyApplied" 
+                              maxlength="100"
                               formControlName="therapyApplied" 
                               class="form-control" rows="3" tabindex="5" >
                             </textarea>
+                            <span class="help">{{therapyLength}} characters left</span>
                           </div>
 
                           <div class="form-group">
                             <label for="caseHistory">Case History</label>
                             <textarea id="caseHistory" 
+                              maxlength="450"
                               formControlName="caseHistory" 
-                              class="form-control" rows="10" tabindex="6" >
+                              class="form-control" rows="10" tabindex="6" >                              
                             </textarea>
+                            <span class="help">{{caseHisLength}} characters left</span>
                           </div>
 
                           <div class="form-group">
                             <label for="psyEvaluation">Psychological Evaluation</label>
                             <textarea id="psyEvaluation" 
+                              maxlength="250"
                               formControlName="psyEvaluation" 
                               class="form-control" rows="4" tabindex="7" >
                             </textarea>
+                            <span class="help">{{psyEvalLength}} characters left</span>
                           </div>
 
                           <div class="form-group">
                             <label for="labTesting">Laboratory Testing</label>
                             <textarea id="labTesting" 
+                              maxlength="200"
                               formControlName="labTesting" 
-                              class="form-control" rows="5" tabindex="8" >
+                              class="form-control" rows="5" tabindex="8" >                              
                             </textarea>
+                            <span class="help">{{labLength}} characters left</span>
                           </div>
 
                           <div class="form-group">
                             <label for="diagnosis">Diagnosis</label>
                             <textarea id="diagnosis" 
+                              maxlength="200"
                               formControlName="diagnosis" 
-                              class="form-control" rows="6" tabindex="9" >
+                              class="form-control" rows="6" tabindex="9" >                              
                             </textarea>
+                            <span class="help">{{diagLength}} characters left</span>
                           </div>
 
                           <div class="form-group">
                             <label for="diffDiagnosis">Differential Diagnosis</label>
                             <textarea id="diffDiagnosis" 
+                              maxlength="200"
                               formControlName="diffDiagnosis" 
-                              class="form-control" rows="6" tabindex="10" >
+                              class="form-control" rows="6" tabindex="10" >                              
                             </textarea>
+                            <span class="help">{{diffdiagLength}} characters left</span>
                           </div>
 
                           <div class="form-group">
                             <label for="formulation">Formulation</label>
                             <textarea id="formulation" 
+                              maxlength="200"
                               formControlName="formulation" 
-                              class="form-control" rows="3" tabindex="11" >
+                              class="form-control" rows="3" tabindex="11" >                              
                             </textarea>
+                            <span class="help">{{formLength}} characters left</span>
                           </div>
 
                           <div class="form-group">
                             <label for="clientDocLink">Client Document Link</label>
                             <textarea id="clientDocLink" 
+                              maxlength="100"  
                               formControlName="clientDocLink" 
                               class="form-control" rows="1" tabindex="12" >
                             </textarea>
+                            <span class="help">{{linkLength}} characters left</span>
                           </div>
   
                    </div>

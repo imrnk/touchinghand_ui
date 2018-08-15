@@ -18,12 +18,16 @@ export class SessionComponent implements OnInit, OnDestroy {
   updateMode = true;
   paramSubscription : Subscription;
   createSessionSubscription : Subscription;
+  feedbackFieldSubscription : Subscription;
+  impressionFieldSubscription : Subscription;
   sessionForm : FormGroup;
   clientId : number;
   errorMessage: string;
   successMessage = false;
   treatmentDataLink :string;
   savedSessionId : Number;
+  imprLength = 500;
+  feedbackLength = 1000;
 
   constructor(private router : Router, private route: ActivatedRoute, 
     private sessionService : SessionService) { }
@@ -46,6 +50,12 @@ export class SessionComponent implements OnInit, OnDestroy {
     if(this.createSessionSubscription) {
     this.createSessionSubscription.unsubscribe();
     }
+    if(this.impressionFieldSubscription){
+      this.impressionFieldSubscription.unsubscribe();
+    }
+    if(this.feedbackFieldSubscription) {
+      this.feedbackFieldSubscription.unsubscribe();
+    }
   }
 
   createSessionForm() {
@@ -55,7 +65,20 @@ export class SessionComponent implements OnInit, OnDestroy {
       'followupDate' : new FormControl(null, Utility.validDate.bind(this)),
       'impression' : new FormControl(null),
       'feedback' : new FormControl(null)
-    })
+    });
+    
+    this.onChange();
+  }
+
+  onChange() {
+    this.impressionFieldSubscription = this.sessionForm.get('impression').valueChanges.subscribe(
+      val => {this.imprLength = 500 - val.length;}
+    );
+
+    this.feedbackFieldSubscription = this.sessionForm.get('feedback').valueChanges.subscribe(
+      val => {this.feedbackLength = 1000 - val.length;}
+    );
+  
   }
 
   onSubmit() {
@@ -83,6 +106,8 @@ export class SessionComponent implements OnInit, OnDestroy {
 
   onResetCreateSessionForm() {
     this.createSessionForm();
+    this.imprLength = 500;
+    this.feedbackLength = 1000;
   }
 
 }

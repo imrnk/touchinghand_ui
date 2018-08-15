@@ -24,12 +24,24 @@ export class TreatmentDataComponent implements OnInit, OnDestroy {
   errorMessage: string;
   successMessage = false;
   degrees = Array.from(Array(11).keys());  
+  phycompLength :number;
+  mencompLength :number;
+  durationLength :number;
+  therapyLength :number;
+  caseHisLength :number;
+  psyEvalLength :number;
+  labLength :number;
+  diagLength :number;
+  diffdiagLength :number;
+  formLength :number;
+  linkLength :number;
   
   constructor(private router : Router, private route: ActivatedRoute, 
     private sessionService : SessionService) { }
 
   ngOnInit() {
     this.createTreatmentDataForm();
+    this.initLengths();
     this.clientId = +this.route.snapshot.params['id'];
     this.sessionId = +this.route.snapshot.params['sid'];
 
@@ -50,6 +62,20 @@ export class TreatmentDataComponent implements OnInit, OnDestroy {
       },
       (error) => this.errorMessage = error
     );
+  }
+
+  initLengths() {
+    this.phycompLength = 200;
+  this.mencompLength = 200;
+  this.durationLength = 45;
+  this.therapyLength = 100;
+  this.caseHisLength = 450;
+  this.psyEvalLength = 250;
+  this.labLength = 200;
+  this.diagLength = 200;
+  this.diffdiagLength = 200;
+  this.formLength = 200;
+  this.linkLength = 100;
   }
 
   ngOnDestroy() {
@@ -76,8 +102,46 @@ export class TreatmentDataComponent implements OnInit, OnDestroy {
       'formulation' : new FormControl(null),
       'clientDocLink' : new FormControl(null)
     })
+
+    this.onChange();
   }
 
+  onChange() {
+    this.treatmentDataForm.get('physicalComp').valueChanges.subscribe(
+      val => {this.phycompLength = 200 - val.length;}
+    );
+    this.treatmentDataForm.get('mentalComp').valueChanges.subscribe(
+      val => {this.mencompLength = 200 - val.length;}
+    );
+    this.treatmentDataForm.get('duration').valueChanges.subscribe(
+      val => {this.durationLength = 45 - val.length;}
+    );
+    this.treatmentDataForm.get('therapyApplied').valueChanges.subscribe(
+      val => {this.therapyLength = 100 - val.length;}
+    );
+    this.treatmentDataForm.get('caseHistory').valueChanges.subscribe(
+      val => {this.caseHisLength = 450 - val.length;}
+    );
+    this.treatmentDataForm.get('psyEvaluation').valueChanges.subscribe(
+      val => {this.psyEvalLength = 250 - val.length;}
+    );
+    this.treatmentDataForm.get('labTesting').valueChanges.subscribe(
+      val => {this.labLength = 200 - val.length;}
+    );
+    this.treatmentDataForm.get('diagnosis').valueChanges.subscribe(
+      val => {this.diagLength = 200 - val.length;}
+    );
+    this.treatmentDataForm.get('diffDiagnosis').valueChanges.subscribe(
+      val => {this.diffdiagLength = 200 - val.length;}
+    );
+    this.treatmentDataForm.get('formulation').valueChanges.subscribe(
+      val => {this.formLength = 200 - val.length;}
+    );
+    this.treatmentDataForm.get('clientDocLink').valueChanges.subscribe(
+      val => {this.linkLength = 200 - val.length;}
+    );
+
+  }
   onSubmit() {
     const treatmentDataObj = new TreatmentData(null, 
         this.sessionId, this.clientId, 
@@ -106,5 +170,6 @@ export class TreatmentDataComponent implements OnInit, OnDestroy {
 
   onResetTreatmentDataForm() {
     this.createTreatmentDataForm();
+    this.initLengths();
   }
 }

@@ -236,3 +236,8 @@ h5 {
 .boxitem {
   color: #3e2105;
 }
+
+.help {
+  font-size: 1rem;
+  color: rgb(117, 105, 105);
+}
