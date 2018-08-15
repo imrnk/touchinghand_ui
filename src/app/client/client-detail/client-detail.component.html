@@ -52,7 +52,6 @@
           <i class="fa fa-plus fa-lg" aria-hidden="true"></i>
           New Session
         </button>
-        <button class="btn btn-lg btn-info" type="button" (click) = "onNewTreatmentData()">Treatment Data</button>
         <button *ngIf= "searchedClient.clientMse === null ; else mseLink" class="btn btn-lg btn-warning" type="button" (click) = "onNewMSE()">Create MSE</button>
         <ng-template #mseLink>
           <button class="btn btn-lg btn-warning" 
@@ -81,6 +80,7 @@
                         </th>
                         <th>Impression</th>
                         <th>Feedback</th>
+                        <th>Treatment Data</th>
                     </tr>
                     <tr *ngFor='let psySession of sessionsOfClient'>
                         <td>
@@ -94,11 +94,12 @@
                         <td>{{  psySession.followupDate }}</td>
                         <td>{{  psySession.impression | shorten : 20 }}</td>
                         <td>{{  psySession.feedback  | shorten : 20 }}</td>
-                        <td><a id="modal-link" data-toggle="modal"
+                        <td><a *ngIf="psySession.treatmentData" 
+                          id="modal-link" data-toggle="modal"
                           (click)="selectTreatmentData(psySession.sessionId)"
                           style="cursor: pointer"
                           data-target="#treatmentDataModal">
-                          Treatment Data for Session {{ psySession.sessionId }}
+                          Click here
                         </a></td>
                     </tr>                        
                 </table>
@@ -196,7 +197,7 @@
               <span aria-hidden="true">&times;</span></button>
           </div>
           <div class="modal-body" *ngIf = "selectedSession">
-            <table class="table">
+            <table class="table table-responsive" style="width: 76%;">
               <tbody>
                 <tr>
                   <td class="key">Session Date</td>
@@ -307,7 +308,7 @@
               <span aria-hidden="true">&times;</span></button>
           </div>
           <div class="modal-body" *ngIf = "selectedTreatmentData">
-            <table class="table">
+            <table class="table" style="width: 95%">
               <tbody>
                 <tr>
                   <td class="key">Physical Component</td>
@@ -343,7 +344,12 @@
                 </tr>
                 <tr>
                   <td class="key">Client Document Link</td>
-                  <td>{{ selectedTreatmentData.clientDocLink }}</td>
+                  <td><a 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="{{selectedTreatmentData.clientDocLink}}">
+                    {{ selectedTreatmentData.clientDocLink }}
+                  </a></td>
                 </tr>
               </tbody>
             </table>

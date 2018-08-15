@@ -72,6 +72,7 @@ export class ClientDetailComponent implements OnInit, OnDestroy{
   getSelectedSession(sessionId : string) {
     return this.sessionsOfClient.find(ps => ps.sessionId === sessionId);
   }
+  
   selectTreatmentData(sessionId: string) {
    this.selectedTreatmentData = this.getSelectedSession(sessionId).treatmentData;
   }
