@@ -1,3 +1,4 @@
+import { AuthInterceptorProvider } from './utility/auth.interceptor';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
@@ -34,6 +35,7 @@ import { StatusTransformPipe } from './pipes/status-transform.pipe';
 import { FullGenderPipe } from './pipes/full-gender.pipe';
 import { NotificationsComponent } from './dashboard/notifications/notifications.component';
 import { MaritalStatusPipe } from './pipes/marital-status.pipe';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +63,8 @@ import { MaritalStatusPipe } from './pipes/marital-status.pipe';
     StatusTransformPipe,
     FullGenderPipe,
     NotificationsComponent,
-    MaritalStatusPipe    
+    MaritalStatusPipe,
+    LoginComponent    
   ],
   imports: [
     BrowserModule,    
@@ -71,7 +74,7 @@ import { MaritalStatusPipe } from './pipes/marital-status.pipe';
     AppRoutingModule,
     FormsModule
   ],
-  providers: [ClientsService, SessionService, ErrorInterceptorProvider],
+  providers: [ClientsService, SessionService, ErrorInterceptorProvider, AuthInterceptorProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

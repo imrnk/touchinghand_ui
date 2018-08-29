@@ -26,9 +26,11 @@ export class ErrorInterceptor implements HttpInterceptor {
             .catch(errorResponse  => {
                 let errMsg: string;
                 if (errorResponse.error instanceof Error) {
+                    console.log('1st block: ', errorResponse.error.message);
                     errMsg = errorResponse.error.message;
                  } else {
                     if (errorResponse.error != null) {
+                        console.log('2nd block: ', errorResponse.error.responseMessage);
                         errMsg = errorResponse.error.responseMessage;                        
                     } else {
                         errMsg = 'Error Message: Internal Technical Error occured' ;
