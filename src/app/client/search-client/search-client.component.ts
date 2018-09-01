@@ -10,8 +10,7 @@ import { PsySession } from '../../model/psy-session';
 
 @Component({
   selector: 'app-search-client',
-  templateUrl: './search-client.component.html',
-  styleUrls: ['./search-client.component.css']
+  templateUrl: './search-client.component.html'
 })
 export class SearchClientComponent implements OnInit, OnDestroy{
 

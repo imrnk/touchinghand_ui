@@ -9,8 +9,7 @@ import { SessionService } from './../../sessions/session-service';
 
 @Component({
   selector: 'app-session',
-  templateUrl: './session.component.html',
-  styleUrls: ['./session.component.css']
+  templateUrl: './session.component.html'
 })
 export class SessionComponent implements OnInit, OnDestroy {
 

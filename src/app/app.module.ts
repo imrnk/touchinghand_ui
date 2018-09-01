@@ -1,3 +1,7 @@
+import { TokenStorage } from './utility/token-storage.service';
+import { AlertService } from './utility/alert-service';
+import { AuthGuard } from './utility/auth-guard.service';
+import { AuthenticationService } from './utility/auth.service';
 import { AuthInterceptorProvider } from './utility/auth.interceptor';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -13,7 +17,6 @@ import { SessionComponent } from './client/session/session.component';
 import { AddClientComponent } from './client/add-client/add-client.component';
 import { SearchClientComponent } from './client/search-client/search-client.component';
 import { SessionsComponent } from './sessions/sessions.component';
-import { SideNotificationsComponent } from './side-notifications/side-notifications.component';
 import { UpcomingSessionsComponent } from './sessions/upcoming-sessions/upcoming-sessions.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -36,6 +39,7 @@ import { FullGenderPipe } from './pipes/full-gender.pipe';
 import { NotificationsComponent } from './dashboard/notifications/notifications.component';
 import { MaritalStatusPipe } from './pipes/marital-status.pipe';
 import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './login/register/register.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +51,6 @@ import { LoginComponent } from './login/login.component';
     AddClientComponent,
     SearchClientComponent,
     SessionsComponent,
-    SideNotificationsComponent,
     UpcomingSessionsComponent,
     HeaderComponent,
     FooterComponent,
@@ -64,7 +67,8 @@ import { LoginComponent } from './login/login.component';
     FullGenderPipe,
     NotificationsComponent,
     MaritalStatusPipe,
-    LoginComponent    
+    LoginComponent,
+    RegisterComponent    
   ],
   imports: [
     BrowserModule,    
@@ -74,7 +78,14 @@ import { LoginComponent } from './login/login.component';
     AppRoutingModule,
     FormsModule
   ],
-  providers: [ClientsService, SessionService, ErrorInterceptorProvider, AuthInterceptorProvider],
+  providers: [ClientsService, 
+    AuthGuard,
+    AlertService,
+    TokenStorage,
+    SessionService, 
+    ErrorInterceptorProvider, 
+    AuthenticationService, 
+    AuthInterceptorProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

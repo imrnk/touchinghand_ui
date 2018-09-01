@@ -7,8 +7,7 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-client',
-  templateUrl: './add-client.component.html',
-  styleUrls: ['./add-client.component.css']
+  templateUrl: './add-client.component.html'
 })
 export class AddClientComponent implements OnInit , OnDestroy{
   errorMessage: string;

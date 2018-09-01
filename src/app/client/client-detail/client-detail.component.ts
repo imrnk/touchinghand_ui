@@ -11,8 +11,7 @@ import { ClientsService } from '../../clients.service';
 
 @Component({
   selector: 'app-client-detail',
-  templateUrl: './client-detail.component.html',
-  styleUrls: ['./client-detail.component.css']
+  templateUrl: './client-detail.component.html'
 })
 export class ClientDetailComponent implements OnInit, OnDestroy{
   

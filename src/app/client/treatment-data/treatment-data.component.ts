@@ -9,8 +9,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-treatment-data',
-  templateUrl: './treatment-data.component.html',
-  styleUrls: ['./treatment-data.component.css']
+  templateUrl: './treatment-data.component.html'
 })
 export class TreatmentDataComponent implements OnInit, OnDestroy {
 

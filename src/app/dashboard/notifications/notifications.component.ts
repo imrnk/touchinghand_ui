@@ -7,8 +7,7 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-notifications',
-  templateUrl: './notifications.component.html',
-  styleUrls: ['./notifications.component.css']
+  templateUrl: './notifications.component.html'
 })
 export class NotificationsComponent implements OnInit, OnDestroy {
 

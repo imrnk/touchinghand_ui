@@ -12,8 +12,7 @@ import { GroupedReferenceData } from '../../model/grouped-reference-data';
 
 @Component({
   selector: 'app-mse',
-  templateUrl: './mse.component.html',
-  styleUrls: ['./mse.component.css']
+  templateUrl: './mse.component.html'
 })
 export class MseComponent implements OnInit, OnDestroy {
 

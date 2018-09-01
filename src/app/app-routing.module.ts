@@ -1,3 +1,6 @@
+import { RegisterComponent } from './login/register/register.component';
+import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './utility/auth-guard.service';
 
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -15,9 +18,12 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { ErrorPageComponent } from './error-page/error-page.component';
 
 const appRoutes : Routes = [
-    {path : '', redirectTo : '/dashboard', pathMatch: 'full' },
-    {path : 'dashboard', component : DashboardComponent },
-    {path : 'client',  component : ClientComponent, children : [
+    {path : '', redirectTo : '/login', pathMatch: 'full' },
+    {path : 'login', component : LoginComponent },
+    {path : 'register', component : RegisterComponent },
+    //{path : '', redirectTo : '/dashboard', pathMatch: 'full', canActivate: [AuthGuard] },
+    {path : 'dashboard', component : DashboardComponent, canActivate: [AuthGuard] },
+    {path : 'client',  component : ClientComponent, canActivateChild: [AuthGuard], children : [
         {path : '', redirectTo : 'search', pathMatch: 'full'},
         {path : 'add', component :  AddClientComponent},
         {path : 'search', component :  SearchClientComponent},
@@ -30,7 +36,7 @@ const appRoutes : Routes = [
         {path : 'sessions', component :  SessionsComponent}
     ]},
     {path : 'page-not-found', component : PageNotFoundComponent },
-    {path : '**', redirectTo : '/page-not-found' }
+    { path: '**', redirectTo: '' }
 ]
 
 @NgModule({
