@@ -1,4 +1,4 @@
-import { AlertService } from './../utility/alert-service';
+//import { AlertService } from './../utility/alert-service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from './../utility/auth.service';
 import { UserCredentials } from '../model/usercredentials';
@@ -17,14 +17,15 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(private authService : AuthenticationService, 
             private router: Router,
-            private route: ActivatedRoute,
-            private alertService: AlertService) { 
+            private route: ActivatedRoute
+          //  private alertService: AlertService
+          ) { 
 
               console.log("login component constructor");
             }
 
   ngOnInit() {
-    this.authService.logout();
+    //this.authService.logout();
     this.createLoginForm();
   }
 
@@ -44,12 +45,12 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     let username = this.loginForm.get('username').value;
-    let password = this.loginForm.get('password').value;
+    let password = btoa(this.loginForm.get('password').value);
     let p  = new UserCredentials(username, password);
     this.loginFormSubscription = this.authService.login(p).subscribe(
       data => {
         this.router.navigate(['/dashboard'])
       },
-    error => {this.alertService.error(error);});
+    error => {console.log(error)});
   }
 }

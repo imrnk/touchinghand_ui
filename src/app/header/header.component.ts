@@ -1,3 +1,5 @@
+import { AuthenticationService } from './../utility/auth.service';
+import { TokenStorage } from './../utility/token-storage.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -5,10 +7,19 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './header.component.html'
 })
 export class HeaderComponent implements OnInit {
+  
+  userName : string;
 
-  constructor() { }
-
+  constructor(private tokenStorageService : TokenStorage, private authService : AuthenticationService) { }
+  
   ngOnInit() {
+    this.tokenStorageService.getUserName().subscribe(
+      data => this.userName = data
+    );
+  }
+
+  onLogOut() {
+    this.authService.logout();
   }
 
 }

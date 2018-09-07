@@ -1,3 +1,4 @@
+import { QueryUserResult } from './../model/query-user';
 import { RegistrationUser } from './../model/registration-user';
 import { UserCredentials } from '../model/usercredentials';
 import { environment } from './../../environments/environment';
@@ -54,7 +55,7 @@ export class AuthenticationService {
       .getRefreshToken()
       .pipe(
         switchMap((refreshToken: string) =>
-          this.http.post(`${environment.apiUrl}${'/auth/refresh'}`, {})
+          this.http.get(`${environment.apiUrl}${'/auth/refresh'}`)
         ),
         tap((tokens: AccessData) => this.saveAccessData(tokens)),
         catchError((err) => {
@@ -91,7 +92,7 @@ export class AuthenticationService {
 
   public login(userCredentials : UserCredentials): Observable<any> {
     return this.http.post(`${environment.apiUrl}${'/auth'}`, userCredentials)
-    .pipe(tap((tokens: AccessData) => this.saveAccessData(tokens)));
+    .pipe(tap((tokens: AccessData) => this.saveAccessData(tokens), () => this.getAuthUser()));
   }
 
   public register(registration : RegistrationUser): Observable<any>  {
@@ -117,6 +118,12 @@ export class AuthenticationService {
     this.tokenStorage
       .setAccessToken(accessToken)
       .setRefreshToken(refreshToken);
+  }
+
+  private getAuthUser() {
+    this.http.get(`${environment.apiUrl}${'/auth/me'}`).subscribe(
+      (queryUser: QueryUserResult) => this.tokenStorage.setUserName(queryUser)
+    )
   }
 
 }

@@ -1,3 +1,4 @@
+import { AuthenticationService } from './utility/auth.service';
 import { Component, OnInit } from '@angular/core';
 //import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 //import { Observable } from 'rxjs';
@@ -12,8 +13,15 @@ export class AppComponent implements OnInit{
   // genders = ['male', 'female'];
   // signUpForm : FormGroup;
   // forbiddenUserNames = ['Goru', 'Gadha'];
+  authorized = false;
+
+  constructor(private authService : AuthenticationService) {}
 
   ngOnInit(): void {
+    this.authService.isAuthorized().subscribe(
+      au => this.authorized = au
+    );
+
     // this.signUpForm = new FormGroup({
     //    'userdata' : new FormGroup({
     //       'username' : new FormControl(null, [Validators.required, this.forbiddenNames.bind(this)]),

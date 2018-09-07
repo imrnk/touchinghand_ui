@@ -1,5 +1,7 @@
 <app-header></app-header>
-<app-sidebar></app-sidebar>
+<span *ngIf="authorized">
+    <app-sidebar></app-sidebar>
+</span>
 <div class="content-wrapper">
     <section class="content">
         <router-outlet></router-outlet>

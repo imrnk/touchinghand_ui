@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl : "http://localhost:8090/onlinecounselling/service"
+  apiUrl : "https://localhost:8453/onlinecounselling/service"
 };
 
 /*

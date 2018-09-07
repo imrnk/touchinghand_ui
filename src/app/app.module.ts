@@ -1,8 +1,3 @@
-import { TokenStorage } from './utility/token-storage.service';
-import { AlertService } from './utility/alert-service';
-import { AuthGuard } from './utility/auth-guard.service';
-import { AuthenticationService } from './utility/auth.service';
-import { AuthInterceptorProvider } from './utility/auth.interceptor';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
@@ -30,7 +25,6 @@ import { ClientsService } from './clients.service';
 import { SessionService } from './sessions/session-service';
 import { DropdownDirective } from './directive/dropdown.directive';
 import { FuppercasePipe } from './pipes/fuppercase.pipe';
-import { environment } from '../environments/environment';
 import { ErrorInterceptorProvider } from './utility/error.interceptor';
 import { ShortenPipe } from './pipes/shorten.pipe';
 import { SortPipe } from './pipes/sort.pipe';
@@ -40,6 +34,10 @@ import { NotificationsComponent } from './dashboard/notifications/notifications.
 import { MaritalStatusPipe } from './pipes/marital-status.pipe';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './login/register/register.component';
+import { TokenStorage } from './utility/token-storage.service';
+import { AuthGuard } from './utility/auth-guard.service';
+import { AuthenticationService } from './utility/auth.service';
+import { AuthInterceptorProvider } from './utility/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -80,7 +78,6 @@ import { RegisterComponent } from './login/register/register.component';
   ],
   providers: [ClientsService, 
     AuthGuard,
-    AlertService,
     TokenStorage,
     SessionService, 
     ErrorInterceptorProvider, 
