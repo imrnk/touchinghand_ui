@@ -1,4 +1,4 @@
-import { SessionService } from './../../sessions/session-service';
+import { SessionService } from '../session/session-service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';

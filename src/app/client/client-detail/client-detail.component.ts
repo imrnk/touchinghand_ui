@@ -1,5 +1,5 @@
 import { TreatmentData } from './../../model/treatment-data';
-import { SessionService } from './../../sessions/session-service';
+import { SessionService } from '../session/session-service';
 import { ClientMse } from './../../model/client-mse';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';

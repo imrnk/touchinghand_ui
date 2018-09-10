@@ -3,15 +3,14 @@ import { RegistrationUser } from './../model/registration-user';
 import { UserCredentials } from '../model/usercredentials';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap, map, switchMap, catchError } from 'rxjs/operators';
 
 import { TokenStorage } from './token-storage.service';
 
 interface AccessData {
-  accessToken: string;
-  refreshToken: string;
+  token: string;
 }
 
 @Injectable()
@@ -91,13 +90,33 @@ export class AuthenticationService {
    */
 
   public login(userCredentials : UserCredentials): Observable<any> {
-    return this.http.post(`${environment.apiUrl}${'/auth'}`, userCredentials)
-    .pipe(tap((tokens: AccessData) => this.saveAccessData(tokens), () => this.getAuthUser()));
+    return this.http.post(`${environment.apiUrl}${'/auth'}`, userCredentials, { headers: this.noTokenHeader()})
+                      .flatMap((token : AccessData) => {
+                        this.saveAccessData(token);
+                        this.getAuthUser();
+                        return Observable.of(token);
+                      });
+    
+  }
+
+  private noTokenHeader(): HttpHeaders{
+    let noTokenHeader = new HttpHeaders();
+    noTokenHeader = noTokenHeader.append('no-token', 'no-token');
+    return noTokenHeader;
   }
 
   public register(registration : RegistrationUser): Observable<any>  {
-   return this.http.post(`${environment.apiUrl}${'/auth/register'}`, registration)
-    .pipe(tap((tokens: AccessData) => this.saveAccessData(tokens)));
+
+    return this.http.post(`${environment.apiUrl}${'/auth/register'}`, registration, { headers: this.noTokenHeader()})
+    .flatMap((token : AccessData) => {
+      this.saveAccessData(token);
+      this.getAuthUser();
+      return Observable.of(token);
+    })
+
+  //  return this.http.post(`${environment.apiUrl}${'/auth/register'}`, registration, 
+  //  {headers: this.noTokenHeader()})
+  //   .pipe(tap((tokens: AccessData) => this.saveAccessData(tokens)));
   }
 
   /**
@@ -114,10 +133,10 @@ export class AuthenticationService {
    * @private
    * @param {AccessData} data
    */
-  private saveAccessData({ accessToken, refreshToken }: AccessData) {
+  private saveAccessData({ token }: AccessData) {
     this.tokenStorage
-      .setAccessToken(accessToken)
-      .setRefreshToken(refreshToken);
+      .setAccessToken(token)
+      .setRefreshToken(token);
   }
 
   private getAuthUser() {

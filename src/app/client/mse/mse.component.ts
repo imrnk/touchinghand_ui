@@ -5,7 +5,7 @@ import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { FormGroup, FormBuilder, FormControl, NgForm } from '@angular/forms';
-import { SessionService } from './../../sessions/session-service';
+import { SessionService } from '../session/session-service';
 import { GroupedReferenceData } from '../../model/grouped-reference-data';
 
 

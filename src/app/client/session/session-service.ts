@@ -1,11 +1,12 @@
-import { Client } from './../model/client';
-import { Injectable } from "@angular/core";
-import { HttpClient, HttpParams } from "@angular/common/http";
-import { GroupedReferenceData } from './../model/grouped-reference-data';
-import { PsySession } from './../model/psy-session';
-import { environment } from '../../environments/environment';
-import { Observable } from "rxjs";
-import { TreatmentData } from '../model/treatment-data';
+import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+
+import { GroupedReferenceData } from './../../model/grouped-reference-data';
+import { Client } from './../../model/client';
+import { TreatmentData } from './../../model/treatment-data';
+import { PsySession } from './../../model/psy-session';
+import { environment } from './../../../environments/environment';
 
 @Injectable()
 export class SessionService {

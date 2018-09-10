@@ -13,17 +13,21 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(public auth: AuthenticationService) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    
-    request = request.clone({
-      setHeaders: {
-        Authorization: `Bearer ${this.auth.getAccessToken().flatMap(t => t)}`
-      }
+  if(request.headers.get('no-token') != 'no-token'){
+    let requestHandler = this.auth.getAccessToken().flatMap(tok => {
+      request = request.clone({
+        setHeaders: {
+          Authorization: "Bearer " + tok
+        }
+      });
+      return next.handle(request);
     });
-
+    return requestHandler; 
+  } else {
     return next.handle(request);
   }
+  }
 }
-
 
 /**
  * Provider POJO for the interceptor

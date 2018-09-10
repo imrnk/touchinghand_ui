@@ -36,9 +36,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   createLoginForm() {
-    console.log("creating login form ");
     this.loginForm = new FormGroup({
-      'username' : new FormControl(null, [Validators.required, Validators.pattern("[a-zA-Z ]+")]),
+      'username' : new FormControl(null, [Validators.required, Validators.pattern("[a-zA-Z0-9._\-]+@[a-zA-Z0-9.\-]+[.][a-zA-Z]+")]),
       'password' : new FormControl(null, [Validators.required])
   });
 }
@@ -46,8 +45,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   onSubmit() {
     let username = this.loginForm.get('username').value;
     let password = btoa(this.loginForm.get('password').value);
-    let p  = new UserCredentials(username, password);
-    this.loginFormSubscription = this.authService.login(p).subscribe(
+    let p  = new UserCredentials(username, password);                                                               
+    this.loginFormSubscription = this.authService.login(p).subscribe(                                                               
       data => {
         this.router.navigate(['/dashboard'])
       },

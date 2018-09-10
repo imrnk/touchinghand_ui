@@ -1,7 +1,7 @@
 import { PsySession } from './../../model/psy-session';
 import { TreatmentData } from './../../model/treatment-data';
 import { Utility } from './../../utility/utility';
-import { SessionService } from './../../sessions/session-service';
+import { SessionService } from '../session/session-service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs';

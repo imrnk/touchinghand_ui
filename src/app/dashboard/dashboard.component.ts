@@ -1,8 +1,8 @@
-import { PsySession } from './../model/psy-session';
+import { SessionService } from '../client/session/session-service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { SessionService } from './../sessions/session-service';
+
 import { Client } from '../model/client';
 
 

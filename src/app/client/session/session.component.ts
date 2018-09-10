@@ -4,7 +4,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Utility } from '../../utility/utility';
 import { PsySession } from './../../model/psy-session';
-import { SessionService } from './../../sessions/session-service';
+import { SessionService } from './session-service';
 
 
 @Component({
