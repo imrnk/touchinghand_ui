@@ -90,7 +90,9 @@ export class AuthenticationService {
    */
 
   public login(userCredentials : UserCredentials): Observable<any> {
-    return this.http.post(`${environment.apiUrl}${'/auth'}`, userCredentials, { headers: this.noTokenHeader()})
+    let hdr = new HttpHeaders();
+    this.noTokenHeader(hdr);
+    return this.http.post(`${environment.apiUrl}${'/auth'}`, userCredentials, {headers: hdr})
                       .flatMap((token : AccessData) => {
                         this.saveAccessData(token);
                         this.getAuthUser();
@@ -99,15 +101,24 @@ export class AuthenticationService {
     
   }
 
-  private noTokenHeader(): HttpHeaders{
-    let noTokenHeader = new HttpHeaders();
-    noTokenHeader = noTokenHeader.append('no-token', 'no-token');
-    return noTokenHeader;
+  private noTokenHeader(hdr : HttpHeaders) {
+    
+    this.isAuthorized().map(auth => { 
+      if(auth){
+    }else {
+      hdr = hdr.append('no-token', 'no-token');
+    }
+  }
+  
+);
+
+    //return noTokenHeader;
   }
 
   public register(registration : RegistrationUser): Observable<any>  {
-
-    return this.http.post(`${environment.apiUrl}${'/auth/register'}`, registration, { headers: this.noTokenHeader()})
+    let hdr = new HttpHeaders();
+    this.noTokenHeader(hdr);
+    return this.http.post(`${environment.apiUrl}${'/auth/register'}`, registration, { headers: hdr})
     .flatMap((token : AccessData) => {
       this.saveAccessData(token);
       this.getAuthUser();
