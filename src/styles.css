@@ -241,3 +241,13 @@ h5 {
   font-size: 1rem;
   color: rgb(117, 105, 105);
 }
+
+.login-page {
+  padding-bottom: 10px;
+  padding-top: 10px;
+  width: 65%;
+}
+.register-page  {
+  padding-bottom: 10px;
+  padding-top: 10px;
+}

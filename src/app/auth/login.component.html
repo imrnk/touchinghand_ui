@@ -1,35 +1,41 @@
 <div class="login-page">
-<div class="row justify-content-md-center">
-<div class="col-md-4">
-    <img src="assets/image/avatar2.png" width="150px" class="user-avatar" />
-    <h1>Touching Hand</h1>
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <div class="form-content">
-            <div class="form-group">
-                <input type="text" 
-                formControlName="username"
-                class="form-control input-underline input-lg" id="username" placeholder="Email">
-                <span *ngIf="loginForm.get('username').touched && 
+    <div class="row justify-content-md-center">
+        <div class="col-md-6">
+            <!-- <img src="assets/image/avatar2.png" width="150px" class="user-avatar" /> -->
+            <h2>Touching Hands</h2>
+            <h3>Log In</h3>
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                <div class="form-content">
+                    <div class="form-group">
+                        <input type="text" formControlName="username" class="form-control input-underline input-lg" id="username" placeholder="Email">
+                        <span *ngIf="loginForm.get('username').touched && 
                                  !loginForm.get('username').valid" class="help-block">
-                      Not a valid email!
-                    </span>
-            </div>
+                            Not a valid email!
+                        </span>
+                    </div>
 
-            <div class="form-group">
-                <input type="password" 
-                formControlName="password"
-                class="form-control input-underline input-lg" id="password" placeholder="Password">
-                <span *ngIf="loginForm.get('password').touched && 
+                    <div class="form-group">
+                        <input type="password" formControlName="password" class="form-control input-underline input-lg" id="password" placeholder="Password">
+                        <span *ngIf="loginForm.get('password').touched && 
                                  !loginForm.get('password').valid" class="help-block">
-                      Password is required!
-                    </span>
-            </div>
-        </div>
-        <button class="btn btn-primary" [disabled]="!loginForm.valid"> Log in </button>
-        &nbsp;
-        <span>Don't have an account?</span>&nbsp;<a [routerLink] = "['/register']">Register</a>
-    </form>
-</div>
+                            Password is required!
+                        </span>
+                    </div>
 
-</div>
+                    <div class="card-body table-responsive" *ngIf="errorMessage">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="text-red">{{errorMessage}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-primary" [disabled]="!loginForm.valid"> Log in </button>
+                &nbsp;
+                <span>Don't have an account?</span>&nbsp;
+                <a [routerLink]="['/register']">Register</a>
+            </form>
+        </div>
+
+    </div>
 </div>

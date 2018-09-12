@@ -13,11 +13,11 @@
 
     <ul class="navbar-nav ml-auto" *ngIf = "userName">
       <li>
-        Welcome, {{userName}}
+        Welcome, {{userName}} &nbsp; <a href="#" (click)="onLogOut()">Log out</a>
       </li>
-      <li>
-        <a href="#" (click)="onLogOut()">Log out</a>
-      </li>
+      <!-- <li>
+        
+      </li> -->
     </ul>
 
   </nav>

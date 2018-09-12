@@ -1,10 +1,10 @@
+import { Observable } from 'rxjs/Observable';
 import { QueryUserResult } from './../model/query-user';
 import { RegistrationUser } from './../model/registration-user';
 import { UserCredentials } from '../model/usercredentials';
 import { environment } from './../../environments/environment';
-import { Injectable } from '@angular/core';
+import { Injectable, Output, EventEmitter } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { tap, map, switchMap, catchError } from 'rxjs/operators';
 
 import { TokenStorage } from './token-storage.service';
@@ -16,6 +16,8 @@ interface AccessData {
 @Injectable()
 export class AuthenticationService {
 
+  @Output() getLoggedInName: EventEmitter<any> = new EventEmitter();
+  
   constructor(
     private http: HttpClient,
     private tokenStorage: TokenStorage
@@ -89,45 +91,28 @@ export class AuthenticationService {
    * EXTRA AUTH METHODS
    */
 
-  public login(userCredentials : UserCredentials): Observable<any> {
-    let hdr = new HttpHeaders();
-    this.noTokenHeader(hdr);
-    return this.http.post(`${environment.apiUrl}${'/auth'}`, userCredentials, {headers: hdr})
+  public login(userCredentials : UserCredentials): Observable<string> {
+    
+    return this.http.post(`${environment.apiUrl}${'/auth'}`, userCredentials)
                       .flatMap((token : AccessData) => {
                         this.saveAccessData(token);
-                        this.getAuthUser();
-                        return Observable.of(token);
+                        return this.getAuthUser();
+                      }).flatMap(name => {
+                        this.getLoggedInName.emit(name);
+                        return Observable.of(name);
                       });
     
   }
 
-  private noTokenHeader(hdr : HttpHeaders) {
-    
-    this.isAuthorized().map(auth => { 
-      if(auth){
-    }else {
-      hdr = hdr.append('no-token', 'no-token');
-    }
-  }
-  
-);
-
-    //return noTokenHeader;
-  }
 
   public register(registration : RegistrationUser): Observable<any>  {
-    let hdr = new HttpHeaders();
-    this.noTokenHeader(hdr);
-    return this.http.post(`${environment.apiUrl}${'/auth/register'}`, registration, { headers: hdr})
+    
+    return this.http.post(`${environment.apiUrl}${'/auth/register'}`, registration)
     .flatMap((token : AccessData) => {
       this.saveAccessData(token);
       this.getAuthUser();
       return Observable.of(token);
     })
-
-  //  return this.http.post(`${environment.apiUrl}${'/auth/register'}`, registration, 
-  //  {headers: this.noTokenHeader()})
-  //   .pipe(tap((tokens: AccessData) => this.saveAccessData(tokens)));
   }
 
   /**
@@ -135,6 +120,7 @@ export class AuthenticationService {
    */
   public logout(): void {
     this.tokenStorage.clear();
+    this.getLoggedInName.emit();
     location.reload(true);
   }
 
@@ -150,10 +136,13 @@ export class AuthenticationService {
       .setRefreshToken(token);
   }
 
-  private getAuthUser() {
-    this.http.get(`${environment.apiUrl}${'/auth/me'}`).subscribe(
-      (queryUser: QueryUserResult) => this.tokenStorage.setUserName(queryUser)
-    )
+  private getAuthUser() : Observable<string>  {
+    return this.http.get(`${environment.apiUrl}${'/auth/me'}`).flatMap(
+      (queryUser: QueryUserResult) => {
+        this.tokenStorage.setUserName(queryUser);
+        return this.tokenStorage.getUserName();
+      }
+    ).flatMap(name=> Observable.of(name))
   }
 
 }

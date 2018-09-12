@@ -15,15 +15,27 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(private tokenStorageService : TokenStorage, private authService : AuthenticationService) { }
   
   ngOnInit() {
+  
+    this.authService.getLoggedInName.subscribe(name => {
+      if(!this.userName) {
+        this.userName = name;
+      }
+    });
+
     this.usernameSubscription = this.tokenStorageService.getUserName().subscribe(
       data => {
-        this.userName = data;
+        if(!this.userName){
+          this.userName = data;
+        }
       }
     );
+
+    
   }
 
   ngOnDestroy(): void {
     this.usernameSubscription.unsubscribe();
+
   }
 
   onLogOut() {

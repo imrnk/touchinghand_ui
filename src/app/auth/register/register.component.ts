@@ -12,6 +12,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class RegisterComponent implements OnInit {
 
   registrationForm : FormGroup;
+  errorMessage : string;
 
   constructor(private authService : AuthenticationService, 
             private router: Router,
@@ -26,10 +27,10 @@ export class RegisterComponent implements OnInit {
   createRegistrationForm() {
 
     this.registrationForm = new FormGroup({
-      'firstName' : new FormControl(null, [Validators.required]),
-      'lastName' : new FormControl(null, [Validators.required]),
-      'email' : new FormControl(null, [Validators.required, Validators.pattern("[a-zA-Z ]+")]),
-      'password' : new FormControl(null, [Validators.required])
+      'firstName' : new FormControl(null, [Validators.required, Validators.pattern("[a-zA-Z ]+")]),
+      'lastName' : new FormControl(null, [Validators.required, Validators.pattern("[a-zA-Z ]+")]),
+      'email' : new FormControl(null, [Validators.required, Validators.pattern("[a-zA-Z0-9._\-]+@[a-zA-Z0-9.\-]+[.][a-zA-Z]+")]),
+      'password' : new FormControl(null, [Validators.required, Validators.minLength(6)])
   });
 }
 
@@ -45,9 +46,14 @@ export class RegisterComponent implements OnInit {
         this.router.navigate(['/login'])
       },
       error => {
-        console.log(error)
+        console.log(error);
+        this.errorMessage = error;
         //this.alertService.error(error);
       }
     );
+  }
+
+  onReset() {
+    this.createRegistrationForm();
   }
 }

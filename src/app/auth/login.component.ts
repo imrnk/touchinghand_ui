@@ -2,9 +2,10 @@
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from './../utility/auth.service';
 import { UserCredentials } from '../model/usercredentials';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-login',
@@ -14,15 +15,13 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   loginForm : FormGroup;
   loginFormSubscription : Subscription;
-
+  errorMessage : string;
+  
   constructor(private authService : AuthenticationService, 
             private router: Router,
             private route: ActivatedRoute
           //  private alertService: AlertService
-          ) { 
-
-              console.log("login component constructor");
-            }
+          ) { }
 
   ngOnInit() {
     //this.authService.logout();
@@ -47,9 +46,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     let password = btoa(this.loginForm.get('password').value);
     let p  = new UserCredentials(username, password);                                                               
     this.loginFormSubscription = this.authService.login(p).subscribe(                                                               
-      data => {
+      user => {
         this.router.navigate(['/dashboard'])
       },
-    error => {console.log(error)});
+    error => {
+      this.errorMessage = error
+    }
+    );
   }
 }
