@@ -11,7 +11,7 @@
                 <div class="col-md-4">
 
                     <div class="form-group">
-                        <label for="sessionDate">Session Date</label>
+                        <label for="sessionDate">Session Date&nbsp;<i class="fa fa-asterisk"></i></label>
                             <div class="input-group">
                               <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-calendar"></i></span>
@@ -105,9 +105,9 @@
                   <p class="text-green">The session detail is successfully added.
                   </p>
                   <br>
-                  <h4>Would you like to add treatment data for this session?</h4>
                   <div class="col-md-4">
-                  <a [routerLink]="treatmentDataLink">Yes, please. Take me to the Treatment Data page</a>
+                  <h4>Would you like to add treatment data for this session?</h4>
+                  <h4>Yes, please. Take me to the <a [routerLink]="treatmentDataLink">Treatment Data</a> page</h4>
                 </div>
                 <div class="col-md-2">
                   <a routerLink="../" class="btn btn-block btn-danger">

@@ -81,26 +81,29 @@ export class SessionComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    const sessionObj = new PsySession(null, 
-      this.clientId,  
-      null,
-      null,
-      this.sessionForm.value['sessionDate'], 
-      this.sessionForm.value['followupDate'],
-      this.sessionForm.value['impression'],
-      this.sessionForm.value['feedback']
-    );
+
+    this.successMessage = true;
+
+    // const sessionObj = new PsySession(null, 
+    //   this.clientId,  
+    //   null,
+    //   null,
+    //   this.sessionForm.value['sessionDate'], 
+    //   this.sessionForm.value['followupDate'],
+    //   this.sessionForm.value['impression'],
+    //   this.sessionForm.value['feedback']
+    // );
     
-    this.createSessionSubscription = this.sessionService.createSession(sessionObj).subscribe(
-      (sessionId : Number) => {
-        this.savedSessionId = sessionId;
-        this.onResetCreateSessionForm();         
-        this.treatmentDataLink = this.savedSessionId+'/treatment-data';
-        this.successMessage = true;
-      },
-      (error) => this.errorMessage = error
+    // this.createSessionSubscription = this.sessionService.createSession(sessionObj).subscribe(
+    //   (sessionId : Number) => {
+    //     this.savedSessionId = sessionId;
+    //     this.onResetCreateSessionForm();         
+    //     this.treatmentDataLink = this.savedSessionId+'/treatment-data';
+    //     this.successMessage = true;
+    //   },
+    //   (error) => this.errorMessage = error
       
-    );
+    // );
   }
 
   onResetCreateSessionForm() {
